@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://d72fkdtm5aam"]
+
+[ext_resource type="Script" uid="uid://c43vycc4lyhhl" path="res://Scripts/ui/LoadGameContainer.cs" id="1_hcw8b"]
+
+[node name="LoadGameContainer" type="HSplitContainer" node_paths=PackedStringArray("button", "textureRect")]
+script = ExtResource("1_hcw8b")
+button = NodePath("LoadButton")
+textureRect = NodePath("SaveImage")
+
+[node name="LoadButton" type="Button" parent="."]
+layout_mode = 2
+text = "Load "
+
+[node name="SaveImage" type="TextureRect" parent="."]
+layout_mode = 2

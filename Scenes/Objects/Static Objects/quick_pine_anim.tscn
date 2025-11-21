@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://mai5g35nty6f"]
+
+[ext_resource type="PackedScene" uid="uid://crmhdai60tkum" path="res://Assets/Glbs/quick_pine_anim.glb" id="1_kvcmo"]
+
+[node name="quick_pine_anim" instance=ExtResource("1_kvcmo")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/1/rotation = Quaternion(-3.5527103e-15, 1.7763568e-14, -4.0389676e-28, 1)
+
+[node name="AnimationPlayer" parent="." index="3"]
+autoplay = "Sway"

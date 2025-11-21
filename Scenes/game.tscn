@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://j0bsfpcu3r7t"]
+
+[ext_resource type="Script" uid="uid://da1nam0t0fttb" path="res://Scripts/Game/Game.cs" id="1_3dryh"]
+[ext_resource type="Script" uid="uid://3114pps6u47e" path="res://Scripts/Game/Root.cs" id="2_i6g32"]
+[ext_resource type="PackedScene" uid="uid://eeiui8jkvw0k" path="res://Scenes/Player/player.tscn" id="3_i6g32"]
+[ext_resource type="Script" uid="uid://c3uwumky7b8ft" path="res://Scripts/Game/SaverLoader/SaverLoader.cs" id="3_wowpa"]
+[ext_resource type="PackedScene" uid="uid://cag5d6pgxf1ac" path="res://Scenes/UI/ui_manager.tscn" id="6_1l0tm"]
+[ext_resource type="Shader" uid="uid://b2762dhdgam0b" path="res://src/post_process_outline.gdshader" id="6_i6g32"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_1l0tm"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v158k"]
+render_priority = 0
+shader = ExtResource("6_i6g32")
+shader_parameter/depth_threshold = 2.999999932944
+shader_parameter/depth_normal_threshold_scale = 2.999999932944
+shader_parameter/normal_threshold = 2.999999932944
+shader_parameter/edge_color = Color(0, 0, 0, 1)
+shader_parameter/scale = 1.0
+
+[node name="Game" type="Node3D" groups=["Root"]]
+script = ExtResource("1_3dryh")
+
+[node name="Root" type="Node3D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_i6g32")
+
+[node name="Player" parent="Root" groups=["DoNotDestroyOnLoad", "Player"] instance=ExtResource("3_i6g32")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8827144, 0)
+
+[node name="Utilities" type="Node" parent="."]
+
+[node name="SaverLoader" type="Node" parent="Utilities" node_paths=PackedStringArray("player")]
+unique_name_in_owner = true
+script = ExtResource("3_wowpa")
+player = NodePath("../../Root/Player")
+
+[node name="ShaderMesh" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_1l0tm")
+surface_material_override/0 = SubResource("ShaderMaterial_v158k")
+
+[node name="ui_manager" parent="." instance=ExtResource("6_1l0tm")]
+unique_name_in_owner = true

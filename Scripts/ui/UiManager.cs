@@ -1,0 +1,69 @@
+using Godot;
+using System;
+
+public partial class UiManager : Control
+{
+    //Signals to pass from save screen back up the chain to game class. 
+    [Signal]
+    public delegate void OnSaveEventHandler();
+
+    [Signal]
+    public delegate void OnLoadEventHandler(String saveFile); 
+
+    UiSaveLoad uISaveScreen;  //actually save screen but I didn't think when I named the class. 
+
+    UiInventory uiInventory; 
+
+    public override void _Ready() {
+
+        uiInventory = GetNode<UiInventory>("ui_inventory"); 
+        uISaveScreen = GetNode<UiSaveLoad>("ui_save"); 
+
+        uISaveScreen.OnSave += Save;
+        uISaveScreen.OnLoad += Load; 
+        base._Ready();
+
+    }
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (@event.IsActionPressed("ui_pause"))
+        {
+            if (uISaveScreen.UIIsVisible())
+            {
+                uISaveScreen.HideScreen(); 
+            }
+            else
+            {
+                uISaveScreen.ShowScreen(); 
+            }
+        }
+
+        else if (@event.IsActionPressed("ui_inventory"))
+        {
+            GD.Print("ui inv pressed"); 
+            if (uiInventory.UIIsVisible())
+            {
+                GD.Print("hiding inv");
+                uiInventory.HideScreen();
+            }
+            else
+            {
+                GD.Print("showing inv"); 
+                uiInventory.ShowScreen(); 
+            }
+        }
+    }
+
+    //Emit signal back up the chain 
+    void Load(String saveFile)
+    {
+        EmitSignal(SignalName.OnLoad, saveFile); 
+    }
+
+    void Save()
+    {
+        EmitSignal(SignalName.OnSave);    
+    }
+
+}

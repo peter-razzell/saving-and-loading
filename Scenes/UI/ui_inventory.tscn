@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://2xuw8dij32kj"]
+
+[ext_resource type="Script" uid="uid://bqh5luvcw0bye" path="res://Scripts/ui/UiInventory.cs" id="1_akbhy"]
+
+[node name="ui_inventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_akbhy")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.70980394, 0.70980394, 0.70980394, 0.49803922)
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+
+[node name="invContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "hello this is just to show that the UI is opening and closing and stuff"

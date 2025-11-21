@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnbeq2vhfu18n"]
+
+[ext_resource type="PackedScene" uid="uid://db0df3n0nrisr" path="res://Assets/Glbs/tintagel_01.glb" id="1_0h148"]
+[ext_resource type="PackedScene" uid="uid://dy78f2m5eekcx" path="res://Scenes/Objects/Level Transitions/level_exit.tscn" id="2_gls23"]
+
+[node name="tintagel_01" instance=ExtResource("1_0h148")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="LevelExit" parent="." index="4" instance=ExtResource("2_gls23")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.4480198, 0.3141777, 0.24790305)
+nextLevelPath = "res://Scenes/Objects/Static Objects/tintagel_interior.tscn"
+levelEntranceID = "tintagel_int"
+thisEntranceID = "tintagel_ext"

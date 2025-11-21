@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://dax1rcfi7e1tf"]
+
+[ext_resource type="Script" uid="uid://dinltknpnfgiw" path="res://Scripts/Interaction/InteractablePickup.cs" id="1_rb3ny"]
+[ext_resource type="Script" uid="uid://dl3p1k0j2xiev" path="res://Scripts/Interaction/Interactable.cs" id="2_c3lqd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c3lqd"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.5921569, 0, 0.5921569, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vpok5"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rb3ny"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_em2n2"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rb3ny"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_em2n2"]
+size = Vector3(2, 2, 2)
+
+[node name="Pickup" type="Node3D" node_paths=PackedStringArray("mesh") groups=["Persist"]]
+script = ExtResource("1_rb3ny")
+mesh = NodePath("RigidBody3D/MeshInstance3D")
+focusMat = SubResource("StandardMaterial3D_c3lqd")
+interactedMat = SubResource("StandardMaterial3D_vpok5")
+
+[node name="RigidBody3D" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_rb3ny")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("CapsuleMesh_em2n2")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("CapsuleShape3D_rb3ny")
+
+[node name="Interactable" type="Area3D" parent="."]
+script = ExtResource("2_c3lqd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.033691406, 0)
+shape = SubResource("BoxShape3D_em2n2")

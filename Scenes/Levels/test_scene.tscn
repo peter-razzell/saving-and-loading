@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3 uid="uid://cyfnkpx116t1n"]
+
+[ext_resource type="Script" uid="uid://cdh3wjcxx2dsd" path="res://Scenes/TestScene.cs" id="1_b3kl8"]
+[ext_resource type="PackedScene" uid="uid://dax1rcfi7e1tf" path="res://Scenes/Objects/Pickups/pickup.tscn" id="2_tgibm"]
+[ext_resource type="PackedScene" uid="uid://eeiui8jkvw0k" path="res://Scenes/Player/player.tscn" id="3_nlmfl"]
+[ext_resource type="PackedScene" uid="uid://co0vek2aqsf3j" path="res://Scenes/UI/ui_save.tscn" id="4_utwxg"]
+[ext_resource type="Script" uid="uid://c3uwumky7b8ft" path="res://Scripts/Game/SaverLoader/SaverLoader.cs" id="5_56hgn"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6w285"]
+size = Vector2(100, 100)
+
+[sub_resource type="HeightMapShape3D" id="HeightMapShape3D_3dogw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_r5l72"]
+size = Vector3(10, 10, 10)
+
+[sub_resource type="Environment" id="Environment_3dogw"]
+ambient_light_energy = 4.45
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_r5l72"]
+
+[sub_resource type="Compositor" id="Compositor_50ct6"]
+
+[node name="test_scene" type="Node3D" node_paths=PackedStringArray("saverLoader") groups=["Root"]]
+script = ExtResource("1_b3kl8")
+saverLoader = NodePath("SaverLoader")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("PlaneMesh_6w285")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("HeightMapShape3D_3dogw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.33926, 1.9147291, 0)
+mesh = SubResource("BoxMesh_r5l72")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.33926, -0.6727705, -16.816593)
+mesh = SubResource("BoxMesh_r5l72")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.88449144, 0.4665564, 0, -0.4665564, 0.88449144, 0, 0, 0, 1, -25.989445, -3.7811718, -16.816593)
+mesh = SubResource("BoxMesh_r5l72")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.66074, 1.9147291, 0)
+mesh = SubResource("BoxMesh_r5l72")
+
+[node name="Pickup" parent="." instance=ExtResource("2_tgibm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.179555, 2, 0.36208153)
+
+[node name="Pickup2" parent="." instance=ExtResource("2_tgibm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.555919, 2, 0.36208153)
+
+[node name="Player" parent="." instance=ExtResource("3_nlmfl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3dogw")
+camera_attributes = SubResource("CameraAttributesPractical_r5l72")
+compositor = SubResource("Compositor_50ct6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.13654555, -0.93123966, 0.33785796, 0, 0.3410523, 0.9400443, -0.9906337, -0.12835886, 0.046569172, -2.894709, 9.408277, -1.9073486e-06)
+directional_shadow_mode = 0
+
+[node name="ui" parent="." instance=ExtResource("4_utwxg")]
+
+[node name="SaverLoader" type="Node3D" parent="." node_paths=PackedStringArray("player", "ui")]
+script = ExtResource("5_56hgn")
+player = NodePath("../Player")
+ui = NodePath("../ui")

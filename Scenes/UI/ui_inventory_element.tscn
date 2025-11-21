@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnhwh8hlvtn6t"]
+
+[ext_resource type="Script" uid="uid://bsu37y0bb6h66" path="res://Scripts/ui/UiInventoryElement.cs" id="1_mffvu"]
+
+[node name="ui_inventory_element" type="Control" node_paths=PackedStringArray("elementText")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mffvu")
+elementText = NodePath("PanelContainer/TextEdit")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 126.0
+offset_bottom = 41.0
+
+[node name="TextEdit" type="TextEdit" parent="PanelContainer"]
+layout_mode = 2
+placeholder_text = "placeholder"

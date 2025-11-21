@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwemgjixn6jjp"]
+
+[ext_resource type="Shader" uid="uid://ce7h5sfgbi5ya" path="res://src/cel-shader-base.gdshader" id="1_w4cge"]
+[ext_resource type="Texture2D" uid="uid://4itn76t6i306" path="res://Assets/Glbs/tintagel_01_Wall_Blocks_Brush_Light.png" id="2_w4cge"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_up526"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h48tg"]
+render_priority = 0
+shader = ExtResource("1_w4cge")
+shader_parameter/color = Color(0.41807744, 0.50235194, 0.3863181, 1)
+shader_parameter/base_texture = ExtResource("2_w4cge")
+shader_parameter/specular = Color(0, 0, 0, 0.5019608)
+shader_parameter/fresnel = Color(0, 0, 0, 0.3019608)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6dlpx"]
+
+[node name="Block" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_up526")
+surface_material_override/0 = SubResource("ShaderMaterial_h48tg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_6dlpx")

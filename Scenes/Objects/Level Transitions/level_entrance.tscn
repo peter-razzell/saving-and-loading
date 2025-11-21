@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dej7c77c23tmk"]
+
+[ext_resource type="Script" uid="uid://b3f2n2ha6aimj" path="res://Scenes/Objects/Level Transitions/LevelEntrance.cs" id="1_rgtwa"]
+
+[node name="LevelEntrance" type="Node3D" groups=["LevelEntrance"]]
+script = ExtResource("1_rgtwa")
+levelEntranceID = "default"
+
+[node name="Marker3D" type="Marker3D" parent="."]

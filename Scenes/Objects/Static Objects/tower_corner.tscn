@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkj2s3g713f0k"]
+
+[ext_resource type="PackedScene" uid="uid://dei56gc53sw32" path="res://Scenes/Objects/Static Objects/tower_corner.glb" id="1_citqf"]
+[ext_resource type="Texture2D" uid="uid://sx2t5nxl5mr6" path="res://Assets/Texture/edieval_pt_sm.png" id="6_pbynn"]
+[ext_resource type="Texture2D" uid="uid://5monm47im1f5" path="res://Assets/Texture/medieval_pt_sm_emission_bg.png" id="7_pbynn"]
+
+[node name="tower_corner" instance=ExtResource("1_citqf")]
+
+[node name="tower" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Decal" type="Decal" parent="tower" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.39634562, 2.8382745, -0.994267)
+size = Vector3(1.5, 1, 1.5)
+texture_albedo = ExtResource("6_pbynn")
+texture_emission = ExtResource("7_pbynn")
+emission_energy = 16.0
+modulate = Color(0.7722323, 0.65153295, 1.1551381e-06, 1)
+upper_fade = 0.00029296923
+lower_fade = 0.0012559836
+
+[node name="Decal2" type="Decal" parent="tower" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.41532433, 2.8382745, -0.994267)
+size = Vector3(1.5, 1, 1.5)
+texture_albedo = ExtResource("6_pbynn")
+texture_emission = ExtResource("7_pbynn")
+emission_energy = 2.0
+modulate = Color(0.9711028, 0.82216775, 0, 1)
+upper_fade = 0.00029296923
+lower_fade = 0.0012559836
+
+[node name="Decal3" type="Decal" parent="tower" index="2"]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 1.169994, 2.8382745, 0.40061092)
+size = Vector3(1.5, 1, 1.5)
+texture_albedo = ExtResource("6_pbynn")
+texture_emission = ExtResource("7_pbynn")
+emission_energy = 2.0
+modulate = Color(0.9711028, 0.82216775, 0, 1)
+upper_fade = 0.00029296923
+lower_fade = 0.0012559836
+
+[node name="Decal4" type="Decal" parent="tower" index="3"]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 1.169994, 2.8382745, -0.4110589)
+size = Vector3(1.5, 1, 1.5)
+texture_albedo = ExtResource("6_pbynn")
+texture_emission = ExtResource("7_pbynn")
+emission_energy = 2.0
+modulate = Color(0.9711028, 0.82216775, 0, 1)
+upper_fade = 0.00029296923
+lower_fade = 0.0012559836
+
+[node name="CollisionShape3D" parent="@StaticBody3D@21787" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
