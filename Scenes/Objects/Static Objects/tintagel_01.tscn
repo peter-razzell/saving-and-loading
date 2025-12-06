@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnbeq2vhfu18n"]
+[gd_scene load_steps=4 format=3 uid="uid://cnbeq2vhfu18n"]
 
 [ext_resource type="PackedScene" uid="uid://db0df3n0nrisr" path="res://Assets/Glbs/tintagel_01.glb" id="1_0h148"]
 [ext_resource type="PackedScene" uid="uid://dy78f2m5eekcx" path="res://Scenes/Objects/Level Transitions/level_exit.tscn" id="2_gls23"]
+[ext_resource type="PackedScene" uid="uid://il4dc7xg853s" path="res://Scenes/Objects/Static Objects/decals/window.tscn" id="3_gls23"]
 
 [node name="tintagel_01" instance=ExtResource("1_0h148")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -9,5 +10,22 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 [node name="LevelExit" parent="." index="4" instance=ExtResource("2_gls23")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.4480198, 0.3141777, 0.24790305)
 nextLevelPath = "res://Scenes/Objects/Static Objects/tintagel_interior.tscn"
-levelEntranceID = "tintagel_int"
-thisEntranceID = "tintagel_ext"
+
+[node name="Decal" parent="." index="7" instance=ExtResource("3_gls23")]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 2.7687235, 2.3204215, 6.0456805)
+
+[node name="Decal2" parent="." index="8" instance=ExtResource("3_gls23")]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 2.7687235, 0.6506134, 3.950172)
+size = Vector3(1, 1, 1)
+
+[node name="Decal5" parent="." index="9" instance=ExtResource("3_gls23")]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 1.2066113, 0.9565692, -1.6846102)
+size = Vector3(1, 1, 1)
+
+[node name="Decal4" parent="." index="10" instance=ExtResource("3_gls23")]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 1.1533589, 0.58346224, 8.0830145)
+size = Vector3(1, 1, 1)
+
+[node name="Decal3" parent="." index="11" instance=ExtResource("3_gls23")]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 2.7687235, 0.6388385, 6.0634327)
+size = Vector3(1, 1, 1)

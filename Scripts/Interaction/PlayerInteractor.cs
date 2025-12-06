@@ -33,7 +33,14 @@ public partial class PlayerInteractor : Interactor
 
     public new void Interact(Interactable interactable)
     {
-        EmitSignal(SignalName.OnAddToPlayerInventory, interactable); 
+        if(interactable.GetParent() is InteractablePickup) //works like a dream! 
+        {
+            EmitSignal(SignalName.OnAddToPlayerInventory, interactable); 
+        }
+        else if(interactable.GetParent() is LevelExit)
+        {
+            // No logic to handle, level exiting, saving and loading etc is handled in LevelExit. 
+        }
 
         base.Interact(interactable); 
     }

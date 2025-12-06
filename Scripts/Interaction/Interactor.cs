@@ -7,14 +7,11 @@ public partial class Interactor : Area3D
 {
     public void Interact(Interactable interactable)
     {
-        GD.Print("interacted with ", interactable.Name); 
         interactable.EmitSignal(Interactable.SignalName.OnInteracted, this); 
-
     }
     
     public void Focus(Interactable interactable)
     {
-        GD.Print("focused on interactable: ", interactable.Name); 
         interactable.EmitSignal(Interactable.SignalName.OnFocused, this); 
     }
 
@@ -24,14 +21,12 @@ public partial class Interactor : Area3D
         {
             if (interactable != null)
             {
-                GD.Print("unfocused on: ", interactable.Name);
                 interactable.EmitSignal(Interactable.SignalName.OnUnfocused, this);
             }
         }
         catch //Object disposed on load
         {
             GD.Print("Loaded new level, object disposed"); 
-            // interactable.EmitSignal(Interactable.SignalName.OnUnfocused, this);
         }
        
     }

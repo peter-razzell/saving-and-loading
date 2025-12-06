@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dax1rcfi7e1tf"]
 
-[ext_resource type="Script" uid="uid://dinltknpnfgiw" path="res://Scripts/Interaction/InteractablePickup.cs" id="1_rb3ny"]
+[ext_resource type="Script" uid="uid://cvn5lttglqaat" path="res://Scripts/Interaction/InteractablePickup.cs" id="1_rb3ny"]
 [ext_resource type="Script" uid="uid://dl3p1k0j2xiev" path="res://Scripts/Interaction/Interactable.cs" id="2_c3lqd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c3lqd"]
@@ -20,8 +20,10 @@ albedo_color = Color(0, 1, 1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_em2n2"]
 size = Vector3(2, 2, 2)
 
-[node name="Pickup" type="Node3D" node_paths=PackedStringArray("mesh") groups=["Persist"]]
+[node name="Pickup" type="Node3D" node_paths=PackedStringArray("collision", "mesh") groups=["Persist"]]
 script = ExtResource("1_rb3ny")
+DataLookupKey = "uid://c7aa67jmj3068"
+collision = NodePath("RigidBody3D")
 mesh = NodePath("RigidBody3D/MeshInstance3D")
 focusMat = SubResource("StandardMaterial3D_c3lqd")
 interactedMat = SubResource("StandardMaterial3D_vpok5")
@@ -36,8 +38,9 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("CapsuleShape3D_rb3ny")
 
-[node name="Interactable" type="Area3D" parent="."]
+[node name="Interactable" type="Area3D" parent="." node_paths=PackedStringArray("pickup")]
 script = ExtResource("2_c3lqd")
+pickup = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.033691406, 0)

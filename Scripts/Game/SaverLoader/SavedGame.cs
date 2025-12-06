@@ -10,7 +10,7 @@ public partial class SavedGame: Resource
     [Export]
     public String level;
 
-    //Array of levels data - one SavedData item per level 
+    //Dictionary of levels data - one SavedData Array per level 
     [Export]
     public Godot.Collections.Dictionary<String, Array<SavedData>> levelsData; 
 

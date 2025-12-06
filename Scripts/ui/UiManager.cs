@@ -41,15 +41,12 @@ public partial class UiManager : Control
 
         else if (@event.IsActionPressed("ui_inventory"))
         {
-            GD.Print("ui inv pressed"); 
             if (uiInventory.UIIsVisible())
             {
-                GD.Print("hiding inv");
                 uiInventory.HideScreen();
             }
             else
             {
-                GD.Print("showing inv"); 
                 uiInventory.ShowScreen(); 
             }
         }

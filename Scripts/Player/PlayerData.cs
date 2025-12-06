@@ -8,8 +8,7 @@ public partial class PlayerData : Node3D
     [Export]
     PlayerInteractor playerInteractor;
 
-    Array<Interactable> inv = []; 
-
+    Array<InventoryItem> inv = []; 
 
     public override void _Ready()
     {
@@ -18,20 +17,21 @@ public partial class PlayerData : Node3D
         base._Ready();
     }
 
-    public void AddToInv(Interactable item)
+    public void AddToInv(Interactable intItem)
     {
-        GD.Print("adding item to player's inventory", item.Name);
-        inv.Add(item);
-        // DebugPrintInventory();
+        GD.Print("Adding item to player's inventory", intItem.Name);
 
+        InventoryItem invItem = InventoryObjectManager.LookUpInventoryItem(intItem.pickup.DataLookupKey); 
+
+        inv.Add(invItem);
     }
 
-    public Array<Interactable> GetInv()
+    public Array<InventoryItem> GetInv()
     {
         return inv;
     }
     
-    public void SetInv(Array<Interactable> savedInv)
+    public void SetInv(Array<InventoryItem> savedInv)
     {
         inv = savedInv; 
     }
@@ -39,7 +39,9 @@ public partial class PlayerData : Node3D
 
     public void DebugPrintInventory()
     {
-        foreach (Interactable ob in inv)
+        GD.Print("Printing player inventory for debug: "); 
+
+        foreach (InventoryItem ob in inv)
         {
             GD.Print(ob.ToString());
         }

@@ -19,7 +19,7 @@ public partial class UiSaveSelector : Control
     public override void _Ready()
     {
 
-        vBoxContainer = (VBoxContainer)GetNode("VBoxContainer"); 
+        vBoxContainer = (VBoxContainer)GetNode("%VBoxContainer"); 
         // loadGameInstance = (HSplitContainer)GetNode("VBoxContainer/LoadGameContainer");
 
 
@@ -27,14 +27,17 @@ public partial class UiSaveSelector : Control
         base._Ready();
     }
 
+    //Same code for inventory 
     public void PopulateContainers(string[] saveList)
     {
-        GD.Print("list from save selector:");
         GD.Print(saveList);
+        
+        var res = ResourceLoader.Load<PackedScene>("uid://d72fkdtm5aam");
+
         foreach (String save in saveList)
         {
-            LoadGameContainer loadGameInstance = ResourceLoader.Load<PackedScene>("uid://d72fkdtm5aam").Instantiate() as LoadGameContainer;
-
+            LoadGameContainer loadGameInstance = (LoadGameContainer)res.Instantiate(); 
+            
             loadGameInstance.saveFile = save;
 
             loadGameInstance.button.Text = save; //just changing the textto the file name to make it easier! 
@@ -55,14 +58,20 @@ public partial class UiSaveSelector : Control
         {
             child.QueueFree(); 
         }
-        //get rid of the containers after closing the window
-        GD.Print("need to implement a way to free the containers!"); 
+
+        //!REALLY IMPORTANT CODE TO PREVENT MAJOR BUGS PROBABLY AND SLOW DOWNS FROM PLAYING GAME FOR A LONG TIME. 
+        foreach(LoadGameContainer item in loadGameInstances)
+        {
+            item.OnLoadGameContainerButtonPressed -= LoadGame; 
+        }
+        loadGameInstances.Clear(); 
+        
+        //get rid of the contain    ers after closing the window
     }
     
     //signal propogates back up through the ui layers. 
     public void LoadGame(String saveFile)
     {
-        GD.Print("Selector button pressed"); 
         EmitSignal(SignalName.OnLoadSaveSelector, saveFile); 
     }
 

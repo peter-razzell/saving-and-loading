@@ -15,7 +15,6 @@ public partial class Level : Node3D
 
     public override void _Ready() {
 
-
         foreach (Node node in GetTree().GetNodesInGroup("LevelExit"))
         {
             levelExits.Add((LevelExit)node);

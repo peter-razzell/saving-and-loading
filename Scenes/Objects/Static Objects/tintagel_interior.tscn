@@ -25,10 +25,10 @@ skeleton = NodePath("../..")
 shape = SubResource("HeightMapShape3D_vc0kg")
 
 [node name="LevelExit" parent="." instance=ExtResource("2_7pyej")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.005554676, 0.5, 1.2312492)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.005554676, 1.5, 1.2312492)
 nextLevelPath = "res://Scenes/Levels/level_0.tscn"
-levelEntranceID = "tintagel_ext"
-thisEntranceID = "tintagel_int"
+nextLevelEntranceID = "level_0_tintagel_interior"
+thisLevelEntranceID = "tintagel_interior_level_0"
 
 [node name="Block" parent="." instance=ExtResource("3_7pyej")]
 transform = Transform3D(1.54, 0, 0, 0, 4.88, 0, 0, 0, 13.915, -3.6127694, 0.5, -2.4332628)

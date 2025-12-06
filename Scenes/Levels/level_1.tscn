@@ -53,7 +53,7 @@ shape = SubResource("HeightMapShape3D_y8ppt")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 22)
 
 [node name="Pickup2" parent="." instance=ExtResource("1_tlcug")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.86351585, 2, -11.050998)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_y8ppt")
@@ -68,15 +68,22 @@ directional_shadow_mode = 0
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.384945, 1.3889148, -14.686825)
 nextLevelPath = "res://Scenes/Levels/level_0.tscn"
-levelEntranceID = "level_0"
-thisEntranceID = "level_1_level_0"
+nextLevelEntranceID = "level_0_level_1"
+thisLevelEntranceID = "level_1_level_0"
 
 [node name="LevelExit2" parent="." instance=ExtResource("2_4dpyx")]
 unique_name_in_owner = true
-transform = Transform3D(0.38701674, 0, 0.9220727, 0, 1, 0, -0.9220727, 0, 0.38701674, -7.384945, 1.3889148, 9.5685005)
+transform = Transform3D(0.38701674, 0, 0.9220727, 0, 1, 0, -0.9220727, 0, 0.38701674, -3.356238, 1.3889148, -5.1005683)
 nextLevelPath = "res://Scenes/Levels/level_2.tscn"
-levelEntranceID = "level_2"
-thisEntranceID = "level_1_level_2"
+nextLevelEntranceID = "level_2_level_1"
+thisLevelEntranceID = "level_1_level_2"
+
+[node name="LevelExit3" parent="." instance=ExtResource("2_4dpyx")]
+unique_name_in_owner = true
+transform = Transform3D(-0.9974408, 0, -0.071497336, 0, 1, 0, 0.071497336, 0, -0.9974408, 6.2868295, 1.3889148, -14.054342)
+nextLevelPath = "res://Scenes/Levels/level_3.tscn"
+nextLevelEntranceID = "level_3_level_1"
+thisLevelEntranceID = "level_1_level_3"
 
 [node name="tower_corner" parent="." instance=ExtResource("3_3mqfk")]
 transform = Transform3D(-0.6685078, 0, -0.7437051, 0, 1, 0, 0.7437051, 0, -0.6685078, -11.326026, 1.4125153, -21.792797)

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://il4dc7xg853s"]
+
+[ext_resource type="Texture2D" uid="uid://sx2t5nxl5mr6" path="res://Assets/Texture/edieval_pt_sm.png" id="1_fsq3c"]
+[ext_resource type="Texture2D" uid="uid://5monm47im1f5" path="res://Assets/Texture/medieval_pt_sm_emission_bg.png" id="2_ctfhx"]
+
+[node name="Decal" type="Decal"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+size = Vector3(1.5, 1, 1.5)
+texture_albedo = ExtResource("1_fsq3c")
+texture_emission = ExtResource("2_ctfhx")
+emission_energy = 16.0
+modulate = Color(0.7722323, 0.65153295, 1.1551381e-06, 1)
+upper_fade = 0.00029296923
+lower_fade = 0.0012559836

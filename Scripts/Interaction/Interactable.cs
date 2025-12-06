@@ -5,6 +5,9 @@ using System.Diagnostics.Tracing;
 public partial class Interactable : Area3D
 {
 
+    [Export]
+    public InteractablePickup pickup; 
+
     [Signal]
     public delegate void OnInteractedEventHandler(Interactor interactor);
 

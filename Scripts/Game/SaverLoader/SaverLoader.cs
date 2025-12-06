@@ -23,7 +23,7 @@ public partial class SaverLoader : Node
 
     string loadFilePath = ""; //Path to load (a file that exists)
     string saveFilePath = ""; //The path to save (a file that doesn't exist yet)
-    string genericFilePath = "user://savegames/save_?.res"; //used to create the filepath
+    string genericFilePath = "user://savegames/save_?.tres"; //used to create the filepath
     string saveFolderPath ="user://savegames/" ; //the current save file path combining savePath + saveFile + identifying digit (saveCount).
     string[] saveFiles = [];
     int saveCount;
@@ -80,6 +80,7 @@ public partial class SaverLoader : Node
     //Saves the level to the levelBuffer when leaving a level. 
     public void SaveLevelToBuffer()
     {
+        GD.Print("Saving level to buffer"); 
         var savedDataArr = new Array<SavedData>();
 
         //Call OnSave function for persisting items so they can add their information to the savedData array
@@ -89,10 +90,13 @@ public partial class SaverLoader : Node
 
         if (levelBuffer.ContainsKey(path))
         {
+            GD.Print("Adding saved data array to level buffer dictionary"); 
             levelBuffer[path] = savedDataArr;
         }
         else
         {
+            GD.Print("Creating new dictionary entry"); 
+
             levelBuffer.Add(path, savedDataArr);
         }
     }
@@ -117,12 +121,13 @@ public partial class SaverLoader : Node
         //Save player attributes
         savedGame.playerHealth = player.health;
         savedGame.playerPos = player.GlobalPosition;
+
         Array<Variant> varInv = [];
-        foreach (Interactable inter in player.playerData.GetInv()) //Stores inventory as variant due to bug with godot [Export].
+        foreach (InventoryItem inter in player.playerData.GetInv()) //Stores inventory as variant due to bug with godot [Export].
         {
             varInv.Add((Variant)inter);
-
         }
+
         savedGame.playerInv = varInv;
         savedGame.playerHeadRot = player.head.GlobalRotation;
         savedGame.playerCamRot = player.cam.GlobalRotation;
@@ -172,7 +177,7 @@ public partial class SaverLoader : Node
         SavedGame savedGame = ResourceLoader.Load(loadFilePath, cacheMode: ResourceLoader.CacheMode.ReplaceDeep) as SavedGame;
         if (savedGame == null)
         {
-            GD.Print("No save game found.");
+            // GD.Print("No save game found.");
             return;
         }
         game.root.LoadLevel(savedGame.level);
@@ -186,12 +191,19 @@ public partial class SaverLoader : Node
         player.head.GlobalRotation = savedGame.playerHeadRot;
         player.cam.GlobalRotation = savedGame.playerCamRot;
 
-        Array<Interactable> interInv = [];
+        Array<InventoryItem> interInv = [];
 
         foreach (Variant var in savedGame.playerInv)
         {
-            interInv.Add((Interactable)var);
+            GD.Print("iterating through variant player inventory to cast to Inventory item"); 
+
+            InventoryItem item = (InventoryItem) var;
+
+            GD.Print(item.InvName); //! THIS DOESN'T WORK! 
+
+            interInv.Add(item);
         }
+
         player.playerData.SetInv(interInv);
 
         //Load levelsData, this array contains data for all levels in the save file. 

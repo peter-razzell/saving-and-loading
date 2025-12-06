@@ -12,11 +12,6 @@ size = Vector3(2, 2, 2)
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_uvnfx")
 
-[node name="Head" type="Node3D" parent="."]
-
-[node name="Camera3D" type="Camera3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_tugb3")
 
@@ -29,3 +24,10 @@ shape = SubResource("BoxShape3D_xpcdj")
 [node name="PlayerData" type="Node3D" parent="." node_paths=PackedStringArray("playerInteractor")]
 script = ExtResource("3_xpcdj")
 playerInteractor = NodePath("../Interactor")
+
+[node name="Head" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

@@ -36,9 +36,8 @@ public partial class Player : CharacterBody3D
 
         Input.MouseMode = Input.MouseModeEnum.Captured;//refactor and remove to game class. 
 
-
-        head = (Node3D)GetNode("Head");//easy to break. 
-        cam = (Camera3D)GetNode("Head/Camera3D");
+        head = (Node3D)GetNode("%Head");//easy to break. 
+        cam = (Camera3D)GetNode("%Camera3D");//moving it around 
         playerData = (PlayerData)GetNode("PlayerData");
         interactor = (PlayerInteractor)GetNode("Interactor"); 
 
@@ -85,11 +84,9 @@ public partial class Player : CharacterBody3D
         //Jump
         if (Input.IsActionPressed("player_jump") && IsOnFloor())
         {
-            if (Input.IsActionJustPressed("player_jump"))
-            {
-                AudioManager.Play("res://Assets/Sound/GDC/BluezoneCorp - Steampunk Weapon And Textures/Bluezone_BC0296_steampunk_weapon_cannon_shot_013_02.wav");
-            }
-            GD.Print("jump!");
+           
+            AudioManager.Play("res://Assets/Sound/GDC/BluezoneCorp - Steampunk Weapon And Textures/Bluezone_BC0296_steampunk_weapon_cannon_shot_013_02.wav");
+             
             vel.Y += jumpStr * (float)delta;
         }
         if (Input.IsActionJustPressed("gravity_toggle"))
@@ -123,6 +120,7 @@ public partial class Player : CharacterBody3D
     //Reset player on level load. 
     public void ResetOnLevelLoad()
     {
+        playerData.DebugPrintInventory(); 
         interactor.ResetOnLevelLoad(); 
     
     }

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg7l6s4fp8td4"]
+
+[ext_resource type="PackedScene" uid="uid://gd0yt7jrdveb" path="res://Assets/Glbs/Pickups/key_01_anim.glb" id="1_4d6g7"]
+
+[node name="key_01_anim" instance=ExtResource("1_4d6g7")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "CircleAction"

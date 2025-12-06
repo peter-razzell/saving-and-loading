@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://co0vek2aqsf3j"]
+[gd_scene load_steps=4 format=3 uid="uid://co0vek2aqsf3j"]
 
 [ext_resource type="Script" uid="uid://c4j0rvvex5pd6" path="res://Scripts/ui/UiSaveLoad.cs" id="1_8dgag"]
+[ext_resource type="Theme" uid="uid://cynch5iaqbrnl" path="res://Assets/UI/themes/ui_theme_1.tres" id="1_xsyqk"]
 [ext_resource type="PackedScene" uid="uid://t6bh8amumi8m" path="res://Scenes/UI/ui_save_selector.tscn" id="2_emsrm"]
 
 [node name="ui_save" type="Control" node_paths=PackedStringArray("prevSaveImg")]
@@ -11,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme = ExtResource("1_xsyqk")
 script = ExtResource("1_8dgag")
 prevSaveImg = NodePath("CanvasLayer/PrevSaveImage")
 
@@ -33,9 +35,11 @@ grow_vertical = 2
 
 [node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/CenterContainer"]
 layout_mode = 2
+theme = ExtResource("1_xsyqk")
 
 [node name="Load" type="Button" parent="CanvasLayer/CenterContainer/VSplitContainer"]
 layout_mode = 2
+theme = ExtResource("1_xsyqk")
 text = "Load"
 
 [node name="Save" type="Button" parent="CanvasLayer/CenterContainer/VSplitContainer"]

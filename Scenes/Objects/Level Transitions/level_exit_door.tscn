@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://fxhwd7dk4knd"]
+
+[ext_resource type="Script" uid="uid://bmkypygjg5gbq" path="res://Scripts/Interaction/LevelExit/LevelExit.cs" id="1_60bqb"]
+[ext_resource type="Script" uid="uid://dl3p1k0j2xiev" path="res://Scripts/Interaction/Interactable.cs" id="2_scx7b"]
+[ext_resource type="PackedScene" uid="uid://dej7c77c23tmk" path="res://Scenes/Objects/Level Transitions/level_entrance.tscn" id="3_y2q3l"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_37rda"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2br6"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.20784314, 0.3137255, 0.25490198)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_37rda"]
+size = Vector3(2, 2, 2)
+
+[node name="LevelExit" type="Node3D" groups=["LevelExit"]]
+script = ExtResource("1_60bqb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_37rda")
+surface_material_override/0 = SubResource("StandardMaterial3D_e2br6")
+
+[node name="Interactable" type="Area3D" parent="."]
+script = ExtResource("2_scx7b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+shape = SubResource("BoxShape3D_37rda")
+
+[node name="LevelEntrance" parent="." instance=ExtResource("3_y2q3l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="DoorData" type="Node3D" parent="."]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://t6bh8amumi8m"]
+[gd_scene load_steps=3 format=3 uid="uid://t6bh8amumi8m"]
 
 [ext_resource type="Script" uid="uid://76qwto273drp" path="res://Scripts/ui/UiSaveSelector.cs" id="1_npc3r"]
+[ext_resource type="Theme" uid="uid://cynch5iaqbrnl" path="res://Assets/UI/themes/ui_theme_1.tres" id="2_sp045"]
 
 [node name="UiSaveSelector" type="Control"]
 layout_mode = 3
@@ -21,14 +22,18 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0.49574792, 0.3080463, 0.37254903)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(256, 0)
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -172.80002
-offset_right = 83.19998
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.02
+anchor_right = 0.95
+anchor_bottom = 0.98
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+theme = ExtResource("2_sp045")

@@ -28,26 +28,20 @@ public partial class Root : Node3D
 
     public async override void _Ready()
     {
-        GD.Print("root ready");
-
         player = GetNode<Player>("%Player");
 
         game = GetParent<Game>();
 
         LoadLevel(levelPath);
 
-        //This should NOT be here! 
-        AudioManager.Play("res://Assets/Sound/GDC/Bolt - Immersive Creek -  Ambisonic Recordings of Undisturbed Creeks in Vermont/WATRFlow_Babbling Brook, Snow Melt, Calm, Constant, Bubbling_BOLT_Immersive Creek_RODE NTSF1 XY.wav");
-
         base._Ready();
-
 
     }
 
     //1. Emits a signal when the exit is reached, received by Game. 
     public void LevelExitReached(String levelPath, String entranceID)
     {
-        GD.Print("level exit reached in root");
+        // GD.Print("level exit reached in root");
         this.levelPath = levelPath;
         this.entranceID = entranceID; 
 
@@ -154,7 +148,7 @@ public partial class Root : Node3D
             }
         }
 
-        GD.Print("WARNING NO LEVEL ENTRANCE FOUND FOR PLAYER, RETURNING DEFAULT POSITION");
+        // GD.Print("WARNING NO LEVEL ENTRANCE FOUND FOR PLAYER, RETURNING DEFAULT POSITION");
         return new Godot.Vector3(0, 0, 0); //default player debug position
         
     }

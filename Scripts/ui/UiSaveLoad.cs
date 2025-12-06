@@ -87,14 +87,11 @@ public partial class UiSaveLoad : Control
 
     public void LoadGame(String saveFile)
     {
-        GD.Print("Loading game from UI screen"); 
         EmitSignal(SignalName.OnLoad, saveFile);
     }
 
     public bool UIIsVisible()
     {
-        GD.Print(" visibility = ", canvas.Visible);
-
         return canvas.Visible; 
     }
     

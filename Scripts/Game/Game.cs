@@ -67,7 +67,6 @@ public partial class Game : Node3D
     //Load game. 
     public void Load(string saveFile)
     {
-        GD.Print("loading game from game! Path = ", saveFile); 
         saverLoader.LoadGame(saveFile);
     }
 
