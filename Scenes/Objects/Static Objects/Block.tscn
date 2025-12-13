@@ -10,8 +10,8 @@ render_priority = 0
 shader = ExtResource("1_w4cge")
 shader_parameter/color = Color(0.41807744, 0.50235194, 0.3863181, 1)
 shader_parameter/base_texture = ExtResource("2_w4cge")
-shader_parameter/specular = Color(0, 0, 0, 0.5019608)
-shader_parameter/fresnel = Color(0, 0, 0, 0.3019608)
+shader_parameter/specular = Color(0.36848584, 0.35306597, 0.3334914, 0.5019608)
+shader_parameter/fresnel = Color(0.34276232, 0.21372318, 1.92523e-07, 0.3019608)
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 

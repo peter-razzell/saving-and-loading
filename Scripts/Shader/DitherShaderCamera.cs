@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+
+//This class applies the dither shader to the camera 
 public partial class DitherShaderCamera : Control
 {
     

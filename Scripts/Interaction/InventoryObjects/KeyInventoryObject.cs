@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel;
 
 //All the data needed for key related logic
-public partial class KeyInventoryItem : InventoryItem 
+public partial class KeyInventoryObject : InventoryObject 
 {
     [Export]
     public string DoorID;

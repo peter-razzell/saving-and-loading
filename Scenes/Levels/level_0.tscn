@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://c6wyjsoxclcad" path="res://Scripts/Game/Level/Level.cs" id="1_1ih7c"]
 [ext_resource type="Shader" uid="uid://ce7h5sfgbi5ya" path="res://src/cel-shader-base.gdshader" id="1_kj5ij"]
-[ext_resource type="PackedScene" uid="uid://dax1rcfi7e1tf" path="res://Scenes/Objects/Pickups/pickup.tscn" id="1_y8ppt"]
 [ext_resource type="PackedScene" uid="uid://dy78f2m5eekcx" path="res://Scenes/Objects/Level Transitions/level_exit.tscn" id="2_2iktx"]
 [ext_resource type="Texture2D" uid="uid://b01niox70prtn" path="res://Assets/Glbs/quick_pine_BrushStroke_Variant_B.png" id="4_i4wmn"]
 [ext_resource type="PackedScene" uid="uid://mai5g35nty6f" path="res://Scenes/Objects/Static Objects/quick_pine_anim.tscn" id="5_um5o3"]
@@ -10,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dej7c77c23tmk" path="res://Scenes/Objects/Level Transitions/level_entrance.tscn" id="8_6kmi7"]
 [ext_resource type="PackedScene" uid="uid://cwemgjixn6jjp" path="res://Scenes/Objects/Static Objects/Block.tscn" id="8_i4wmn"]
 [ext_resource type="PackedScene" uid="uid://hpgq4vgl64a0" path="res://Scenes/Objects/Pickups/key_pickup.tscn" id="10_456kb"]
+[ext_resource type="PackedScene" uid="uid://dtq33yg2paxlk" path="res://Assets/Glbs/Tree.glb" id="11_fywi0"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_58lhs"]
 size = Vector2(1000, 1000)
@@ -155,15 +155,6 @@ shape = SubResource("BoxShape3D_456kb")
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -47, 0, -8)
 shape = SubResource("BoxShape3D_456kb")
 
-[node name="Pickup" parent="." instance=ExtResource("1_y8ppt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, -6)
-
-[node name="Pickup3" parent="." instance=ExtResource("1_y8ppt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 2, -2.6375637)
-
-[node name="Pickup2" parent="." instance=ExtResource("1_y8ppt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 2, -23.927582)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_y8ppt")
 camera_attributes = SubResource("CameraAttributesPractical_2iktx")
@@ -303,6 +294,21 @@ transform = Transform3D(9.508547, -7.2785897, 3.0423121, 7.888824, 8.773021, -3.
 transform = Transform3D(1.0055996, -2.7328453, -9.42526, -8.334893, 2.7520025, -2.7776086, 4.4032598, 5.833359, -3.1052089, 49.93255, -2.715623, -0.05442047)
 
 [node name="Pickup4" parent="." instance=ExtResource("10_456kb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.426889, 1.8804619, -12.139016)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.427, 1, -12.139)
+
+[node name="Pickup5" parent="." instance=ExtResource("10_456kb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.573, 1, -12.139)
+
+[node name="Pickup6" parent="." instance=ExtResource("10_456kb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.573, 1, -8.139)
+
+[node name="Pickup7" parent="." instance=ExtResource("10_456kb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.427, 1, -8.139)
+
+[node name="Pickup8" parent="." instance=ExtResource("10_456kb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.42700005, 1, -14.139)
+
+[node name="Tree" parent="." instance=ExtResource("11_fywi0")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -18, 0, -16)
 
 [editable path="tintagel_01"]

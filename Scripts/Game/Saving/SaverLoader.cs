@@ -7,6 +7,8 @@ using Godot.Collections;
 
 public partial class SaverLoader : Node
 {
+    public static SaverLoader Instance; 
+
     [Export]
     Player player;
 
@@ -19,7 +21,7 @@ public partial class SaverLoader : Node
 
     /*The buffer contains information about each level. It is populated on entering a level for the first time, or on load. 
     On save, this information is saved, so every save file contains information about every level.*/
-    Dictionary<String, Array<SavedData>> levelBuffer;
+    public Dictionary<String, Array<SavedData>> levelBuffer;
 
     string loadFilePath = ""; //Path to load (a file that exists)
     string saveFilePath = ""; //The path to save (a file that doesn't exist yet)
@@ -30,11 +32,13 @@ public partial class SaverLoader : Node
 
     public override void _Ready()
     {
+        Instance = this; 
+
         game = GetOwner<Game>();
 
         levelBuffer = new Dictionary<string, Array<SavedData>>();
 
-        viewport = player.cam.GetViewport();
+        // viewport = player.cam.GetViewport();
 
         saveCount = GetSaveCount(); //makes directory if it doesn't already exist. 
 
@@ -111,9 +115,9 @@ public partial class SaverLoader : Node
 
         //Hacky way of getting image from viewport for save icon. 
         // ui.Hide();
-        Image img = viewport.GetTexture().GetImage();
+        // Image img = viewport.GetTexture().GetImage();
         // ui.Show();
-        savedGame.viewportImage = img;
+        // savedGame.viewportImage = img;
 
         //Save level path so the game knows which level to load when opening the save.
         savedGame.level = game.root.GetCurrentLevelPath();
@@ -123,7 +127,7 @@ public partial class SaverLoader : Node
         savedGame.playerPos = player.GlobalPosition;
 
         Array<Variant> varInv = [];
-        foreach (InventoryItem inter in player.playerData.GetInv()) //Stores inventory as variant due to bug with godot [Export].
+        foreach (InventoryObject inter in player.playerData.GetInv()) //Stores inventory as variant due to bug with godot [Export].
         {
             varInv.Add((Variant)inter);
         }
@@ -191,13 +195,13 @@ public partial class SaverLoader : Node
         player.head.GlobalRotation = savedGame.playerHeadRot;
         player.cam.GlobalRotation = savedGame.playerCamRot;
 
-        Array<InventoryItem> interInv = [];
+        Array<InventoryObject> interInv = [];
 
         foreach (Variant var in savedGame.playerInv)
         {
             GD.Print("iterating through variant player inventory to cast to Inventory item"); 
 
-            InventoryItem item = (InventoryItem) var;
+            InventoryObject item = (InventoryObject) var;
 
             GD.Print(item.InvName); //! THIS DOESN'T WORK! 
 
@@ -225,6 +229,7 @@ public partial class SaverLoader : Node
     
     public void LoadLevelFromBuffer(String levelPath)
     {    
+        GD.Print("loading level from buffer"); 
         //Same logic for loading the levelsData in LoadGame function. 
         if (levelBuffer.TryGetValue(levelPath, out Array<SavedData> value))
         {
@@ -232,6 +237,7 @@ public partial class SaverLoader : Node
             {
                 Node restoredNode = ResourceLoader.Load<PackedScene>(item.scenePath).Instantiate();
 
+                //Adds a NEW INSTANCE of the node.
                 game.root.currentLevel.AddChild(restoredNode);
 
                 if (restoredNode is SaveableNode saveableNode)
@@ -243,6 +249,7 @@ public partial class SaverLoader : Node
         }
         else
         {
+            //meaning it's the first time! 
             GD.Print("No path found for level: ", levelPath);
         }
 

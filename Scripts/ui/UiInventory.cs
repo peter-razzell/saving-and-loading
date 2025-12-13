@@ -1,10 +1,14 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 
 public partial class UiInventory : Control
 {
+
+    [Signal]
+    public delegate void OnInventoryDropButtonPressedEventHandler(string itemID); 
     
     PlayerData playerData; 
 
@@ -53,30 +57,25 @@ public partial class UiInventory : Control
     {
         PackedScene element = GD.Load<PackedScene>("res://Scenes/UI/ui_inventory_element.tscn");
 
-        Godot.Collections.Array<InventoryItem> data = playerData.GetInv(); 
+        Godot.Collections.Array<InventoryObject> invData = playerData.GetInv(); 
 
-        GD.Print("player data array size = ", data.Count);
-
-        List<String> names = new List<string>(); 
-
-        foreach (var item in data)
+        foreach(InventoryObject invObject in invData)
         {
-            GD.Print("Inventory mgr found item with name: ", item.InvName);
-            names.Add(item.InvName); 
-        } 
+            UiInventoryElement uiInvElement = (UiInventoryElement) element.Instantiate();
 
-        foreach(InventoryItem item in data)
-        {
-            GD.Print("populating inventory UI with name: ", item.InvName); 
-            UiInventoryElement node = (UiInventoryElement) element.Instantiate();
+            uiInvElement.itemName.Text = invObject.InvName;  
 
-            node.itemName.Text = item.InvName;  
+            uiInvElement.itemDescription.Text = invObject.Description;
 
-            node.itemDescription.Text = item.Description;
+            GD.Print("object ID = ", invObject.pickupID); 
 
-            invContainer.AddChild(node);
+            uiInvElement.inventoryID = invObject.pickupID; 
 
-            invInstances.Add(node); 
+            uiInvElement.OnItemDrop += DropButtonPressed; 
+
+            invContainer.AddChild(uiInvElement);
+
+            invInstances.Add(uiInvElement); 
         }       
     }
 
@@ -89,6 +88,13 @@ public partial class UiInventory : Control
         }
 
         invInstances.Clear(); 
+    }
 
+    void DropButtonPressed(string pickupID)
+    {
+        //remove from player data inventory. 
+
+        EmitSignal(SignalName.OnInventoryDropButtonPressed, pickupID);
+   
     }
 }

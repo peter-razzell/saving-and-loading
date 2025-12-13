@@ -1,13 +1,18 @@
 using System;
 using Godot;
 using Godot.Collections;
+using Microsoft.VisualBasic.FileIO;
 
 //TODO Rename class - DOESN'T inherit from but contains a reference TO interactable. 
 public partial class InteractablePickup : SaveableNode
 {
-    //the key for the lookup table
+    //the ID of the inventory object this interactable corresponds to. 
     [Export]
-    public String DataLookupKey; 
+    public string inventoryID; 
+
+    //There MUST be a better way to do this!! 
+    [Export]
+    public string pickupID; 
 
     [Export]
     CollisionObject3D collision; 
@@ -28,7 +33,6 @@ public partial class InteractablePickup : SaveableNode
     bool interacted;
 
     [Export]
-
     bool disappears; 
 
     public override void _Ready()
@@ -36,6 +40,8 @@ public partial class InteractablePickup : SaveableNode
         defaultMat = mesh.MaterialOverride;
      
         interactable = (Interactable)GetNode("Interactable");
+
+        GD.Print("interactable pickup UID : ", pickupID);  
 
         interactable.OnFocused += Focus;
      
@@ -50,8 +56,12 @@ public partial class InteractablePickup : SaveableNode
      
         interacted = true;
 
+        //not working for key?
         if (disappears)
         {
+            GD.Print("hiding key?? Mesh name: ", mesh.Name); 
+
+            mesh.Visible = false; 
             mesh.Hide(); // mesh disappears for pickups. 
             collision.ProcessMode = CollisionObject3D.ProcessModeEnum.Disabled; 
         }
@@ -81,9 +91,7 @@ public partial class InteractablePickup : SaveableNode
     {
         GlobalPosition = data.position;
 
-        
-
-        if (data is SavedPickupData pickupData)
+        if (data is SavedInteractableData pickupData)
         {
             interacted = pickupData.interacted;
 
@@ -97,9 +105,9 @@ public partial class InteractablePickup : SaveableNode
     //Called because it is in the persist group 
     public override void OnSave(Array<SavedData> savedData)
     {
-        GD.Print("OnSave method of pickups in scene called for object: ", this.DataLookupKey);
+        GD.Print("OnSave method of pickups in scene called for object: ", this.inventoryID);
      
-        SavedPickupData pickupData = new()
+        SavedInteractableData pickupData = new()
         {
             position = GlobalPosition,
      

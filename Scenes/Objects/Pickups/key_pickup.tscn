@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://hpgq4vgl64a0"]
+[gd_scene load_steps=10 format=3 uid="uid://hpgq4vgl64a0"]
 
 [ext_resource type="Script" uid="uid://cvn5lttglqaat" path="res://Scripts/Interaction/InteractablePickup.cs" id="1_f4e0n"]
 [ext_resource type="PackedScene" uid="uid://cg7l6s4fp8td4" path="res://Scenes/Objects/Pickups/key_01.tscn" id="2_ovydb"]
 [ext_resource type="Script" uid="uid://dl3p1k0j2xiev" path="res://Scripts/Interaction/Interactable.cs" id="3_k18ar"]
-[ext_resource type="Script" uid="uid://dlepim37atuss" path="res://Scripts/Interaction/InventoryObjects/KeyInventoryItem.cs" id="4_ovydb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c3lqd"]
 vertex_color_use_as_albedo = true
@@ -29,7 +28,8 @@ size = Vector3(2, 2, 2)
 
 [node name="KeyPickup" type="Node3D" node_paths=PackedStringArray("collision", "mesh") groups=["Persist"]]
 script = ExtResource("1_f4e0n")
-DataLookupKey = "uid://c0uq6wecigshx"
+inventoryID = "uid://c0uq6wecigshx"
+pickupID = "uid://hpgq4vgl64a0"
 collision = NodePath("RigidBody3D")
 mesh = NodePath("RigidBody3D/key_01_anim/Circle")
 focusMat = SubResource("StandardMaterial3D_c3lqd")
@@ -56,8 +56,5 @@ pickup = NodePath("..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.033691406, 0)
 shape = SubResource("BoxShape3D_em2n2")
-
-[node name="KeyData" type="Node3D" parent="."]
-script = ExtResource("4_ovydb")
 
 [editable path="RigidBody3D/key_01_anim"]

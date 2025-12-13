@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 public partial class Level : Node3D
-{
+{    
     public Array<LevelExit> levelExits = new Array<LevelExit>();
 
     public Array<LevelEntrance> levelEntrances = new Array<LevelEntrance>();

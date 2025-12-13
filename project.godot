@@ -18,9 +18,12 @@ config/icon="res://icon.svg"
 
 AudioManager="*res://Scripts/Audio/AudioManager.cs"
 InventoryObjectManager="*res://Scripts/Interaction/InventoryObjects/InventoryObjectManager.cs"
+ObjectSpawner="*res://Scripts/Game/ObjectSpawner.cs"
 
 [display]
 
+window/size/viewport_width=1164
+window/size/viewport_height=680
 window/stretch/mode="viewport"
 
 [dotnet]
@@ -98,6 +101,8 @@ ui_inventory={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+anti_aliasing/quality/msaa_2d=3
+anti_aliasing/quality/screen_space_aa=2
 
 [shader_globals]
 

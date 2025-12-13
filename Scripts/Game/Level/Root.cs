@@ -1,11 +1,14 @@
 
 using System;
+using System.Diagnostics.Tracing;
 using System.Numerics;
 using System.Threading.Tasks;
 using Godot;
 
 public partial class Root : Node3D
 {
+
+    public static Root Instance; 
     //Contains information about the currently loaded level.
 
     [Signal]
@@ -28,14 +31,19 @@ public partial class Root : Node3D
 
     public async override void _Ready()
     {
+        Instance = this; 
+
         player = GetNode<Player>("%Player");
 
         game = GetParent<Game>();
 
-        LoadLevel(levelPath);
-
         base._Ready();
 
+    }
+
+    public void LoadFirstLevel()
+    {
+        LoadLevel(levelPath); 
     }
 
     //1. Emits a signal when the exit is reached, received by Game. 
@@ -57,6 +65,7 @@ public partial class Root : Node3D
         Node3D newLevel = (Node3D)nextLevel.Instantiate();
 
         Level level = (Level)newLevel; 
+
         level.OnLevelLoaded += OnLevelLoaded;
 
         SwitchLevel(level); 
@@ -100,7 +109,19 @@ public partial class Root : Node3D
 
             currentLevel = newLevel;
 
-            //Move player to correct position in new level, reset cached objects
+            //delete all nodes with saveable data to prevent duplication when loading the saved versions.         
+            if (game.saverLoader.levelBuffer.ContainsKey(GetCurrentLevelPath()))
+            {
+                foreach(Node node in currentLevel.GetChildren())
+                {
+                    if(node is SaveableNode saveableNode)
+                    {
+                        node.QueueFree(); 
+                    }
+                }
+            }
+
+            //Received by Game class, which then applies saved level data using SaverLoader.LoadLevelFromBuffer
             EmitSignal(SignalName.OnLoadLevel, levelPath);
 
             AudioManager.EndPrevLevelAudio();

@@ -10,6 +10,9 @@ public partial class UiManager : Control
     [Signal]
     public delegate void OnLoadEventHandler(String saveFile); 
 
+    [Signal]
+    public delegate bool OnInventoryDropButtonPressedEventHandler(string objectID); 
+
     UiSaveLoad uISaveScreen;  //actually save screen but I didn't think when I named the class. 
 
     UiInventory uiInventory; 
@@ -21,6 +24,7 @@ public partial class UiManager : Control
 
         uISaveScreen.OnSave += Save;
         uISaveScreen.OnLoad += Load; 
+        uiInventory.OnInventoryDropButtonPressed += InventoryDropItem; 
         base._Ready();
 
     }
@@ -63,4 +67,16 @@ public partial class UiManager : Control
         EmitSignal(SignalName.OnSave);    
     }
 
+    void InventoryDropItem(string pickupID)
+    {
+        //TODO implement remove item from player inventory. 
+
+        var packedScene = InventoryObjectManager.LookUpPickupItem(pickupID).Instantiate(); 
+
+        InteractablePickup interactablePickup = (InteractablePickup) packedScene; 
+
+        ObjectSpawner.SpawnObject(interactablePickup);
+
+        EmitSignal(SignalName.OnInventoryDropButtonPressed, pickupID);    
+    }
 }

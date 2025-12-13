@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d72fkdtm5aam"]
 
-[ext_resource type="Script" uid="uid://c43vycc4lyhhl" path="res://Scripts/ui/LoadGameContainer.cs" id="1_hcw8b"]
+[ext_resource type="Script" uid="uid://c43vycc4lyhhl" path="res://Scripts/UI/LoadGameContainer.cs" id="1_hcw8b"]
 
 [node name="LoadGameContainer" type="HSplitContainer" node_paths=PackedStringArray("button", "textureRect")]
 script = ExtResource("1_hcw8b")

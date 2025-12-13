@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://co0vek2aqsf3j"]
 
-[ext_resource type="Script" uid="uid://c4j0rvvex5pd6" path="res://Scripts/ui/UiSaveLoad.cs" id="1_8dgag"]
+[ext_resource type="Script" uid="uid://c4j0rvvex5pd6" path="res://Scripts/UI/UiSaveLoad.cs" id="1_8dgag"]
 [ext_resource type="Theme" uid="uid://cynch5iaqbrnl" path="res://Assets/UI/themes/ui_theme_1.tres" id="1_xsyqk"]
 [ext_resource type="PackedScene" uid="uid://t6bh8amumi8m" path="res://Scenes/UI/ui_save_selector.tscn" id="2_emsrm"]
 
@@ -34,16 +34,19 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/CenterContainer"]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme = ExtResource("1_xsyqk")
 
 [node name="Load" type="Button" parent="CanvasLayer/CenterContainer/VSplitContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 theme = ExtResource("1_xsyqk")
 text = "Load"
 
 [node name="Save" type="Button" parent="CanvasLayer/CenterContainer/VSplitContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "Save"
 
 [node name="PrevSaveImage" type="TextureRect" parent="CanvasLayer"]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://j0bsfpcu3r7t"]
 
 [ext_resource type="Script" uid="uid://da1nam0t0fttb" path="res://Scripts/Game/Game.cs" id="1_3dryh"]
-[ext_resource type="Script" uid="uid://3114pps6u47e" path="res://Scripts/Game/Root.cs" id="2_i6g32"]
+[ext_resource type="Script" uid="uid://3114pps6u47e" path="res://Scripts/Game/Level/Root.cs" id="2_i6g32"]
 [ext_resource type="PackedScene" uid="uid://eeiui8jkvw0k" path="res://Scenes/Player/player.tscn" id="3_i6g32"]
-[ext_resource type="Script" uid="uid://c3uwumky7b8ft" path="res://Scripts/Game/SaverLoader/SaverLoader.cs" id="3_wowpa"]
-[ext_resource type="Material" uid="uid://c5tgw36fwqktn" path="res://src/gradient_dither_material.tres" id="5_1l0tm"]
+[ext_resource type="Script" uid="uid://c3uwumky7b8ft" path="res://Scripts/Game/Saving/SaverLoader.cs" id="3_wowpa"]
+[ext_resource type="Material" uid="uid://bvwdf6cwxyyyu" path="res://src/gradient_dither_material_green_yellow.tres" id="5_v158k"]
 [ext_resource type="PackedScene" uid="uid://cag5d6pgxf1ac" path="res://Scenes/UI/ui_manager.tscn" id="6_1l0tm"]
 [ext_resource type="Shader" uid="uid://b2762dhdgam0b" path="res://src/post_process_outline.gdshader" id="6_i6g32"]
 [ext_resource type="PackedScene" uid="uid://c7so2lpubxsgm" path="res://Scenes/UI/dither_shader_camera.tscn" id="8_v158k"]
@@ -15,14 +15,14 @@ flip_faces = true
 size = Vector2(2, 2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v158k"]
-render_priority = 0
-next_pass = ExtResource("5_1l0tm")
+render_priority = 1
+next_pass = ExtResource("5_v158k")
 shader = ExtResource("6_i6g32")
 shader_parameter/depth_threshold = 2.999999932944
-shader_parameter/depth_normal_threshold_scale = 1.999999955296
+shader_parameter/depth_normal_threshold_scale = 2.999999932944
 shader_parameter/normal_threshold = 2.999999932944
-shader_parameter/edge_color = Color(0, 0, 0, 1)
-shader_parameter/scale = 2.0
+shader_parameter/edge_color = Color(1, 1, 1, 1)
+shader_parameter/scale = 3.0
 
 [node name="Game" type="Node3D" groups=["Root"]]
 script = ExtResource("1_3dryh")

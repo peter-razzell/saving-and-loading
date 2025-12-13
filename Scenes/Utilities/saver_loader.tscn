@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ehesb31p02er"]
 
-[ext_resource type="Script" uid="uid://c3uwumky7b8ft" path="res://Scripts/Game/SaverLoader/SaverLoader.cs" id="1_1ttqb"]
+[ext_resource type="Script" uid="uid://c3uwumky7b8ft" path="res://Scripts/Game/Saving/SaverLoader.cs" id="1_1ttqb"]
 
 [node name="SaverLoader" type="Node3D" node_paths=PackedStringArray("player", "ui")]
 script = ExtResource("1_1ttqb")

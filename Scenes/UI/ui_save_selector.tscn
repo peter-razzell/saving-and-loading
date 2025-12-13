@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://t6bh8amumi8m"]
 
-[ext_resource type="Script" uid="uid://76qwto273drp" path="res://Scripts/ui/UiSaveSelector.cs" id="1_npc3r"]
+[ext_resource type="Script" uid="uid://76qwto273drp" path="res://Scripts/UI/UiSaveSelector.cs" id="1_npc3r"]
 [ext_resource type="Theme" uid="uid://cynch5iaqbrnl" path="res://Assets/UI/themes/ui_theme_1.tres" id="2_sp045"]
 
 [node name="UiSaveSelector" type="Control"]
@@ -31,6 +31,7 @@ anchor_right = 0.95
 anchor_bottom = 0.98
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_sp045")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 unique_name_in_owner = true

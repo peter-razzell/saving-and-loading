@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnhwh8hlvtn6t"]
+[gd_scene load_steps=3 format=3 uid="uid://bnhwh8hlvtn6t"]
 
-[ext_resource type="Script" uid="uid://bsu37y0bb6h66" path="res://Scripts/ui/UiInventoryElement.cs" id="1_mffvu"]
+[ext_resource type="Theme" uid="uid://cynch5iaqbrnl" path="res://Assets/UI/themes/ui_theme_1.tres" id="1_cbsk3"]
+[ext_resource type="Script" uid="uid://bsu37y0bb6h66" path="res://Scripts/UI/UiInventoryElement.cs" id="1_mffvu"]
 
 [node name="ui_inventory_element" type="Control" node_paths=PackedStringArray("itemName", "itemDescription")]
 custom_minimum_size = Vector2(100, 30)
@@ -10,6 +11,7 @@ offset_left = 2.0
 offset_top = 2.0
 offset_right = 102.0
 offset_bottom = 32.0
+theme = ExtResource("1_cbsk3")
 script = ExtResource("1_mffvu")
 itemName = NodePath("PanelContainer/HBoxContainer/ItemName")
 itemDescription = NodePath("PanelContainer/HBoxContainer/Description")
@@ -17,9 +19,9 @@ itemDescription = NodePath("PanelContainer/HBoxContainer/Description")
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(100, 20)
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 1.5000001
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -35,3 +37,10 @@ vertical_alignment = 3
 [node name="Description" type="Label" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "Drop
+"
+
+[connection signal="pressed" from="PanelContainer/HBoxContainer/Button" to="." method="OnButtonPressed"]

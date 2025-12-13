@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://cyfnkpx116t1n"]
 
-[ext_resource type="Script" uid="uid://cdh3wjcxx2dsd" path="res://Scenes/TestScene.cs" id="1_b3kl8"]
+[ext_resource type="Script" uid="uid://cdh3wjcxx2dsd" path="res://Scripts/Game/Level/TestScene.cs" id="1_b3kl8"]
 [ext_resource type="PackedScene" uid="uid://dax1rcfi7e1tf" path="res://Scenes/Objects/Pickups/pickup.tscn" id="2_tgibm"]
 [ext_resource type="PackedScene" uid="uid://eeiui8jkvw0k" path="res://Scenes/Player/player.tscn" id="3_nlmfl"]
 [ext_resource type="PackedScene" uid="uid://co0vek2aqsf3j" path="res://Scenes/UI/ui_save.tscn" id="4_utwxg"]
-[ext_resource type="Script" uid="uid://c3uwumky7b8ft" path="res://Scripts/Game/SaverLoader/SaverLoader.cs" id="5_56hgn"]
+[ext_resource type="Script" uid="uid://c3uwumky7b8ft" path="res://Scripts/Game/Saving/SaverLoader.cs" id="5_56hgn"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6w285"]
 size = Vector2(100, 100)

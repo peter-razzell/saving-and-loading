@@ -1,10 +1,16 @@
 using Godot;
 using System;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
+//TODO tidy up player logic into separate movement and manager classes
 public partial class Player : CharacterBody3D
 {
+    public static Player Instance {get; private set;}
+
     Game game; 
+
+    public Marker3D itemSpawnMarker; 
 
     [Export]
     public int health = 10; 
@@ -39,10 +45,34 @@ public partial class Player : CharacterBody3D
         head = (Node3D)GetNode("%Head");//easy to break. 
         cam = (Camera3D)GetNode("%Camera3D");//moving it around 
         playerData = (PlayerData)GetNode("PlayerData");
-        interactor = (PlayerInteractor)GetNode("Interactor"); 
+        interactor = (PlayerInteractor)GetNode("Interactor");
+
+        itemSpawnMarker = (Marker3D)GetNode("%ItemSpawnMarker");
+
+        game.GameLoaded += AddInventorySignal; 
+
+        Instance = this; 
+ 
 
     }
-    
+
+    public void AddInventorySignal()
+    {
+        GD.Print("ADDING REMOVE FROM INV SIGNAL"); 
+
+        game.uiManager.OnInventoryDropButtonPressed += RemoveItemFromInv; 
+    }
+
+    public bool RemoveItemFromInv(string itemID)
+    {
+        GD.Print("REMOVING PLAYER ITEM FROM INVENTORY");
+        bool successful = playerData.RemoveFromInv(itemID); 
+
+        GD.Print(successful);
+        return successful; 
+    }
+
+   
     public override void _Input(InputEvent @event) {
 
         if(@event is InputEventMouseMotion eventMouseMotion && Input.MouseMode == Input.MouseModeEnum.Captured)
@@ -120,6 +150,7 @@ public partial class Player : CharacterBody3D
     //Reset player on level load. 
     public void ResetOnLevelLoad()
     {
+    
         playerData.DebugPrintInventory(); 
         interactor.ResetOnLevelLoad(); 
     

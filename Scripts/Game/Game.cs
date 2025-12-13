@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 
 public partial class Game : Node3D
 {
+    [Signal]
+    public delegate void GameLoadedEventHandler(); 
+
     [Export]
     public float gravity = 9.8f; 
 
     public SaverLoader saverLoader;
 
-    UiManager uiManager;
+    public UiManager uiManager;
 
     public Root root;
 
@@ -30,9 +33,14 @@ public partial class Game : Node3D
 
         uiManager.OnLoad += Load;
 
+        root.LoadFirstLevel(); 
+
+        EmitSignal(SignalName.GameLoaded);  
+
         base._Ready();
     }
 
+    //TODO Input manager? 
     public override void _Input(InputEvent @event)
     {
         if (@event.IsActionPressed("debug_quit"))

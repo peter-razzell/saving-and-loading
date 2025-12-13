@@ -1,10 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://2xuw8dij32kj"]
 
 [ext_resource type="Theme" uid="uid://cynch5iaqbrnl" path="res://Assets/UI/themes/ui_theme_1.tres" id="1_872ea"]
-[ext_resource type="Script" uid="uid://bqh5luvcw0bye" path="res://Scripts/ui/UiInventory.cs" id="1_akbhy"]
+[ext_resource type="Script" uid="uid://bqh5luvcw0bye" path="res://Scripts/UI/UiInventory.cs" id="1_akbhy"]
 
 [node name="ui_inventory" type="Control"]
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
