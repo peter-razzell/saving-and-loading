@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bsxxmgwpihtl3"]
+
+[ext_resource type="Shader" uid="uid://b570ld8rqqmk4" path="res://src/Dither Shaders/spatial_colour_dither.gdshader" id="1_3io8a"]
+[ext_resource type="Texture2D" uid="uid://bynnq7ago8go0" path="res://src/bayer8tile4.png" id="2_j6lmq"]
+
+[resource]
+shader = ExtResource("1_3io8a")
+shader_parameter/u_dither_tex = ExtResource("2_j6lmq")
+shader_parameter/u_bit_depth = 7
+shader_parameter/u_contrast = 0.8
+shader_parameter/u_offset = 0.0
+shader_parameter/u_dither_size = 2

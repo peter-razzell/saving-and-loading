@@ -6,6 +6,7 @@ using Microsoft.VisualBasic.FileIO;
 //TODO Rename class - DOESN'T inherit from but contains a reference TO interactable. 
 public partial class InteractablePickup : SaveableNode
 {
+    string pickupSound = "uid://c2877a2mxbya3"; 
     //the ID of the inventory object this interactable corresponds to. 
     [Export]
     public string inventoryID; 
@@ -30,7 +31,7 @@ public partial class InteractablePickup : SaveableNode
 
     Interactable interactable;
 
-    bool interacted;
+    public bool interacted;
 
     [Export]
     bool disappears; 
@@ -52,23 +53,26 @@ public partial class InteractablePickup : SaveableNode
 
     public void Interact(Area3D interactor)
     {
-        AudioManager.Play("C:/Users/Lenovo/Documents/Godot Projects/saving-and-loading/Assets/Sound/GDC/BluezoneCorp - Stone Impact/Bluezone_BC0297_stone_impact_hammer_015.wav"); 
-     
-        interacted = true;
-
-        //not working for key?
-        if (disappears)
+        if (!interacted)
         {
-            GD.Print("hiding key?? Mesh name: ", mesh.Name); 
+            AudioManager.Play(pickupSound); 
 
-            mesh.Visible = false; 
-            mesh.Hide(); // mesh disappears for pickups. 
-            collision.ProcessMode = CollisionObject3D.ProcessModeEnum.Disabled; 
+            interacted = true;
+
+            if (disappears)
+            {
+                GD.Print("hiding key?? Mesh name: ", mesh.Name); 
+
+                mesh.Visible = false; 
+                mesh.Hide(); // mesh disappears for pickups. 
+                collision.ProcessMode = CollisionObject3D.ProcessModeEnum.Disabled; 
+            }
+        
+            mesh.MaterialOverride = interactedMat;
+
+            defaultMat = interactedMat;
         }
-     
-        mesh.MaterialOverride = interactedMat;
-
-        defaultMat = interactedMat;
+       
     }
 
     public void Focus(Area3D interactor)

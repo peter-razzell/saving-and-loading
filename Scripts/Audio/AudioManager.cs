@@ -44,7 +44,7 @@ public partial class AudioManager : Node
 
             audioPlayer.Bus = bus; //I guess its an important parameter for audio players
         }
-        AudioStream footstep = (AudioStream)ResourceLoader.Load("res://Assets/Sound/GDC/BluezoneCorp - Stone Impact/Bluezone_BC0297_stone_impact_steel_bar_01_010.wav");
+        AudioStream footstep = (AudioStream)ResourceLoader.Load("uid://dn4d5c84v7nh0");
 
         footstepPlayer.Stream = footstep;
 

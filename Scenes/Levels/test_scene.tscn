@@ -1,15 +1,34 @@
-[gd_scene load_steps=12 format=3 uid="uid://cyfnkpx116t1n"]
+[gd_scene load_steps=10 format=3 uid="uid://brstdpsilosf1"]
 
-[ext_resource type="Script" uid="uid://cdh3wjcxx2dsd" path="res://Scripts/Game/Level/TestScene.cs" id="1_b3kl8"]
 [ext_resource type="PackedScene" uid="uid://dax1rcfi7e1tf" path="res://Scenes/Objects/Pickups/pickup.tscn" id="2_tgibm"]
 [ext_resource type="PackedScene" uid="uid://eeiui8jkvw0k" path="res://Scenes/Player/player.tscn" id="3_nlmfl"]
 [ext_resource type="PackedScene" uid="uid://co0vek2aqsf3j" path="res://Scenes/UI/ui_save.tscn" id="4_utwxg"]
 [ext_resource type="Script" uid="uid://c3uwumky7b8ft" path="res://Scripts/Game/Saving/SaverLoader.cs" id="5_56hgn"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_6w285"]
-size = Vector2(100, 100)
+[sub_resource type="CSharpScript" id="CSharpScript_a1spv"]
+script/source = "using Godot;
+using System;
 
-[sub_resource type="HeightMapShape3D" id="HeightMapShape3D_3dogw"]
+public partial class TestScene : Node3D
+{
+    [Export]
+    public SaverLoader saverLoader;
+
+    public override void _Ready() {
+        base._Ready();
+    }
+    
+    public override void _Input(InputEvent @event) {
+
+        if (@event.IsActionPressed(\"debug_quit\"))
+        {
+            GetTree().Quit(); 
+            
+        }
+        base._Input(@event);
+    }
+}
+"
 
 [sub_resource type="BoxMesh" id="BoxMesh_r5l72"]
 size = Vector3(10, 10, 10)
@@ -22,17 +41,8 @@ ambient_light_energy = 4.45
 [sub_resource type="Compositor" id="Compositor_50ct6"]
 
 [node name="test_scene" type="Node3D" node_paths=PackedStringArray("saverLoader") groups=["Root"]]
-script = ExtResource("1_b3kl8")
+script = SubResource("CSharpScript_a1spv")
 saverLoader = NodePath("SaverLoader")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-mesh = SubResource("PlaneMesh_6w285")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("HeightMapShape3D_3dogw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.33926, 1.9147291, 0)

@@ -11,6 +11,7 @@ size = Vector3(2, 2, 2)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_uvnfx")
+jumpStr = 800.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_tugb3")

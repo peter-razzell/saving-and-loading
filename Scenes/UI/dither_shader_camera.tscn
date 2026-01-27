@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c7so2lpubxsgm"]
 
 [ext_resource type="Script" uid="uid://ccqb2wo1x62cf" path="res://Scripts/Shader/DitherShaderCamera.cs" id="1_d4t0q"]
-[ext_resource type="Material" uid="uid://c5tgw36fwqktn" path="res://src/gradient_dither_material.tres" id="1_lv70d"]
+[ext_resource type="Material" uid="uid://bsxxmgwpihtl3" path="res://src/Dither Shaders/spatial_colour_dither_mat.tres" id="2_d4t0q"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("target")]
 layout_mode = 3
@@ -11,10 +11,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_d4t0q")
+shader = ExtResource("2_d4t0q")
 target = NodePath("SubViewportContainer/SubViewport/Camera3D")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-material = ExtResource("1_lv70d")
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,7 +28,7 @@ stretch = true
 handle_input_locally = false
 screen_space_aa = 2
 use_taa = true
-size = Vector2i(1920, 1080)
+size = Vector2i(800, 600)
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]

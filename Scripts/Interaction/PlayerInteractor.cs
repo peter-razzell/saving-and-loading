@@ -33,9 +33,12 @@ public partial class PlayerInteractor : Interactor
 
     public new void Interact(Interactable interactable)
     {
-        if(interactable.GetParent() is InteractablePickup) //works like a dream! 
+        if(interactable.GetParent() is InteractablePickup interactablePickup) //works like a dream! 
         {
-            EmitSignal(SignalName.OnAddToPlayerInventory, interactable); 
+            if (!interactablePickup.interacted)
+            {
+                EmitSignal(SignalName.OnAddToPlayerInventory, interactable); 
+            }
         }
         else if(interactable.GetParent() is LevelExit)
         {
