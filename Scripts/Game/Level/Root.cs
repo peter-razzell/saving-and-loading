@@ -19,7 +19,7 @@ public partial class Root : Node3D
 	[Signal]
 	public delegate void OnLoadLevelEventHandler(String levelPath);
 
-	String entranceID = "default"; //cache it here rather than pass it needlessly back to game and here again. 
+	String doorID = "default"; //This is the ID of the door to spawn the player at. Cached here rather than pass it needlessly back to game and here again. 
 
 	public Level currentLevel;
 
@@ -47,11 +47,11 @@ public partial class Root : Node3D
 	}
 
 	//1. Emits a signal when the exit is reached, received by Game. 
-	public void LevelExitReached(String levelPath, String entranceID)
+	public void LevelExitReached(String levelPath, String doorID)
 	{
 		// GD.Print("level exit reached in root");
 		this.levelPath = levelPath;
-		this.entranceID = entranceID; 
+		this.doorID = doorID; 
 
 		EmitSignal(SignalName.OnLevelExitReached);
 	}
@@ -91,11 +91,11 @@ public partial class Root : Node3D
 	}
 
 	//3. Switch to the newly loaded level, used by both loading methods
-	//TODO make loading screen. 
 	public void SwitchLevel(Level newLevel)
 	{
 		if (newLevel != null)
 		{
+			//deletes the previous level
 			foreach (Node child in GetChildren())
 			{
 				if (!child.IsInGroup("DoNotDestroyOnLoad"))
@@ -105,11 +105,12 @@ public partial class Root : Node3D
 				}
 			}
 
+			//Adds the new level and assigns currentLevel reference to this new level. 
 			AddChild(newLevel);
-
 			currentLevel = newLevel;
 
-			//delete all nodes with saveable data to prevent duplication when loading the saved versions.         
+			//Delete all nodes with saveable data to prevent duplication when loading the saved versions. 
+			//for example, pickups.         
 			if (game.saverLoader.levelBuffer.ContainsKey(GetCurrentLevelPath()))
 			{
 				foreach(Node node in currentLevel.GetChildren())
@@ -146,7 +147,7 @@ public partial class Root : Node3D
 	}
 
 	//Returns the current level path for saving
-	public String GetCurrentLevelPath()
+	public string GetCurrentLevelPath()
 	{
 		return currentLevel.SceneFilePath;
 	}
@@ -155,22 +156,22 @@ public partial class Root : Node3D
 	//Get marker coordinates to move player when loading level
 	Godot.Vector3 GetPlayerMarkerCoordinates()
 	{
-		Godot.Collections.Array<Node> levelEntrances = GetTree().GetNodesInGroup("LevelEntrance");
+		Godot.Collections.Array<Node> levelEntrances = GetTree().GetNodesInGroup("LevelExit");
 
 		GD.Print(levelEntrances.Count); 
 		foreach (Node node in levelEntrances)
 		{
-			if (node is LevelEntrance levelEntrance)
+			if (node is LevelExit levelExit)
 			{
-				if (levelEntrance.levelEntranceID == entranceID)
+				if (levelExit.doorID == doorID)
 				{
-					return levelEntrance.GlobalPosition;
+					return levelExit.entranceMarker.GlobalPosition;
 				}
 			}
 		}
 
 		// GD.Print("WARNING NO LEVEL ENTRANCE FOUND FOR PLAYER, RETURNING DEFAULT POSITION");
-		return new Godot.Vector3(0, 0, 0); //default player debug position
+		return new Godot.Vector3(0, 1, 0); //default player debug position
 		
 	}
 

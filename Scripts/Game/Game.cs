@@ -5,88 +5,90 @@ using System.Threading.Tasks;
 
 public partial class Game : Node3D
 {
-    [Signal]
-    public delegate void GameLoadedEventHandler(); 
+	[Signal]
+	public delegate void GameLoadedEventHandler(); 
 
-    [Export]
-    public float gravity = 9.8f; 
+	[Export]
+	public float gravity = 9.8f; 
 
-    public SaverLoader saverLoader;
+	public SaverLoader saverLoader;
 
-    public UiManager uiManager;
+	public UiManager uiManager;
 
-    public Root root;
+	public Root root;  //root node for the actual scene
 
-    public override void _Ready()
-    {
-        saverLoader = (SaverLoader)GetNode("%SaverLoader");
+	public override void _Ready()
+	{
+		saverLoader = (SaverLoader)GetNode("%SaverLoader");
 
-        uiManager = (UiManager)GetNode("%ui_manager");
+		uiManager = (UiManager)GetNode("%ui_manager");
 
-        root = (Root)GetNode("%Root");
+		root = (Root)GetNode("%Root");
 
-        root.OnLevelExitReached += LoadNextLevel;
+		root.OnLevelExitReached += LoadNextLevel; //applied from root load level
 
-        root.OnLoadLevel += ApplyLevelData;
+		root.OnLoadLevel += ApplyLevelData; //applied from root switch level 
 
-        uiManager.OnSave += Save;
+		uiManager.OnSave += Save;
 
-        uiManager.OnLoad += Load;
+		uiManager.OnLoad += Load;
 
-        root.LoadFirstLevel(); 
+		root.LoadFirstLevel(); 
 
-        EmitSignal(SignalName.GameLoaded);  
+		EmitSignal(SignalName.GameLoaded);  
 
-        base._Ready();
-    }
+		base._Ready();
+	}
 
-    //TODO Input manager? 
-    public override void _Input(InputEvent @event)
-    {
-        if (@event.IsActionPressed("debug_quit"))
-        {
-            GetTree().Quit();
-        }
-        base._Input(@event);
-    }
+	//TODO Input manager? 
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("debug_quit"))
+		{
+			GetTree().Quit();
+		}
+		base._Input(@event);
+	}
 
-    //Save game. 
-    public void Save()
-    {
-        if (saverLoader != null)
-        {
-            saverLoader.SaveGame();
-            
-            AudioManager.Play("res://Assets/Sound/GDC/BluezoneCorp - Steampunk Machines/Bluezone_BC0305_steampunk_machine_mechanical_texture_heavy_impact_011.wav"); 
+	//Save game. 
+	public void Save()
+	{
+		if (saverLoader != null)
+		{
+			saverLoader.SaveGame();
+			
+			AudioManager.Play("res://Assets/Sound/GDC/BluezoneCorp - Steampunk Machines/Bluezone_BC0305_steampunk_machine_mechanical_texture_heavy_impact_011.wav"); 
 
-        }
-        else
-        {
-            GD.Print("Save Loader is null.");
-        }
-    }
+		}
+		else
+		{
+			GD.Print("Save Loader is null.");
+		}
+	}
 
-    //Save level on exit of the level so changes to level persist if returned. 
-    public void SaveLevel()
-    {
-        saverLoader.SaveLevelToBuffer(); 
-    }
+	//Save level on exit of the level so changes to level persist if returned. 
+	public void SaveLevel()
+	{
+		saverLoader.SaveLevelToBuffer(); 
+	}
 
-    //Load game. 
-    public void Load(string saveFile)
-    {
-        saverLoader.LoadGame(saveFile);
-    }
+	//Load game. 
+	public void Load(string saveFile)
+	{
+		saverLoader.LoadGame(saveFile);
+	}
 
-    public void LoadNextLevel()
-    {
-        SaveLevel();
-        root.LoadLevelAsync();
-    }
+	public void LoadNextLevel()
+	{
+		SaveLevel();
+		root.LoadLevelAsync();
+	}
 
-    public void ApplyLevelData(String levelPath)
-    {
-        saverLoader.LoadLevelFromBuffer(levelPath);
-    }
-    
+	//Recieves a signal from root with the new level path, calls a function in saverloader which applies level data e.g. pickups.
+	public void ApplyLevelData(String levelPath)
+	{
+		GD.Print("applying level data", levelPath);
+		saverLoader.LoadLevelFromBuffer(levelPath);
+	}
+	
 }

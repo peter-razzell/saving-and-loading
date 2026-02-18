@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://cnihcmjiio2kb"]
+
+[ext_resource type="Script" uid="uid://cvn5lttglqaat" path="res://Scripts/Interaction/InteractablePickup.cs" id="1_0y6oq"]
+[ext_resource type="Script" uid="uid://dl3p1k0j2xiev" path="res://Scripts/Interaction/Interactable.cs" id="2_0er65"]
+[ext_resource type="Material" uid="uid://ciwbyu6up0x5a" path="res://Scenes/Objects/Pickups/Pickup Materials/focus_mat.tres" id="2_m84d8"]
+[ext_resource type="Material" uid="uid://c7wonqnwhl53b" path="res://Scenes/Objects/Pickups/Pickup Materials/interacted_mat.tres" id="3_tlx3r"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rb3ny"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rb3ny"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_m84d8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_em2n2"]
+size = Vector3(2, 2, 2)
+
+[node name="NotePickup" type="Node3D" node_paths=PackedStringArray("collision", "mesh") groups=["Persist"]]
+script = ExtResource("1_0y6oq")
+inventoryID = "uid://lntbr4ky48t"
+pickupID = "uid://cnihcmjiio2kb"
+collision = NodePath("Body")
+mesh = NodePath("Body/MeshInstance3D")
+focusMat = ExtResource("2_m84d8")
+interactedMat = ExtResource("3_tlx3r")
+disappears = true
+
+[node name="Body" type="StaticBody3D" parent="."]
+collision_layer = 0
+physics_material_override = SubResource("PhysicsMaterial_rb3ny")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body"]
+process_mode = 4
+shape = SubResource("CapsuleShape3D_rb3ny")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
+mesh = SubResource("TorusMesh_m84d8")
+
+[node name="Interactable" type="Area3D" parent="." node_paths=PackedStringArray("pickup")]
+script = ExtResource("2_0er65")
+pickup = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.033691406, 0)
+shape = SubResource("BoxShape3D_em2n2")

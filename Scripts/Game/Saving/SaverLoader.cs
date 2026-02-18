@@ -229,7 +229,9 @@ public partial class SaverLoader : Node
     
     public void LoadLevelFromBuffer(String levelPath)
     {    
+
         GD.Print("loading level from buffer"); 
+        GD.Print(levelBuffer);
         //Same logic for loading the levelsData in LoadGame function. 
         if (levelBuffer.TryGetValue(levelPath, out Array<SavedData> value))
         {
@@ -250,7 +252,7 @@ public partial class SaverLoader : Node
         else
         {
             //meaning it's the first time! 
-            GD.Print("No path found for level: ", levelPath);
+            GD.Print("No path found for level: ", levelPath, " this may be the first time opening level?");
         }
 
     }

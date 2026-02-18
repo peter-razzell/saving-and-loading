@@ -5,15 +5,15 @@ using System.Diagnostics.Tracing;
 public partial class Interactable : Area3D
 {
 
-    [Export]
-    public InteractablePickup pickup; 
+	[Export]
+	public InteractablePickup pickup; 
 
-    [Signal]
-    public delegate void OnInteractedEventHandler(Interactor interactor);
+	[Signal]
+	public delegate void OnInteractedEventHandler(Interactor interactor);
 
-    [Signal]
-    public delegate void OnFocusedEventHandler(Interactor interactor);
+	[Signal]
+	public delegate void OnFocusedEventHandler(Interactor interactor);
 
-    [Signal]
-    public delegate void OnUnfocusedEventHandler(Interactor interactor); 
+	[Signal]
+	public delegate void OnUnfocusedEventHandler(Interactor interactor); 
 }

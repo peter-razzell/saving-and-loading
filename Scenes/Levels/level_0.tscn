@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bwrimg3cx7ghu"]
+[gd_scene load_steps=25 format=3 uid="uid://bwrimg3cx7ghu"]
 
 [ext_resource type="Script" uid="uid://c6wyjsoxclcad" path="res://Scripts/Game/Level/Level.cs" id="1_1ih7c"]
 [ext_resource type="Shader" uid="uid://ce7h5sfgbi5ya" path="res://src/cel-shader-base.gdshader" id="1_kj5ij"]
@@ -6,10 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://b01niox70prtn" path="res://Assets/Glbs/quick_pine_BrushStroke_Variant_B.png" id="4_i4wmn"]
 [ext_resource type="PackedScene" uid="uid://mai5g35nty6f" path="res://Scenes/Objects/Static Objects/quick_pine_anim.tscn" id="5_um5o3"]
 [ext_resource type="PackedScene" uid="uid://cnbeq2vhfu18n" path="res://Scenes/Objects/Static Objects/tintagel_01.tscn" id="6_kj5ij"]
+[ext_resource type="PackedScene" uid="uid://il4dc7xg853s" path="res://Scenes/Objects/Static Objects/decals/decal_window.tscn" id="7_hvs5j"]
 [ext_resource type="PackedScene" uid="uid://dej7c77c23tmk" path="res://Scenes/Objects/Level Transitions/level_entrance.tscn" id="8_6kmi7"]
 [ext_resource type="PackedScene" uid="uid://cwemgjixn6jjp" path="res://Scenes/Objects/Static Objects/Block.tscn" id="8_i4wmn"]
 [ext_resource type="PackedScene" uid="uid://hpgq4vgl64a0" path="res://Scenes/Objects/Pickups/key_pickup.tscn" id="10_456kb"]
+[ext_resource type="PackedScene" uid="uid://cnihcmjiio2kb" path="res://Scenes/Objects/Pickups/note_pickup.tscn" id="11_35opv"]
 [ext_resource type="PackedScene" uid="uid://dtq33yg2paxlk" path="res://Assets/Glbs/Tree.glb" id="11_fywi0"]
+[ext_resource type="PackedScene" uid="uid://cbg0kmlsy0v7m" path="res://Assets/Glbs/buildings/cottage_01.glb" id="12_35opv"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_58lhs"]
 size = Vector2(1000, 1000)
@@ -177,15 +180,12 @@ directional_shadow_pancake_size = 27.4
 unique_name_in_owner = true
 transform = Transform3D(-0.83345217, 0, -0.5525918, 0, 1, 0, 0.5525918, 0, -0.83345217, -0.11235428, 0.9083996, -10.093872)
 nextLevelPath = "res://Scenes/Levels/level_1.tscn"
-nextLevelEntranceID = "level_1_level_0"
-thisLevelEntranceID = "level_0_level_1"
 
 [node name="LevelExit2" parent="." instance=ExtResource("2_2iktx")]
 unique_name_in_owner = true
 transform = Transform3D(-0.0618324, 0, 0.9980867, 0, 1, 0, -0.9980867, 0, -0.0618324, 8.914612, 0.9083996, 6.2356224)
-nextLevelPath = "uid://ls4t4om8otg"
-nextLevelEntranceID = "terrain3D_level_level_0"
-thisLevelEntranceID = "terrain3D_level_level_0"
+nextLevelPath = "res://Scenes/Levels/terrain3D_level.tscn"
+doorID = "0_4"
 
 [node name="quick_pine_anim" parent="." instance=ExtResource("5_um5o3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.362005, -4.7683716e-07, 3.6125402)
@@ -225,8 +225,10 @@ transform = Transform3D(0.2773092, 0, -1.9806817, 0, 2, 0, 1.9806817, 0, 0.27730
 
 [node name="LevelExit" parent="tintagel_01" index="4"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.8539248, 0.70596904, 0.44473982)
-nextLevelEntranceID = "tintagel_interior_level_0"
-thisLevelEntranceID = "level_0_tintagel_interior"
+
+[node name="Decal6" parent="tintagel_01" instance=ExtResource("7_hvs5j")]
+transform = Transform3D(0.4763308, -0.15201652, 6.6448687e-09, -2.3783547e-17, -2.1855692e-08, -0.5, 0.15201652, 0.4763308, -2.0821112e-08, 14.26899, 1.2047002, -13.829376)
+size = Vector3(3.6801758, 1, 4.5630493)
 
 [node name="LevelEntrance" parent="." instance=ExtResource("8_6kmi7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6088872, 0)
@@ -317,5 +319,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.42700005, 1, -14.139)
 
 [node name="Tree" parent="." instance=ExtResource("11_fywi0")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -18, 0, -16)
+
+[node name="NotePickup" parent="." instance=ExtResource("11_35opv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -8)
+
+[node name="NotePickup2" parent="." instance=ExtResource("11_35opv")]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -10, 1, -1)
+
+[node name="cottage_01" parent="." instance=ExtResource("12_35opv")]
+transform = Transform3D(-1.9318516, 0, 0.517638, 0, 2, 0, -0.517638, 0, -1.9318516, 38.86851, 0.96604204, -1.3334432)
+
+[node name="cottage_02" parent="." instance=ExtResource("12_35opv")]
+transform = Transform3D(-1.9318516, 0, 0.517638, 0, 2, 0, -0.517638, 0, -1.9318516, 37.87313, -0.29515934, 4.4563193)
+
+[node name="cottage_03" parent="." instance=ExtResource("12_35opv")]
+transform = Transform3D(-1.9318516, 0, 0.517638, 0, 2, 0, -0.517638, 0, -1.9318516, 40.97896, -0.29515934, -7.0021935)
+
+[node name="cottage_04" parent="." instance=ExtResource("12_35opv")]
+transform = Transform3D(-1.7320508, 0, 0.99999994, 0, 2, 0, -0.99999994, 0, -1.7320508, 43.381905, -0.7880113, -11.991907)
 
 [editable path="tintagel_01"]

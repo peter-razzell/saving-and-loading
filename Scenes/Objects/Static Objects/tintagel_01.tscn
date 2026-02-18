@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://db0df3n0nrisr" path="res://Assets/Glbs/tintagel_01.glb" id="1_0h148"]
 [ext_resource type="PackedScene" uid="uid://dy78f2m5eekcx" path="res://Scenes/Objects/Level Transitions/level_exit.tscn" id="2_gls23"]
-[ext_resource type="PackedScene" uid="uid://il4dc7xg853s" path="res://Scenes/Objects/Static Objects/decals/window.tscn" id="3_gls23"]
+[ext_resource type="PackedScene" uid="uid://il4dc7xg853s" path="res://Scenes/Objects/Static Objects/decals/decal_window.tscn" id="3_gls23"]
 
 [node name="tintagel_01" instance=ExtResource("1_0h148")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

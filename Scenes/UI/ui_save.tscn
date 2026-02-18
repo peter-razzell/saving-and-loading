@@ -50,10 +50,10 @@ size_flags_vertical = 3
 text = "Save"
 
 [node name="PrevSaveImage" type="TextureRect" parent="CanvasLayer"]
-offset_left = 605.02
-offset_top = 279.08
-offset_right = 733.02
-offset_bottom = 365.08
+offset_left = 693.0
+offset_top = 268.0
+offset_right = 821.0
+offset_bottom = 354.0
 expand_mode = 2
 
 [node name="UiSaveSelector" parent="CanvasLayer" instance=ExtResource("2_emsrm")]

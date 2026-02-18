@@ -15,17 +15,15 @@ public partial class LevelExit : Node3D
     public String nextLevelPath;
 
     [Export]
-    public String nextLevelEntranceID; //ID for the next level entrance to load player to. 
+    public String doorID; //ID for the linked pair of LevelExits to load player to. 
 
     [Export]
-    public String thisLevelEntranceID; //The ID for this entrance.
+    public LevelEntrance entranceMarker; 
 
     public override void _Ready()
     {
-        LevelEntrance entrance = GetNode<LevelEntrance>("LevelEntrance");
+        LevelEntrance entrance = GetNode<LevelEntrance>("LevelEntrance"); //The marker for the player to spawn at. 
         
-        entrance.levelEntranceID = thisLevelEntranceID;
-
         interactable = (Interactable)GetNode("Interactable");
 
         interactable.OnInteracted += Interact;
@@ -37,7 +35,7 @@ public partial class LevelExit : Node3D
     {
         if(CheckBody(interactor) == true)
         {
-            EmitSignal(SignalName.OnPlayerEntered, nextLevelPath, nextLevelEntranceID);
+            EmitSignal(SignalName.OnPlayerEntered, nextLevelPath, doorID);
         }
 
     }

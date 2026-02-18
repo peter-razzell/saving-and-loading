@@ -25,7 +25,8 @@ size = Vector3(2, 2, 2)
 
 [node name="Pickup" type="Node3D" node_paths=PackedStringArray("collision", "mesh") groups=["Persist"]]
 script = ExtResource("1_rb3ny")
-DataLookupKey = "uid://c7aa67jmj3068"
+inventoryID = "REPLACE"
+pickupID = "REPLACE"
 collision = NodePath("RigidBody3D")
 mesh = NodePath("RigidBody3D/MeshInstance3D")
 focusMat = SubResource("StandardMaterial3D_c3lqd")

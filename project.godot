@@ -23,8 +23,8 @@ ObjectSpawner="*res://Scripts/Game/ObjectSpawner.cs"
 
 [display]
 
-window/size/viewport_width=800
-window/size/viewport_height=600
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="viewport"
 
 [dotnet]
@@ -123,11 +123,14 @@ shader_toggle={
 ]
 }
 
+[physics]
+
+common/quality/msaa_2d=3
+common/quality/screen_space_aa=2
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-anti_aliasing/quality/msaa_2d=3
-anti_aliasing/quality/screen_space_aa=2
 
 [shader_globals]
 

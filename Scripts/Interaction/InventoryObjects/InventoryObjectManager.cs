@@ -15,7 +15,7 @@ public partial class InventoryObjectManager : Node
         
         try
         {
-            GD.Print("trying to load item with UID: ", inventoryID); 
+            // GD.Print("trying to load item with UID: ", inventoryID); 
             PackedScene packedItem = GD.Load<PackedScene>(inventoryID); 
 
             Node item = packedItem.Instantiate(); 
@@ -26,14 +26,14 @@ public partial class InventoryObjectManager : Node
 
             inventoryItem.ID = inventoryID;
 
-            GD.Print("success, loaded: ", inventoryItem.InvName); 
+            // GD.Print("success, loaded: ", inventoryItem.InvName); 
 
             return inventoryItem; 
 
         }
         catch
         {
-            GD.Print("Unable to find item in inventory, UID is: ", inventoryID); 
+            // GD.Print("Unable to find item in inventory, UID is: ", inventoryID); 
             return new InventoryObject(); 
         }
 
@@ -49,7 +49,7 @@ public partial class InventoryObjectManager : Node
         }
         catch
         {
-            GD.Print("Error returning pickup item, perhaps the UID is incorrect? UID = ", pickupID); 
+            // GD.Print("Error returning pickup item, perhaps the UID is incorrect? UID = ", pickupID); 
             return null;    
         }
     }

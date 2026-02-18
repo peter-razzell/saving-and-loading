@@ -70,6 +70,7 @@ public partial class UiSaveLoad : Control
 
     public void OnLoadPressed()
     {
+        GD.Print("load pressed!"); 
         if (saveSelect.ProcessMode is ProcessModeEnum.Disabled)
         {
             saveSelect.PopulateContainers(game.saverLoader.GetSaveNames()); 

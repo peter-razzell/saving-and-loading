@@ -1,28 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://j0bsfpcu3r7t"]
+[gd_scene load_steps=9 format=3 uid="uid://j0bsfpcu3r7t"]
 
 [ext_resource type="Script" uid="uid://da1nam0t0fttb" path="res://Scripts/Game/Game.cs" id="1_3dryh"]
 [ext_resource type="Script" uid="uid://3114pps6u47e" path="res://Scripts/Game/Level/Root.cs" id="2_i6g32"]
 [ext_resource type="PackedScene" uid="uid://eeiui8jkvw0k" path="res://Scenes/Player/player.tscn" id="3_i6g32"]
 [ext_resource type="Script" uid="uid://c3uwumky7b8ft" path="res://Scripts/Game/Saving/SaverLoader.cs" id="3_wowpa"]
 [ext_resource type="PackedScene" uid="uid://cag5d6pgxf1ac" path="res://Scenes/UI/ui_manager.tscn" id="6_1l0tm"]
-[ext_resource type="Shader" uid="uid://b2762dhdgam0b" path="res://src/post_process_outline.gdshader" id="6_i6g32"]
-[ext_resource type="Material" uid="uid://bvwdf6cwxyyyu" path="res://src/gradient_dither_material_green_yellow.tres" id="6_ldgsr"]
 [ext_resource type="PackedScene" uid="uid://c7so2lpubxsgm" path="res://Scenes/UI/dither_shader_camera.tscn" id="8_v158k"]
 [ext_resource type="Script" uid="uid://crqm8d6knix0d" path="res://Scripts/Utility/FPSCounter.cs" id="9_h4fw4"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_1l0tm"]
 flip_faces = true
 size = Vector2(2, 2)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v158k"]
-render_priority = 1
-next_pass = ExtResource("6_ldgsr")
-shader = ExtResource("6_i6g32")
-shader_parameter/depth_threshold = 4.70999989472208
-shader_parameter/depth_normal_threshold_scale = 1.50999996624848
-shader_parameter/normal_threshold = 5.499999877064
-shader_parameter/edge_color = Color(0, 0, 0, 1)
-shader_parameter/scale = 1.33
 
 [node name="Game" type="Node3D" groups=["Root"]]
 script = ExtResource("1_3dryh")
@@ -46,7 +34,6 @@ player = NodePath("../../Root/Player")
 cast_shadow = 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_1l0tm")
-surface_material_override/0 = SubResource("ShaderMaterial_v158k")
 
 [node name="ui_manager" parent="." instance=ExtResource("6_1l0tm")]
 unique_name_in_owner = true
