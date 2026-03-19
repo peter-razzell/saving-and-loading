@@ -5,52 +5,38 @@ using System;
 //This class applies the dither shader to the camera 
 public partial class DitherShaderCamera : Control
 {
-	[Export]
-	Material shader; 
-	SubViewportContainer SubViewportContainer; 
-	
-	[Export]
-	Camera3D target; //target to apply shader to. 
 
+	[Export]
+	Camera3D t_a; //target to apply shader to. 
+
+	[Export]
+	Camera3D t_b; //target b
 
 	[Export] 
 	Camera3D origin; //player camera input 
 
-	Boolean applyShader; 
+	Camera3D depth_a;
+	Camera3D depth_b;
+
+    bool applyShader; 
 
 	public override void _Ready() {
 		
-		SubViewportContainer = GetNode<SubViewportContainer>("%SubViewportContainer"); 
+		depth_a = GetNode<Camera3D>("%L1DepthCam");
+		depth_b = GetNode<Camera3D>("%L2DepthCam"); 
+
 		base._Ready();
 
 	}
-
-	public override void _Input(InputEvent @event)
-	{
-		if (@event.IsActionPressed("shader_toggle"))
-		{
-			applyShader = !applyShader;
-
-			//Doesn't work because origin and target are in different scenes (game and player respectively). 
-			if (applyShader)
-			{
-				SubViewportContainer.Material = shader; 
-			}
-			else
-			{
-				SubViewportContainer.Material = null; 
-				
-			}
-		}
-		base._Input(@event);
-	}
-
 
 	public override void _Process(double delta) {
 
 		if(origin != null)
 		{
-			target.GlobalTransform = origin.GlobalTransform; 
+			t_a.GlobalTransform = origin.GlobalTransform; 
+			t_b.GlobalTransform = origin.GlobalTransform; 
+			depth_a.GlobalTransform = origin.GlobalTransform;
+			depth_b.GlobalTransform = origin.GlobalTransform; 
 		}
 		
 		base._Process(delta);

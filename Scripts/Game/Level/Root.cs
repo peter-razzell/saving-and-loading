@@ -23,7 +23,8 @@ public partial class Root : Node3D
 
 	public Level currentLevel;
 
-	String levelPath  = "res://Scenes/Levels/level_0.tscn"; //default val
+	[Export]
+	String defaultLevelPath  = "res://Scenes/Levels/level_0.tscn"; //default val
 
 	Game game;
 
@@ -43,14 +44,14 @@ public partial class Root : Node3D
 
 	public void LoadFirstLevel()
 	{
-		LoadLevel(levelPath); 
+		LoadLevel(defaultLevelPath); 
 	}
 
 	//1. Emits a signal when the exit is reached, received by Game. 
 	public void LevelExitReached(String levelPath, String doorID)
 	{
 		// GD.Print("level exit reached in root");
-		this.levelPath = levelPath;
+		this.defaultLevelPath = levelPath;
 		this.doorID = doorID; 
 
 		EmitSignal(SignalName.OnLevelExitReached);
@@ -79,7 +80,7 @@ public partial class Root : Node3D
 
 		GetTree().Paused = true;
 
-		PackedScene nextLevel = GD.Load<PackedScene>(levelPath);
+		PackedScene nextLevel = GD.Load<PackedScene>(defaultLevelPath);
 
 		Level newLevel = (Level)nextLevel.Instantiate();
 
@@ -123,7 +124,7 @@ public partial class Root : Node3D
 			}
 
 			//Received by Game class, which then applies saved level data using SaverLoader.LoadLevelFromBuffer
-			EmitSignal(SignalName.OnLoadLevel, levelPath);
+			EmitSignal(SignalName.OnLoadLevel, defaultLevelPath);
 
 			AudioManager.EndPrevLevelAudio();
 
@@ -135,6 +136,7 @@ public partial class Root : Node3D
 	//4. Called by Level emitting a signal when it has been loaded, sets up new level signals. 
 	public void OnLevelLoaded(Level level)
 	{
+		GD.Print("Level loaded"); 
 		currentLevel = level; 
 		foreach (LevelExit exit in level.levelExits)
 		{
@@ -170,8 +172,8 @@ public partial class Root : Node3D
 			}
 		}
 
-		// GD.Print("WARNING NO LEVEL ENTRANCE FOUND FOR PLAYER, RETURNING DEFAULT POSITION");
-		return new Godot.Vector3(0, 1, 0); //default player debug position
+		GD.Print("WARNING NO LEVEL ENTRANCE FOUND FOR PLAYER, RETURNING DEFAULT POSITION");
+		return new Godot.Vector3(0, 10, 0); //default player debug position
 		
 	}
 
@@ -179,7 +181,8 @@ public partial class Root : Node3D
 	void ResetPlayer(Godot.Vector3 coords)
 	{
 		player.GlobalPosition = coords; 
-		player.ResetOnLevelLoad(); 
+		player.ResetOnLevelLoad(); 		GD.Print("player pos = ", player.GlobalPosition); 
+
 	}
    
 }

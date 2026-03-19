@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkw4vagg0vi5v"]
+
+[ext_resource type="PackedScene" uid="uid://d3860l2ntfh8f" path="res://Scenes/Actors/herne_body_separate.tscn" id="1_3uk11"]
+[ext_resource type="Script" uid="uid://btkb1fs0f12mi" path="res://Scripts/Actors/Actor.cs" id="1_voys7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_voys7"]
+height = 4.0
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_voys7")
+
+[node name="herne_body_separate" parent="." instance=ExtResource("1_3uk11")]
+
+[node name="Skeleton3D" parent="herne_body_separate/Armature" index="0"]
+bones/1/position = Vector3(-0.21970932, 0, -0.13698769)
+bones/1/rotation = Quaternion(0.7070868, -0.005009013, -0.7039832, 0.06641412)
+bones/2/rotation = Quaternion(0.043676183, 0.0018170798, -0.092226885, 0.99477804)
+bones/3/rotation = Quaternion(-0.0028567214, 2.683205e-06, 0.64950573, 0.76035136)
+bones/4/position = Vector3(0.21970929, -5.9604645e-08, -0.13698763)
+bones/4/rotation = Quaternion(0.7101837, -0.06636751, -0.700859, 0.0055938927)
+bones/5/rotation = Quaternion(-0.042454254, -0.0061937054, -0.09279587, 0.9947604)
+bones/6/rotation = Quaternion(-0.0028661306, -1.6290694e-06, 0.64950526, 0.7603517)
+bones/7/rotation = Quaternion(-0.043619398, 0, 0, 0.99904823)
+bones/8/rotation = Quaternion(0, 0, 0, 1)
+bones/9/position = Vector3(-0.4439367, 0.39150307, -0.08901021)
+bones/9/rotation = Quaternion(-0.68880135, 0.019044546, 0.7176475, 0.100856975)
+bones/9/scale = Vector3(1.0003316, 1.0027053, 1.0972366)
+bones/10/rotation = Quaternion(-0.011025472, 0.006721244, 0.1005104, 0.99485224)
+bones/13/rotation = Quaternion(0.017771116, -0.49458757, 0.08430502, 0.8648468)
+bones/14/position = Vector3(0.4439367, 0.39150313, -0.09602312)
+bones/14/rotation = Quaternion(0.7110313, 0.10494989, -0.69487065, 0.023974575)
+bones/14/scale = Vector3(1.0010287, 1.0038475, 1.0955555)
+bones/15/rotation = Quaternion(0.01221884, -0.030690612, 0.09956223, 0.99448293)
+bones/16/rotation = Quaternion(0.10476544, 0.45937407, 0.07996116, 0.878411)
+bones/17/rotation = Quaternion(0, 0, 0, 1)
+
+[node name="Torso" parent="herne_body_separate/Armature/Skeleton3D" index="0"]
+layers = 12
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("CapsuleShape3D_voys7")
+
+[editable path="herne_body_separate"]

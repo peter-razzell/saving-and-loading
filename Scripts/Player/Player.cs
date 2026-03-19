@@ -20,7 +20,7 @@ public partial class Player : CharacterBody3D
     public Camera3D cam;
 
     [Export]
-    float speed = 10f, mouseSensitivity = 0.01f, jumpStr = 200f;
+    float speed = 10f, mouseSensitivity = 0.01f, jumpStr = 10f;
 
     float gravity; //set from Game class
 
@@ -151,7 +151,7 @@ public partial class Player : CharacterBody3D
     public void ResetOnLevelLoad()
     {
     
-        playerData.DebugPrintInventory(); 
+        // playerData.DebugPrintInventory(); 
         interactor.ResetOnLevelLoad(); 
     
     }

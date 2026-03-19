@@ -2,16 +2,15 @@
 
 [ext_resource type="Shader" uid="uid://bmoplprhbfvng" path="res://src/gradient_dither.gdshader" id="1_s825k"]
 [ext_resource type="Gradient" uid="uid://8u2lmdqt1ars" path="res://Assets/Shader/citrilink_pallete.tres" id="2_s825k"]
-[ext_resource type="Texture2D" uid="uid://lm1o4w5tgpdv" path="res://Assets/Shader/8x8Bayer.tres" id="3_h1epw"]
+[ext_resource type="Texture2D" uid="uid://cfheexk5qclpt" path="res://Assets/Shader/dither_animated.tres" id="3_s825k"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_o8pbf"]
 gradient = ExtResource("2_s825k")
 width = 8
-use_hdr = true
 
 [resource]
 shader = ExtResource("1_s825k")
-shader_parameter/u_dither_tex = ExtResource("3_h1epw")
+shader_parameter/u_dither_tex = ExtResource("3_s825k")
 shader_parameter/u_color_tex = SubResource("GradientTexture1D_o8pbf")
 shader_parameter/u_bit_depth = 16
 shader_parameter/u_contrast = 1.3

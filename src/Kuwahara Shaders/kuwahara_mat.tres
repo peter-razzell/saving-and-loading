@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dd0frhor6jl6k"]
+
+[ext_resource type="Shader" uid="uid://badqwj67ejl2i" path="res://src/Kuwahara Shaders/kuwahara.gdshader" id="1_u5auw"]
+
+[resource]
+shader = ExtResource("1_u5auw")
+shader_parameter/_KernelSize = 10
+shader_parameter/_Hardness = 8.0
+shader_parameter/_Sharpness = 8.0
+shader_parameter/_Zeta = 0.1

@@ -1,4 +1,4 @@
-shader_type canvas_item;
+shader_type spatial;
 
 uniform sampler2D u_dither_tex : repeat_enable, filter_nearest;
 

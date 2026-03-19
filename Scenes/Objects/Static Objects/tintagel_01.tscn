@@ -7,9 +7,27 @@
 [node name="tintagel_01" instance=ExtResource("1_0h148")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
+[node name="Walls" parent="." index="0"]
+layers = 3
+
+[node name="Turret" parent="." index="1"]
+layers = 3
+
+[node name="Bulwarks" parent="." index="2"]
+layers = 3
+
+[node name="Chimney" parent="." index="3"]
+layers = 3
+
 [node name="LevelExit" parent="." index="4" instance=ExtResource("2_gls23")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.4480198, 0.3141777, 0.24790305)
 nextLevelPath = "res://Scenes/Objects/Static Objects/tintagel_interior.tscn"
+
+[node name="Walls_001" parent="." index="5"]
+layers = 3
+
+[node name="Chimney_001" parent="." index="6"]
+layers = 3
 
 [node name="Decal" parent="." index="7" instance=ExtResource("3_gls23")]
 transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 2.7687235, 2.3204215, 6.0456805)

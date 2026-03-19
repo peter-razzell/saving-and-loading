@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://b8gslf7qglyy7"]
 
-[ext_resource type="Shader" uid="uid://bmoplprhbfvng" path="res://src/gradient_dither.gdshader" id="1_foo58"]
+[ext_resource type="Shader" uid="uid://c4qr2xjcoq0ow" path="res://spatial_gradient_dither.gdshader" id="1_foo58"]
 [ext_resource type="Gradient" uid="uid://8u2lmdqt1ars" path="res://Assets/Shader/citrilink_pallete.tres" id="2_bx1ne"]
 [ext_resource type="Texture2D" uid="uid://lm1o4w5tgpdv" path="res://Assets/Shader/8x8Bayer.tres" id="3_y1ati"]
 
@@ -8,6 +8,7 @@
 gradient = ExtResource("2_bx1ne")
 
 [resource]
+render_priority = 0
 shader = ExtResource("1_foo58")
 shader_parameter/u_dither_tex = ExtResource("3_y1ati")
 shader_parameter/u_color_tex = SubResource("GradientTexture1D_o8pbf")
