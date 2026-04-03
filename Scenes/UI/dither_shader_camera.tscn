@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ccqb2wo1x62cf" path="res://Scripts/Shader/DitherShaderCamera.cs" id="1_d4t0q"]
 [ext_resource type="Material" uid="uid://c5tgw36fwqktn" path="res://src/gradient_dither_material.tres" id="2_d4t0q"]
-[ext_resource type="Material" uid="uid://b545aufoxj8f5" path="res://src/gradient_dither_material_red.tres" id="4_imtkl"]
+[ext_resource type="Shader" uid="uid://b2762dhdgam0b" path="res://src/post_process_outline.gdshader" id="3_ga3gi"]
 [ext_resource type="Environment" uid="uid://4r3u0jf2bgpv" path="res://Assets/Environment/terrain3D_level_environment.tres" id="4_nclic"]
 [ext_resource type="Shader" uid="uid://jldlqyx1qwrg" path="res://src/gemini_combine.gdshader" id="5_ddgoq"]
 [ext_resource type="Shader" uid="uid://c5bl4dm7ojxmt" path="res://src/Depth shader/depth_texture.gdshader" id="5_ga3gi"]
@@ -15,7 +15,16 @@ size = Vector2(2, 2)
 render_priority = 0
 shader = ExtResource("5_ga3gi")
 
-[sub_resource type="Environment" id="Environment_d4t0q"]
+[sub_resource type="QuadMesh" id="QuadMesh_sxqns"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nclic"]
+render_priority = 0
+shader = ExtResource("3_ga3gi")
+shader_parameter/depth_threshold = 3.0499999318264
+shader_parameter/depth_normal_threshold_scale = 6.0999998636528
+shader_parameter/normal_threshold = 8.4499998111256
+shader_parameter/edge_color = Color(0, 0, 0, 1)
+shader_parameter/scale = 1.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ga3gi"]
 viewport_path = NodePath("L1Shaded/SubViewport")
@@ -43,9 +52,6 @@ viewport_path = NodePath("L1Unshaded/SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_wfhv0"]
 viewport_path = NodePath("L2Unshaded/SubViewport")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_ifwko"]
-viewport_path = NodePath("L2Depth/L2DepthViewport")
 
 [node name="Control" type="Control" node_paths=PackedStringArray("t_a", "t_b")]
 visibility_layer = 2
@@ -76,13 +82,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 960.0
+offset_left = 1280.0
 offset_top = 180.0
-offset_right = 960.0
+offset_right = 1280.0
 offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.125, 0.125)
 
 [node name="L1DepthViewport" type="SubViewport" parent="L1Depth"]
 handle_input_locally = false
@@ -145,6 +151,10 @@ cull_mask = 1
 current = true
 size = 20.0
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="L1Unshaded/SubViewport/L1Cam"]
+mesh = SubResource("QuadMesh_sxqns")
+surface_material_override/0 = SubResource("ShaderMaterial_nclic")
+
 [node name="Label" type="Label" parent="L1Unshaded"]
 layout_mode = 2
 text = "base layer"
@@ -179,7 +189,7 @@ render_target_update_mode = 4
 [node name="L2Cam" type="Camera3D" parent="L2Unshaded/SubViewport"]
 unique_name_in_owner = true
 cull_mask = 4
-environment = SubResource("Environment_d4t0q")
+environment = ExtResource("4_nclic")
 current = true
 
 [node name="Label" type="Label" parent="L2Unshaded"]
@@ -199,18 +209,18 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 960.0
-offset_top = 540.0
+offset_top = 720.0
 offset_right = 960.0
-offset_bottom = 540.0
+offset_bottom = 720.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.125, 0.125)
 
 [node name="L2DepthViewport" type="SubViewport" parent="L2Depth"]
 transparent_bg = true
 handle_input_locally = false
 use_hdr_2d = true
-canvas_cull_mask = 4294966280
+canvas_cull_mask = 4293918728
 oversampling = false
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
@@ -299,27 +309,3 @@ material = ExtResource("7_sxqns")
 offset_right = 40.0
 offset_bottom = 40.0
 texture = SubResource("ViewportTexture_wfhv0")
-
-[node name="UNUSED_L2Depth_Filtered" type="SubViewportContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1280.0
-offset_top = 720.0
-offset_right = 1280.0
-offset_bottom = 720.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.125, 0.125)
-
-[node name="SubViewport" type="SubViewport" parent="UNUSED_L2Depth_Filtered"]
-handle_input_locally = false
-size = Vector2i(1280, 720)
-render_target_update_mode = 4
-
-[node name="TextureRect" type="TextureRect" parent="UNUSED_L2Depth_Filtered/SubViewport"]
-material = ExtResource("4_imtkl")
-offset_right = 40.0
-offset_bottom = 40.0
-texture = SubResource("ViewportTexture_ifwko")

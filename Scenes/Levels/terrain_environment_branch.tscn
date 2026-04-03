@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://qpjkxsyx2886"]
+
+[ext_resource type="Environment" uid="uid://4r3u0jf2bgpv" path="res://Assets/Environment/terrain3D_level_environment.tres" id="1_2ub6r"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_a8xo1"]
+auto_exposure_scale = 1.0
+auto_exposure_speed = 1.0
+dof_blur_near_distance = 2.32
+dof_blur_near_transition = 1738.9
+dof_blur_amount = 0.34
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = ExtResource("1_2ub6r")
+camera_attributes = SubResource("CameraAttributesPractical_a8xo1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.22733635, 0.41283453, -0.8819782, -0.1859157, 0.9074335, 0.37682843, 0.9559045, 0.078306794, 0.28304508, -2.894709, 9.408277, -1.9073486e-06)
+layers = 15
+light_color = Color(0.70784146, 0.53673595, 0.23628402, 1)
+light_energy = 4.271
+light_indirect_energy = 1.106
+light_volumetric_fog_energy = 3.587
+light_angular_distance = 1.71
+light_specular = 1.506
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_normal_bias = 2.095
+shadow_transmittance_bias = -3.634
+directional_shadow_mode = 0
+directional_shadow_fade_start = 0.622
+directional_shadow_max_distance = 112.0
+directional_shadow_pancake_size = 27.4

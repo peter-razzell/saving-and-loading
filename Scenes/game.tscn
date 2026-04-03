@@ -4,14 +4,12 @@
 [ext_resource type="Script" uid="uid://3114pps6u47e" path="res://Scripts/Game/Level/Root.cs" id="2_i6g32"]
 [ext_resource type="PackedScene" uid="uid://eeiui8jkvw0k" path="res://Scenes/Player/player.tscn" id="3_i6g32"]
 [ext_resource type="Script" uid="uid://c3uwumky7b8ft" path="res://Scripts/Game/Saving/SaverLoader.cs" id="3_wowpa"]
-[ext_resource type="Material" uid="uid://4v5gjfew0ifc" path="res://src/spatial dither/spatial_dither.tres" id="5_v158k"]
+[ext_resource type="Material" uid="uid://bq80fw2y1csbk" path="res://src/Depth outline shaders/depth_mat.tres" id="4_v158k"]
 [ext_resource type="PackedScene" uid="uid://cag5d6pgxf1ac" path="res://Scenes/UI/ui_manager.tscn" id="6_1l0tm"]
 [ext_resource type="PackedScene" uid="uid://c7so2lpubxsgm" path="res://Scenes/UI/dither_shader_camera.tscn" id="8_v158k"]
 [ext_resource type="Script" uid="uid://crqm8d6knix0d" path="res://Scripts/Utility/FPSCounter.cs" id="9_h4fw4"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_1l0tm"]
-flip_faces = true
-size = Vector2(2, 2)
+[sub_resource type="QuadMesh" id="QuadMesh_h4fw4"]
 
 [node name="Game" type="Node3D" groups=["Root"]]
 script = ExtResource("1_3dryh")
@@ -27,6 +25,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8827144, 0)
 speed = 7.0
 jumpStr = 300.0
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Root"]
+mesh = SubResource("QuadMesh_h4fw4")
+surface_material_override/0 = ExtResource("4_v158k")
+
 [node name="Utilities" type="Node" parent="."]
 
 [node name="SaverLoader" type="Node" parent="Utilities" node_paths=PackedStringArray("player")]
@@ -34,18 +36,11 @@ unique_name_in_owner = true
 script = ExtResource("3_wowpa")
 player = NodePath("../../Root/Player")
 
-[node name="ShaderMesh" type="MeshInstance3D" parent="."]
-cast_shadow = 0
-extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_1l0tm")
-surface_material_override/0 = ExtResource("5_v158k")
+[node name="dither" parent="." node_paths=PackedStringArray("origin") instance=ExtResource("8_v158k")]
+origin = NodePath("../Root/Player/Head/Camera3D")
 
 [node name="ui_manager" parent="." instance=ExtResource("6_1l0tm")]
 unique_name_in_owner = true
-
-[node name="dither_shader_brown" parent="." node_paths=PackedStringArray("origin") instance=ExtResource("8_v158k")]
-z_index = 1
-origin = NodePath("../Root/Player/Head/Camera3D")
 
 [node name="FPSCounter" type="Control" parent="." node_paths=PackedStringArray("FPSLabel")]
 layout_mode = 3

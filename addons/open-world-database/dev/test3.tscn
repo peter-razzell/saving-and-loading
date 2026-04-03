@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bblxlhqhxy5va"]
+
+[ext_resource type="PackedScene" uid="uid://dnkjea1mut88n" path="res://addons/open-world-database/dev/open_world_database.tscn" id="1_oukvl"]
+[ext_resource type="PackedScene" uid="uid://x5t1mdeki6ql" path="res://Assets/Glbs/buildings/material_assigned/cottage_01.tscn" id="2_drjb6"]
+
+[node name="Test3" type="Node3D"]
+
+[node name="OpenWorldDatabase" parent="." instance=ExtResource("1_oukvl")]
+
+[node name="cottage_01" parent="OpenWorldDatabase" instance=ExtResource("2_drjb6")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -6.617751, 0, 0)
+metadata/_owd_uid = "cottage_01"
+metadata/_owd_last_scale = Vector3(0.1, 0.1, 0.1)
+metadata/_owd_last_size = 0.67460257

@@ -115,7 +115,6 @@ public partial class Player : CharacterBody3D
         if (Input.IsActionPressed("player_jump") && IsOnFloor())
         {
            
-            AudioManager.Play("res://Assets/Sound/GDC/BluezoneCorp - Steampunk Weapon And Textures/Bluezone_BC0296_steampunk_weapon_cannon_shot_013_02.wav");
              
             vel.Y += jumpStr * (float)delta;
         }

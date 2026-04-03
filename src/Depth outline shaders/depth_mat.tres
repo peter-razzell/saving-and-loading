@@ -1,13 +1,3 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bq80fw2y1csbk"]
-
-[ext_resource type="Shader" uid="uid://nolu0klighq7" path="res://src/Depth outline shaders/depth.gdshader" id="1_n36up"]
-[ext_resource type="Material" uid="uid://4v5gjfew0ifc" path="res://src/spatial dither/spatial_dither.tres" id="1_t8n0q"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bq80fw2y1csbk"]
 
 [resource]
-render_priority = 0
-next_pass = ExtResource("1_t8n0q")
-shader = ExtResource("1_n36up")
-shader_parameter/sensitivity = 0.92999997921264
-shader_parameter/outline_thickness = 0.83999998122432
-shader_parameter/step_threshold = 1.0
-shader_parameter/outline_color = Color(0, 0, 0, 1)
