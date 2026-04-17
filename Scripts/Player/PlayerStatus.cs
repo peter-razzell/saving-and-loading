@@ -3,7 +3,8 @@
 using System.Collections.Generic;
 using Godot;
 
-public class PlayerStatus
+//A wrapper for hunger, thirst, cold, tired status trackers. 
+public partial class PlayerStatus : Node 
 {
     //every physics tick, player state is updated
 
@@ -15,85 +16,120 @@ public class PlayerStatus
 
     //every time the game is loaded, the player's state is loaded 
 
-    public delegate void OnDie();
+    [Signal]
+    public delegate void OnUpdateHungerEventHandler(float value);
+
+    [Signal]
+    public delegate void OnUpdateEnergyEventHandler(float value); 
+
+    [Signal]
+    public delegate void OnUpdateMaxHungerEventHandler(float value); 
+
+    [Signal]
+    public delegate void OnUpdateMaxEnergyEventHandler(float value);
+
+
+    [Signal]
+    public delegate void OnDieEventHandler();
 
     List<PlayerStatusModifier> playerStateModifiers = new List<PlayerStatusModifier>(); 
 
     //This is the CONSTRUCTOR - CALLED A "PRIMARY CONSTRUCTOR"??
-    float hunger , thirst , cold;
+    float thirst , cold;
 
-    // float hungerDecayRate = 0.1f, thirstDecayRate = 0.1f, coldDecayRate = 0.1f;
+    PlayerHunger hunger; 
+
+    PlayerEnergy energy; 
+
 
     float health = 100f; 
 
-    
-    public PlayerStatus()
+    //This value controls the frequency at which player state is updated 
+    double updateDelta = 1;
+
+    double currentDelta;
+
+    public override void _Ready()
     {
+        base._Ready();
+    }
+    
+    public PlayerStatus(PlayerData playerData, double updateDelta, float energyDecayRate, float energyMax)
+    {
+        this.updateDelta = updateDelta; 
+        currentDelta = updateDelta; 
+
+        hunger = new PlayerHunger(playerData); 
+        energy = new PlayerEnergy(playerData, energyMax, energyDecayRate);  
+
+        EmitSignal(SignalName.OnUpdateEnergy, energyMax);
+        EmitSignal(SignalName.OnUpdateMaxHunger, 2000f); //TODO make a max hunger! 
+
+
         //default constructor, if no values are given, set to 100. 
-        this.hunger = 100; 
+        
         this.thirst = 100; 
         this.cold = 100; 
-        playerStateModifiers.Add(new HungerModifier()); //1 hunger modifier! 
+        playerStateModifiers.Add(new PlayerStatusHungerModifier()); 
+
+
+     
+    }
+
+    public void UpdatePlayerStateDelay(double delta)
+    {
+        currentDelta -= delta; 
+
+        if(currentDelta < 0)
+        {
+            UpdatePlayerStateDelta();
+            currentDelta = updateDelta; 
+        }
     }
 
     
-    public void UpdatePlayerState()
+    public void UpdatePlayerStateDelta()
     {
-        float hungerDecayRate = 0.1f, thirstDecayRate = 0.1f, coldDecayRate = 0.1f;
+        GD.Print("updating player state"); 
+        float thirstDecayRate = 0.1f, coldDecayRate = 0.1f;
 
-        //for each modifier, apply the modifier to the relevant stat.
+        hunger.Updatehunger();
 
-        foreach(PlayerStatusModifier m in playerStateModifiers)
-        {
-            if(m is HungerModifier)
-            {
-                hungerDecayRate += m.GetAmount(); //add the modifier value to the decay rate
-            }
-            //  else if(m is ThirstModifier)
+        energy.UpdateEnergy(); 
+        
+        //Might not do it like this
+        // foreach(PlayerStatusModifier m in playerStateModifiers)
+        // {
+            // if(m is PlayerStatusHungerModifier)
             // {
-            //     thirstDecayRate += m.GetAmount(); 
-            // }
-            //  else if(m is ColdModifier)
-            // {
-            //     coldDecayRate += m.GetAmount(); 
-            // }
-        }
+            //     hungerDecayRate += m.GetAmount(); //add the modifier value to the decay rate
+            // } 
+        // }
 
-        hunger -= hungerDecayRate;
-        thirst -= thirstDecayRate;
-        cold -= coldDecayRate;
-              
-        GD.Print("hunger = "+hunger+", thirst = "+thirst+", cold = " + cold, "health = " + health); 
-
-        if(hunger < 0)
-        {            
-            hunger = 0; 
-
-            health -= 0.10f; //if hunger is 0, health decreases.
-        }
+        thirst -= thirstDecayRate; //! Get rid of and replace with objects for each need! 
+        cold -= coldDecayRate; //! Get rid of and replace with objects for each need! 
        
-        if (thirst < 0)
-        {            
+        //! Get rid of and replace with objects for each need! 
+        if (thirst < 0){            
             thirst = 0; 
 
             health -= 0.1f; //if thirst is 0, health decreases.
         }
        
-        if (cold < 0)
-        {            
+        if (cold < 0){            
            cold = 0; 
 
            health -= 0.1f; //if cold is 0, health decreases.
         }
-       
 
-        if (health < 0)
-        {
+        if (health < 0){
             health = 0; 
-            OnDie die = new OnDie(OnDeath); //call the OnDie event, which can be subscribed to by other classes (e.g. PlayerData) to handle player death. 
+            OnDieEventHandler die = new OnDieEventHandler(OnDeath); //call the OnDie event, which can be subscribed to by other classes (e.g. PlayerData) to handle player death. 
             die.Invoke();
-            //player dies. 
-        }
+        }  
+
+        EmitSignal(SignalName.OnUpdateHunger, hunger.GetCalories());     
+        EmitSignal(SignalName.OnUpdateEnergy, energy.GetEnergy());   
        
     }
 
@@ -101,6 +137,12 @@ public class PlayerStatus
     {
         GD.Print("Player has died. Game over. dELEGATE WORKS!");
         //call the OnDie event, which can be subscribed to by other classes (e.g. PlayerData) to handle player death. 
+    }
+
+    public void EatFood(float calories)
+    {
+        hunger.EatFood(calories); 
+        
     }
 
 

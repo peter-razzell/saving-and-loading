@@ -1,41 +1,18 @@
-[gd_scene load_steps=19 format=3 uid="uid://bwrimg3cx7ghu"]
+[gd_scene load_steps=14 format=3 uid="uid://bwrimg3cx7ghu"]
 
 [ext_resource type="Script" uid="uid://c6wyjsoxclcad" path="res://Scripts/Game/Level/Level.cs" id="1_1ih7c"]
-[ext_resource type="Shader" uid="uid://ce7h5sfgbi5ya" path="res://src/cel-shader-base.gdshader" id="1_kj5ij"]
 [ext_resource type="PackedScene" uid="uid://dy78f2m5eekcx" path="res://Scenes/Objects/Level Transitions/level_exit.tscn" id="2_2iktx"]
 [ext_resource type="Environment" uid="uid://b8sqxfqojfg7p" path="res://Assets/Environment/level_0_environment.tres" id="3_456kb"]
 [ext_resource type="PackedScene" uid="uid://cnbeq2vhfu18n" path="res://Scenes/Objects/Static Objects/tintagel_01.tscn" id="6_kj5ij"]
 [ext_resource type="PackedScene" uid="uid://il4dc7xg853s" path="res://Scenes/Objects/Static Objects/decals/decal_window.tscn" id="7_hvs5j"]
 [ext_resource type="PackedScene" uid="uid://dej7c77c23tmk" path="res://Scenes/Objects/Level Transitions/level_entrance.tscn" id="8_6kmi7"]
 [ext_resource type="PackedScene" uid="uid://cbg0kmlsy0v7m" path="res://Assets/Glbs/buildings/cottage_01.glb" id="12_35opv"]
-[ext_resource type="PackedScene" uid="uid://x5t1mdeki6ql" path="res://Assets/Glbs/buildings/material_assigned/cottage_01.tscn" id="16_sahnr"]
 [ext_resource type="PackedScene" uid="uid://dkw4vagg0vi5v" path="res://Scenes/Actors/herne_enemy.tscn" id="18_bowc5"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_58lhs"]
 size = Vector2(1000, 1000)
 
-[sub_resource type="Gradient" id="Gradient_1ih7c"]
-colors = PackedColorArray(0.8362425, 0.67805094, 0, 1, 0.79607844, 1, 0.63529414, 0.3137255)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_6kmi7"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_i4wmn"]
-width = 256
-height = 256
-noise = SubResource("FastNoiseLite_6kmi7")
-color_ramp = SubResource("Gradient_1ih7c")
-seamless = true
-seamless_blend_skirt = 0.216
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6kmi7"]
-render_priority = 0
-shader = ExtResource("1_kj5ij")
-shader_parameter/color = Color(0.4090847, 0.63988954, 3.85046e-07, 1)
-shader_parameter/base_texture = SubResource("NoiseTexture2D_i4wmn")
-shader_parameter/specular = Color(0, 0, 0, 0.5019608)
-shader_parameter/fresnel = Color(0, 0, 0, 0.3019608)
-shader_parameter/uv_scale = Vector2(20, 20)
-shader_parameter/uv_offset = Vector2(0, 0)
 
 [sub_resource type="HeightMapShape3D" id="HeightMapShape3D_ic72l"]
 map_width = 100
@@ -136,9 +113,6 @@ transform = Transform3D(-1.9318516, 0, 0.517638, 0, 2, 0, -0.517638, 0, -1.93185
 
 [node name="cottage_04" parent="." instance=ExtResource("12_35opv")]
 transform = Transform3D(-1.7320508, 0, 0.99999994, 0, 2, 0, -0.99999994, 0, -1.7320508, 43.381905, -0.7880113, -11.991907)
-
-[node name="cottage_05" parent="." instance=ExtResource("16_sahnr")]
-transform = Transform3D(0.88674474, 0, 0.4622594, 0, 1, 0, -0.4622594, 0, 0.88674474, -8.872287, 0, 0)
 
 [node name="herne_enemy" parent="." instance=ExtResource("18_bowc5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.421701, 2.8141336, 1.8352697)

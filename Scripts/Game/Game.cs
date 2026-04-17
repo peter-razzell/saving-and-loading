@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 public partial class Game : Node3D
 {
+	public static Game Instance {get; private set;}
+
+
 	[Signal]
 	public delegate void GameLoadedEventHandler(); 
 
@@ -15,7 +18,10 @@ public partial class Game : Node3D
 
 	public UiManager uiManager;
 
-	public Root root;  //root node for the actual scene
+	public Root root;  //root node for the actual scene	
+	
+	public double Time {get; set;} //time since the start of the game. 
+
 
 	public override void _Ready()
 	{
@@ -37,8 +43,18 @@ public partial class Game : Node3D
 
 		EmitSignal(SignalName.GameLoaded);  
 
+		Instance = this; 
+
 		base._Ready();
 	}
+
+    public override void _Process(double delta)
+    {
+		Time += delta; 
+
+        base._Process(delta);
+    }
+
 
 	//TODO Input manager? 
 	public override void _Input(InputEvent @event)

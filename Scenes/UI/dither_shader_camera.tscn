@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://ccqb2wo1x62cf" path="res://Scripts/Shader/DitherShaderCamera.cs" id="1_d4t0q"]
 [ext_resource type="Material" uid="uid://c5tgw36fwqktn" path="res://src/gradient_dither_material.tres" id="2_d4t0q"]
 [ext_resource type="Shader" uid="uid://b2762dhdgam0b" path="res://src/post_process_outline.gdshader" id="3_ga3gi"]
+[ext_resource type="Shader" uid="uid://c0e02iov2g11g" path="res://src/depth/depth.gdshader" id="3_nclic"]
 [ext_resource type="Environment" uid="uid://4r3u0jf2bgpv" path="res://Assets/Environment/terrain3D_level_environment.tres" id="4_nclic"]
 [ext_resource type="Shader" uid="uid://jldlqyx1qwrg" path="res://src/gemini_combine.gdshader" id="5_ddgoq"]
-[ext_resource type="Shader" uid="uid://c5bl4dm7ojxmt" path="res://src/Depth shader/depth_texture.gdshader" id="5_ga3gi"]
 [ext_resource type="Material" uid="uid://bvwdf6cwxyyyu" path="res://src/gradient_dither_material_green_yellow.tres" id="7_sxqns"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_nclic"]
@@ -13,7 +13,7 @@ size = Vector2(2, 2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sxqns"]
 render_priority = 0
-shader = ExtResource("5_ga3gi")
+shader = ExtResource("3_nclic")
 
 [sub_resource type="QuadMesh" id="QuadMesh_sxqns"]
 
@@ -45,7 +45,7 @@ shader_parameter/v1col = SubResource("ViewportTexture_ga3gi")
 shader_parameter/v1depth = SubResource("ViewportTexture_ddgoq")
 shader_parameter/v2col = SubResource("ViewportTexture_nclic")
 shader_parameter/v2depth = SubResource("ViewportTexture_sxqns")
-shader_parameter/pixel_size = 2
+shader_parameter/pixel_size = 3
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_52mw3"]
 viewport_path = NodePath("L1Unshaded/SubViewport")
@@ -139,7 +139,6 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="L1Unshaded"]
 handle_input_locally = false
 screen_space_aa = 2
-use_taa = true
 canvas_cull_mask = 4294966274
 size = Vector2i(1280, 720)
 size_2d_override_stretch = true
@@ -259,6 +258,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="Combination"]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 38.0
@@ -277,6 +277,7 @@ scale = Vector2(0.125, 0.125)
 
 [node name="SubViewport" type="SubViewport" parent="L1Shaded"]
 handle_input_locally = false
+scaling_3d_scale = 0.25
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
@@ -301,6 +302,7 @@ scale = Vector2(0.125, 0.125)
 
 [node name="SubViewport" type="SubViewport" parent="L2Shaded"]
 handle_input_locally = false
+scaling_3d_scale = 0.25
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 

@@ -20,10 +20,12 @@ public partial class AudioManager : Node
 
     static Array<AudioStreamPlayer> activePlayers = new Array<AudioStreamPlayer>();
 
-
-    static AudioStreamPlayer footstepPlayer = new AudioStreamPlayer(); 
+    static AudioStreamPlayer footstepPlayer = new AudioStreamPlayer(); //Playerfootsteps are different... 
 
     static Array<string> queue = new Array<string>();
+
+    static AudioStream footstepGrass = (AudioStream)ResourceLoader.Load("uid://dn4d5c84v7nh0");
+    static AudioStream footstepRock = (AudioStream)ResourceLoader.Load("uid://dbwo3s2wk4m1q"); 
 
 
     public override void _Ready()
@@ -44,9 +46,9 @@ public partial class AudioManager : Node
 
             audioPlayer.Bus = bus; //I guess its an important parameter for audio players
         }
-        AudioStream footstep = (AudioStream)ResourceLoader.Load("uid://dn4d5c84v7nh0");
+   
 
-        footstepPlayer.Stream = footstep;
+        footstepPlayer.Stream = footstepGrass;
 
 
     }
@@ -108,9 +110,19 @@ public partial class AudioManager : Node
     }
     
     //Plays player footsteps - separate from other level audio
-    public static void PlayPlayerSteps()
+    public static void PlayPlayerSteps(FootstepEnum surfaceType)
     {
-        footstepPlayer.Play();   
+        if(surfaceType == FootstepEnum.rock)
+        {
+            footstepPlayer.Stream = footstepGrass; 
+            footstepPlayer.Play();   
+        }
+        else
+        {
+            footstepPlayer.Stream = footstepRock;
+            footstepPlayer.Play(); 
+        }
+
     }
 
     public override void _PhysicsProcess(double delta)

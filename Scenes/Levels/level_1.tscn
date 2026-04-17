@@ -1,6 +1,5 @@
-[gd_scene load_steps=14 format=3 uid="uid://bjtjpvwtpxmgr"]
+[gd_scene load_steps=13 format=3 uid="uid://bjtjpvwtpxmgr"]
 
-[ext_resource type="Shader" uid="uid://ce7h5sfgbi5ya" path="res://src/cel-shader-base.gdshader" id="1_iixi8"]
 [ext_resource type="PackedScene" uid="uid://dax1rcfi7e1tf" path="res://Scenes/Objects/Pickups/pickup.tscn" id="1_tlcug"]
 [ext_resource type="Script" uid="uid://c6wyjsoxclcad" path="res://Scripts/Game/Level/Level.cs" id="1_xgxfi"]
 [ext_resource type="PackedScene" uid="uid://dy78f2m5eekcx" path="res://Scenes/Objects/Level Transitions/level_exit.tscn" id="2_4dpyx"]
@@ -9,13 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://dej7c77c23tmk" path="res://Scenes/Objects/Level Transitions/level_entrance.tscn" id="7_5f3p6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cyadu"]
-render_priority = 0
-shader = ExtResource("1_iixi8")
-shader_parameter/color = Color(0, 0, 0, 1)
-shader_parameter/specular = Color(0, 0, 0, 0.5019608)
-shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
-shader_parameter/uv_scale = Vector2(1, 1)
-shader_parameter/uv_offset = Vector2(0, 0)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_58lhs"]
 size = Vector2(100, 100)

@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnbeq2vhfu18n"]
+[gd_scene load_steps=6 format=3 uid="uid://cnbeq2vhfu18n"]
 
 [ext_resource type="PackedScene" uid="uid://db0df3n0nrisr" path="res://Assets/Glbs/tintagel_01.glb" id="1_0h148"]
 [ext_resource type="PackedScene" uid="uid://dy78f2m5eekcx" path="res://Scenes/Objects/Level Transitions/level_exit.tscn" id="2_gls23"]
+[ext_resource type="Material" uid="uid://b8gslf7qglyy7" path="res://src/gradient_dither_material_blue_yellow.tres" id="2_r3xc0"]
+[ext_resource type="Material" uid="uid://c5tgw36fwqktn" path="res://src/gradient_dither_material.tres" id="3_cunct"]
 [ext_resource type="PackedScene" uid="uid://il4dc7xg853s" path="res://Scenes/Objects/Static Objects/decals/decal_window.tscn" id="3_gls23"]
 
 [node name="tintagel_01" instance=ExtResource("1_0h148")]
@@ -9,15 +11,19 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="Walls" parent="." index="0"]
 layers = 3
+material_overlay = ExtResource("2_r3xc0")
 
 [node name="Turret" parent="." index="1"]
 layers = 3
+material_overlay = ExtResource("2_r3xc0")
 
 [node name="Bulwarks" parent="." index="2"]
 layers = 3
+material_overlay = ExtResource("2_r3xc0")
 
 [node name="Chimney" parent="." index="3"]
 layers = 3
+material_overlay = ExtResource("3_cunct")
 
 [node name="LevelExit" parent="." index="4" instance=ExtResource("2_gls23")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.4480198, 0.3141777, 0.24790305)
@@ -25,9 +31,11 @@ nextLevelPath = "res://Scenes/Objects/Static Objects/tintagel_interior.tscn"
 
 [node name="Walls_001" parent="." index="5"]
 layers = 3
+material_overlay = ExtResource("2_r3xc0")
 
 [node name="Chimney_001" parent="." index="6"]
 layers = 3
+material_overlay = ExtResource("2_r3xc0")
 
 [node name="Decal" parent="." index="7" instance=ExtResource("3_gls23")]
 transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 2.7687235, 2.3204215, 6.0456805)

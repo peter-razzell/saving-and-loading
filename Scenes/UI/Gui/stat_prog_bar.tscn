@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://jdsqg47rf05o"]
+
+[ext_resource type="Texture2D" uid="uid://cihk3jieqlwxx" path="res://Assets/UI/Textures/UI_Roundel_background.png" id="1_1r62h"]
+[ext_resource type="Texture2D" uid="uid://cc7pfnulon5q7" path="res://Assets/UI/Textures/UI_Roundel_progress.png" id="2_mbcw1"]
+
+[node name="Control" type="Control"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 128.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+value = 40.0
+fill_mode = 4
+radial_initial_angle = 169.1
+radial_fill_degrees = 355.2
+texture_under = ExtResource("1_1r62h")
+texture_progress = ExtResource("2_mbcw1")
+tint_under = Color(0.6392249, 0.6628783, 0.6332644, 1)

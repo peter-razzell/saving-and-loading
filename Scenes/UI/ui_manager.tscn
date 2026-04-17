@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cag5d6pgxf1ac"]
+[gd_scene load_steps=5 format=3 uid="uid://cag5d6pgxf1ac"]
 
 [ext_resource type="Script" uid="uid://dmotoe1vv7m6x" path="res://Scripts/UI/UiManager.cs" id="1_huwks"]
 [ext_resource type="PackedScene" uid="uid://co0vek2aqsf3j" path="res://Scenes/UI/ui_save.tscn" id="1_x5yhv"]
 [ext_resource type="PackedScene" uid="uid://2xuw8dij32kj" path="res://Scenes/UI/ui_inventory.tscn" id="3_1bij0"]
+[ext_resource type="PackedScene" uid="uid://c01kajajogf54" path="res://Scenes/UI/Gui/gameplay_ui.tscn" id="4_88ycu"]
 
 [node name="ui_manager" type="Control"]
 layout_mode = 3
@@ -17,4 +18,7 @@ script = ExtResource("1_huwks")
 layout_mode = 1
 
 [node name="ui_inventory" parent="." instance=ExtResource("3_1bij0")]
+layout_mode = 1
+
+[node name="ui_gameplay" parent="." instance=ExtResource("4_88ycu")]
 layout_mode = 1

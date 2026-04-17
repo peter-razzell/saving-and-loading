@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://cgo5hb7u87fc5"]
+
+[ext_resource type="Script" uid="uid://cvn5lttglqaat" path="res://Scripts/Interaction/InteractablePickup.cs" id="1_jwq3j"]
+[ext_resource type="Script" uid="uid://dl3p1k0j2xiev" path="res://Scripts/Interaction/Interactable.cs" id="2_mxvmk"]
+[ext_resource type="PackedScene" uid="uid://dn65isfpu6ks6" path="res://Assets/Glbs/Pickups/bread_01.glb" id="3_3wscr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c3lqd"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.5921569, 0, 0.5921569, 1)
+emission_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vpok5"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 1, 1, 1)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_em2n2"]
+size = Vector3(2, 2, 2)
+
+[node name="Bread01Pickup" type="Node3D" node_paths=PackedStringArray("collision", "mesh") groups=["Persist"]]
+script = ExtResource("1_jwq3j")
+inventoryID = "uid://bbatxv5gcrmmr"
+pickupID = "uid://cgo5hb7u87fc5"
+collision = NodePath("Interactable")
+mesh = NodePath("bread_01/bread")
+focusMat = SubResource("StandardMaterial3D_c3lqd")
+interactedMat = SubResource("StandardMaterial3D_vpok5")
+disappears = true
+
+[node name="Interactable" type="Area3D" parent="." node_paths=PackedStringArray("pickup")]
+script = ExtResource("2_mxvmk")
+pickup = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.033691406, 0)
+shape = SubResource("BoxShape3D_em2n2")
+
+[node name="bread_01" parent="." instance=ExtResource("3_3wscr")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[editable path="bread_01"]

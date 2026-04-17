@@ -13,8 +13,9 @@ albedo_color = Color(1, 0.20784314, 0.3137255, 0.25490198)
 [sub_resource type="BoxShape3D" id="BoxShape3D_37rda"]
 size = Vector3(2, 2, 2)
 
-[node name="LevelExit" type="Node3D" groups=["LevelExit"]]
+[node name="LevelExit" type="Node3D" node_paths=PackedStringArray("entranceMarker") groups=["LevelExit"]]
 script = ExtResource("1_60bqb")
+entranceMarker = NodePath("LevelEntrance")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_37rda")

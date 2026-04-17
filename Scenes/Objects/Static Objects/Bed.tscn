@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0adqgewntsab"]
+
+[ext_resource type="Texture2D" uid="uid://b01niox70prtn" path="res://Assets/Glbs/quick_pine_BrushStroke_Variant_B.png" id="1_y71n8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_up526"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w4cge"]
+albedo_texture = ExtResource("1_y71n8")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y71n8"]
+
+[node name="Bed" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 1.5, 0, 0, 0)
+layers = 12
+mesh = SubResource("BoxMesh_up526")
+surface_material_override/0 = SubResource("StandardMaterial3D_w4cge")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_y71n8")

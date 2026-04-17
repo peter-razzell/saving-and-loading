@@ -43,7 +43,7 @@ public partial class Actor : CharacterBody3D
 
 		
 
-		if(GlobalPosition.DistanceTo(target.GlobalPosition) > 5  ) //Move the actor towards the player if distance to player is > 5 
+		if(GlobalPosition.DistanceTo(target.GlobalPosition) > 20 ) //Move the actor towards the player if distance to player is > 5 
 		{
 			navAgent.TargetPosition = target.GlobalPosition; //Set target to the player's location 
 
@@ -84,6 +84,7 @@ public partial class Actor : CharacterBody3D
 		else
 		{
 			LookAt(new Vector3(target.GlobalPosition.X, GlobalPosition.Y, target.GlobalPosition.Z), Vector3.Up);
+			velocity = new Vector3(0,0,0); 
 			animationPlayer.Play("stand");
 		}
 

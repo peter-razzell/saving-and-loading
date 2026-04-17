@@ -63,6 +63,25 @@ public partial class UiInventory : Control
         {
             UiInventoryElement uiInvElement = (UiInventoryElement) element.Instantiate();
 
+            if (!invObject.invInteractable)
+            {
+                uiInvElement.interactButton.Hide(); 
+                
+            }
+            else
+            {
+                uiInvElement.interactButton.Text = invObject.interactText; 
+
+                //This casting is required as otherwise the parent class OnObjectInteract method is called, rather 
+                //than the food class method. I prefer food!
+                if(invObject is FoodInventoryObject)
+                {
+                    FoodInventoryObject foodObject = (FoodInventoryObject)invObject; 
+                    uiInvElement.OnItemInventoryInteract += foodObject.OnObjectInteract; 
+                }
+
+            }
+
             uiInvElement.itemName.Text = invObject.InvName;  
 
             uiInvElement.itemDescription.Text = invObject.Description;
@@ -93,7 +112,6 @@ public partial class UiInventory : Control
     void DropButtonPressed(string pickupID)
     {
         //remove from player data inventory. 
-
         EmitSignal(SignalName.OnInventoryDropButtonPressed, pickupID);
    
     }

@@ -6,7 +6,7 @@ public partial class Interactable : Area3D
 {
 
 	[Export]
-	public InteractablePickup pickup; 
+	public InteractableObject interactableObject; 
 
 	[Signal]
 	public delegate void OnInteractedEventHandler(Interactor interactor);

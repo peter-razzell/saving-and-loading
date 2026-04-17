@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbatxv5gcrmmr"]
+
+[ext_resource type="Script" uid="uid://foqh1k2em1qn" path="res://Scripts/Interaction/InventoryObjects/FoodInventoryObject.cs" id="1_ndyq6"]
+
+[node name="DefaultInventoryItem" type="Node"]
+script = ExtResource("1_ndyq6")
+InvName = "Misshapen Loaf"
+Description = "Looks a bit like you..."
+invInteractable = true
+removeOnInteract = true
+interactText = "Eat"

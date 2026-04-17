@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://ds5d17pxjxeb"]
+
+[ext_resource type="Shader" uid="uid://c4qr2xjcoq0ow" path="res://src/spatial_gradient_dither.gdshader" id="1_4pgxd"]
+[ext_resource type="Texture2D" uid="uid://cforritefvrmr" path="res://Assets/Shader/green_gradient.tres" id="2_5484u"]
+[ext_resource type="Texture2D" uid="uid://cfheexk5qclpt" path="res://Assets/Shader/dither_animated.tres" id="3_rxis7"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_4pgxd")
+shader_parameter/u_dither_tex = ExtResource("3_rxis7")
+shader_parameter/u_color_tex = ExtResource("2_5484u")
+shader_parameter/u_bit_depth = 16
+shader_parameter/u_contrast = 1.0
+shader_parameter/u_offset = -0.005
+shader_parameter/u_dither_size = 2

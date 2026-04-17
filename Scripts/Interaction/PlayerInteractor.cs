@@ -6,7 +6,7 @@ public partial class PlayerInteractor : Interactor
     Interactable cached;
 
     [Signal]
-    public delegate void OnAddToPlayerInventoryEventHandler(Interactable interactable); 
+    public delegate void OnAddToPlayerInventoryEventHandler(InteractablePickup pickup); 
 
     //Could be made more efficient - e.g. don't check every physics tick
     public override void _PhysicsProcess(double delta)
@@ -37,12 +37,16 @@ public partial class PlayerInteractor : Interactor
         {
             if (!interactablePickup.interacted)
             {
-                EmitSignal(SignalName.OnAddToPlayerInventory, interactable); 
+                EmitSignal(SignalName.OnAddToPlayerInventory, interactablePickup); 
             }
         }
         else if(interactable.GetParent() is LevelExit)
         {
             // No logic to handle, level exiting, saving and loading etc is handled in LevelExit. 
+        }
+        else if(interactable.GetParent() is InteractableObject interactableObject)
+        {
+            GD.Print("interacting with a non-pickup object, for example, a bed!"); 
         }
 
         base.Interact(interactable); 

@@ -40,6 +40,10 @@ enabled=PackedStringArray("res://addons/open-world-database/plugin.cfg", "res://
 
 folder_colors={
 "res://Assets/": "orange",
+"res://Assets/Environment/": "yellow",
+"res://Assets/Glbs/": "green",
+"res://Assets/Shader/": "teal",
+"res://Assets/UI/": "pink",
 "res://Scenes/": "green",
 "res://Scripts/": "teal",
 "res://addons/": "red",
@@ -57,6 +61,7 @@ DoNotDestroyOnLoad=""
 LevelEntrance="spawn point for level"
 LevelExit=""
 Player=""
+Terrain3D="Terrain3D Group - used for getting access to the terrain easily"
 
 [gui]
 

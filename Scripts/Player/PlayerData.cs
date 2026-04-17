@@ -4,60 +4,110 @@ using Godot;
 using Godot.Collections;
 
 
+
+/// <summary>
+/// This class is a sort of weird collection which contains:
+/// 
+///  - The player's inventory as an array of objects
+/// 
+///  - The player's current status / health etc.
+/// 
+///  - The player interactor - which is used to interacting with objects in the world. 
+/// 
+/// Having them all together connected by this class is useful as the systems interact with each other a lot. 
+/// 
+/// Also, as this is all the player's "data", it can be loaded here when loading the game.
+/// 
+/// </summary>
 public partial class PlayerData : Node3D
 {
     [Export]
+    Player player; //Reference needed for multiple places in player status. E.g. getting movement data to calculate calories expended.
+    
+    [Export]
     PlayerInteractor playerInteractor;
 
-    PlayerStatus playerState; 
+    [Export]
+    //Putting this here so it's accessible and can be changed. 
+    double playerStatusUpdateFreq;
+
+    public PlayerStatus playerState; 
 
     Array<InventoryObject> inv = []; 
 
-    public event PlayerStatus.OnDie OnDeath; //event that other classes can subscribe to, to be notified when the player dies.
+    public event PlayerStatus.OnDieEventHandler OnDeath; //Event that other classes can subscribe to, to be notified when the player dies.
 
-    
+    [Export]
+    float energyDecayRate = 0.1f, energyMax = 100f; 
+
+   
 
     public override void _Ready()
     {
-        playerState = new PlayerStatus(); //this needs to be loaded and saved . 
+        playerState = new PlayerStatus(this, playerStatusUpdateFreq, energyDecayRate, energyMax); //TODO this needs to be loaded and saved
 
-        OnDeath += OnPlayerDeath; //subscribe to the OnDeath event, so that the OnPlayerDeath method will be called when the player dies.
+        OnDeath += OnPlayerDeath; 
 
         playerInteractor.OnAddToPlayerInventory += AddToInv;
 
         base._Ready();
     }
-
-    //Update player state every phyiscs process - I don't want a rabbit hole of everything needlessly being a node
-    //the buck stops here.
-
-    double updateFrequency = 1; //update every 1000 ms 
+    
+    double updateFrequency = 1; //update every 1000 ms - I am putting single use variables above the methods which require them. 
     public override void _PhysicsProcess(double delta)
     {
-        updateFrequency -= delta; 
-        if(updateFrequency < 0)
+        if(playerState != null)
         {
-            playerState.UpdatePlayerState();
-            // GD.Print("updating player state");
-            updateFrequency = 1;
+            playerState.UpdatePlayerStateDelay(delta);
         }
+        else
+        {
+            playerState = new PlayerStatus(this, playerStatusUpdateFreq, energyDecayRate, energyMax); 
+        }
+          
+    
     }
-    public void AddToInv(Interactable intItem)
+    public void AddToInv(InteractablePickup pickup)
     {
-        GD.Print("Adding item to player's inventory", intItem.Name);
+        // GD.Print("Adding item to player's inventory", intItem.Name);
 
-        InventoryObject invItem = InventoryObjectManager.LookUpInventoryItem(intItem.pickup.inventoryID, intItem.pickup.pickupID); 
+        try
+        {
+            // InteractableObject obj = intItem.interactableObject; 
+            // InteractablePickup pickup = (InteractablePickup)obj; 
+            // !Reference to Class outside of player folder. 
+            InventoryObject invItem = InventoryObjectManager.LookUpInventoryItem(pickup.inventoryID, pickup.pickupID); 
 
-        inv.Add(invItem);
+            // Subscribe to the interact signal of interactable inventory items
+            if (invItem.invInteractable)
+            {
+                if(invItem is FoodInventoryObject foodInvItem)
+                {
+                    foodInvItem.OnFoodEaten += playerState.EatFood; 
+                    foodInvItem.OnInteractDisappear += RemoveFromInv; 
+                }
+            }
+
+            inv.Add(invItem);
+            
+        }
+        catch
+        {
+            GD.Print("This method shouldn't be running, interactable item that is not a pickup is trying to add itself to player's inventory: ", pickup.Name);
+
+        }
+
     }
 
-    public bool RemoveFromInv(string ItemID)
+    public bool RemoveFromInv(string pickupID)
     {
+        GD.Print("remove from inv called, pikcup id = ", pickupID); 
+
         foreach(InventoryObject item in inv)
         {
-            GD.Print(item.pickupID, ItemID); 
-            if(item.pickupID == ItemID)
+            if(item.pickupID == pickupID)
             {
+                GD.Print("removing item"); 
                 inv.Remove(item); 
                 return true; 
             }
@@ -91,10 +141,14 @@ public partial class PlayerData : Node3D
         }
     }
 
+    //TODO - make player death
     public void OnPlayerDeath()
-        {
-            GD.Print("DEATH CATASTOPHE: UH OH, THE PLAYER HAS DIED. HANDLE DEATH IN THIS METHOD.");
-            //handle player death (e.g. show game over screen, reset game, etc.)
-        }
+    {
+        //handle player death (e.g. show game over screen, reset game, etc.)
+    }
 
+    public Player GetPlayer()
+    {
+        return player; 
+    }
 }

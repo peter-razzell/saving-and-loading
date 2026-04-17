@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://cu3vi4710r4dj"]
+
+[ext_resource type="Script" uid="uid://cvn5lttglqaat" path="res://Scripts/Interaction/InteractablePickup.cs" id="1_thpha"]
+[ext_resource type="Script" uid="uid://dl3p1k0j2xiev" path="res://Scripts/Interaction/Interactable.cs" id="2_3yrro"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c3lqd"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.5921569, 0, 0.5921569, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vpok5"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 1, 1, 1)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_em2n2"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_thpha"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3yrro"]
+albedo_color = Color(0, 0.6558109, 0.31289342, 1)
+
+[node name="Pickup" type="Node3D" groups=["Persist"]]
+script = ExtResource("1_thpha")
+inventoryID = "REPLACE"
+pickupID = "REPLACE"
+focusMat = SubResource("StandardMaterial3D_c3lqd")
+interactedMat = SubResource("StandardMaterial3D_vpok5")
+
+[node name="Interactable" type="Area3D" parent="." node_paths=PackedStringArray("pickup")]
+script = ExtResource("2_3yrro")
+pickup = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.033691406, 0)
+shape = SubResource("BoxShape3D_em2n2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_thpha")
+surface_material_override/0 = SubResource("StandardMaterial3D_3yrro")

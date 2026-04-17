@@ -1,0 +1,138 @@
+Date : 2026-04-16 14:04:45
+Directory : c:\Users\Lenovo\Local Game Development\saving-and-loading
+Total : 77 files,  79494 codes, 236 comments, 1470 blanks, all 81200 lines
+
+Languages
++-------------------------+------------+------------+------------+------------+------------+
+| language                | files      | code       | comment    | blank      | total      |
++-------------------------+------------+------------+------------+------------+------------+
+| WebAssembly Text Format |          2 |     58,323 |          0 |        531 |     58,854 |
+| JSON                    |          1 |     16,865 |          0 |          0 |     16,865 |
+| XML                     |         25 |      2,395 |         13 |         52 |      2,460 |
+| C#                      |         46 |      1,869 |        223 |        860 |      2,952 |
+| Markdown                |          1 |         30 |          0 |         23 |         53 |
+| Properties              |          2 |         12 |          0 |          4 |         16 |
++-------------------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                     | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                        |         77 |     79,494 |        236 |      1,470 |     81,200 |
+| . (Files)                                                                                                                |          2 |          8 |          0 |          1 |          9 |
+| Scenes                                                                                                                   |          1 |          7 |          2 |          2 |         11 |
+| Scenes\Objects                                                                                                           |          1 |          7 |          2 |          2 |         11 |
+| Scenes\Objects\Level Transitions                                                                                         |          1 |          7 |          2 |          2 |         11 |
+| Scripts                                                                                                                  |         45 |      1,862 |        221 |        858 |      2,941 |
+| Scripts\Actors                                                                                                           |          1 |         58 |          5 |         34 |         97 |
+| Scripts\Audio                                                                                                            |          1 |         97 |          5 |         28 |        130 |
+| Scripts\Bus                                                                                                              |          1 |          0 |          2 |          2 |          4 |
+| Scripts\Environment                                                                                                      |          1 |         14 |         10 |         19 |         43 |
+| Scripts\Game                                                                                                             |          9 |        465 |         68 |        191 |        724 |
+| Scripts\Game (Files)                                                                                                     |          2 |         90 |         11 |         45 |        146 |
+| Scripts\Game\Level                                                                                                       |          2 |        144 |         20 |         61 |        225 |
+| Scripts\Game\Saving                                                                                                      |          5 |        231 |         37 |         85 |        353 |
+| Scripts\Game\Saving (Files)                                                                                              |          3 |        216 |         36 |         80 |        332 |
+| Scripts\Game\Saving\SavedData                                                                                            |          2 |         15 |          1 |          5 |         21 |
+| Scripts\Interaction                                                                                                      |         12 |        387 |         45 |        169 |        601 |
+| Scripts\Interaction (Files)                                                                                              |          6 |        249 |         30 |         97 |        376 |
+| Scripts\Interaction\InventoryObjects                                                                                     |          5 |         92 |         14 |         50 |        156 |
+| Scripts\Interaction\LevelExit                                                                                            |          1 |         46 |          1 |         22 |         69 |
+| Scripts\Player                                                                                                           |          9 |        418 |         70 |        210 |        698 |
+| Scripts\Player (Files)                                                                                                   |          7 |        394 |         62 |        191 |        647 |
+| Scripts\Player\StatusModifiers                                                                                           |          2 |         24 |          8 |         19 |         51 |
+| Scripts\Shader                                                                                                           |          3 |         56 |          3 |         29 |         88 |
+| Scripts\UI                                                                                                               |          7 |        356 |         13 |        166 |        535 |
+| Scripts\Utility                                                                                                          |          1 |         11 |          0 |         10 |         21 |
+| addons                                                                                                                   |         28 |     60,752 |         13 |        609 |     61,374 |
+| addons\open-world-database                                                                                               |          4 |        516 |          3 |          8 |        527 |
+| addons\terrain_3d                                                                                                        |         24 |     60,236 |         10 |        601 |     60,847 |
+| addons\terrain_3d (Files)                                                                                                |          2 |         36 |          0 |         25 |         61 |
+| addons\terrain_3d\bin                                                                                                    |          2 |     58,323 |          0 |        531 |     58,854 |
+| addons\terrain_3d\icons                                                                                                  |         20 |      1,877 |         10 |         45 |      1,932 |
+| out                                                                                                                      |          1 |     16,865 |          0 |          0 |     16,865 |
++--------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------------------------------------+-------------------------+------------+------------+------------+------------+
+| filename                                                                                                                 | language                | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------------------+-------------------------+------------+------------+------------+------------+
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\SavingAndLoading.csproj                                        | XML                     |          7 |          0 |          0 |          7 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scenes\Objects\Level Transitions\LevelEntrance.cs              | C#                      |          7 |          2 |          2 |         11 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Actors\Actor.cs                                        | C#                      |         58 |          5 |         34 |         97 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Audio\AudioManager.cs                                  | C#                      |         97 |          5 |         28 |        130 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Bus\SignalBus.cs                                       | C#                      |          0 |          2 |          2 |          4 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Environment\EnvironmentManager.cs                      | C#                      |         14 |         10 |         19 |         43 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Game\Game.cs                                           | C#                      |         73 |          5 |         33 |        111 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Game\Level\Level.cs                                    | C#                      |         25 |          1 |         10 |         36 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Game\Level\Root.cs                                     | C#                      |        119 |         19 |         51 |        189 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Game\ObjectSpawner.cs                                  | C#                      |         17 |          6 |         12 |         35 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Game\Saving\SaveableNode.cs                            | C#                      |         16 |          1 |          6 |         23 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Game\Saving\SavedData\SavedData.cs                     | C#                      |          9 |          0 |          3 |         12 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Game\Saving\SavedData\SavedInteractableData.cs         | C#                      |          6 |          1 |          2 |          9 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Game\Saving\SavedGame.cs                               | C#                      |         23 |          3 |         10 |         36 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Game\Saving\SaverLoader.cs                             | C#                      |        177 |         32 |         64 |        273 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Interaction\Interactable.cs                            | C#                      |         14 |          0 |          6 |         20 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Interaction\InteractableBed.cs                         | C#                      |         14 |          0 |          9 |         23 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Interaction\InteractableObject.cs                      | C#                      |         43 |          8 |         29 |         80 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Interaction\InteractablePickup.cs                      | C#                      |         71 |         20 |         33 |        124 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Interaction\Interactor.cs                              | C#                      |         51 |          0 |         10 |         61 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Interaction\InventoryObjects\FoodInventoryObject.cs    | C#                      |         17 |          1 |         11 |         29 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Interaction\InventoryObjects\InventoryObject.cs        | C#                      |         22 |          2 |         11 |         35 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Interaction\InventoryObjects\InventoryObjectManager.cs | C#                      |         37 |          4 |         17 |         58 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Interaction\InventoryObjects\KeyInventoryObject.cs     | C#                      |          8 |          7 |          8 |         23 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Interaction\InventoryObjects\NoteInventoryObject.cs    | C#                      |          8 |          0 |          3 |         11 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Interaction\LevelExit\LevelExit.cs                     | C#                      |         46 |          1 |         22 |         69 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Interaction\PlayerInteractor.cs                        | C#                      |         56 |          2 |         10 |         68 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Player\EPlayerState.cs                                 | C#                      |          9 |          0 |          1 |         10 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Player\Player.cs                                       | C#                      |        141 |          7 |         61 |        209 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Player\PlayerData.cs                                   | C#                      |         97 |         22 |         36 |        155 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Player\PlayerEnergy.cs                                 | C#                      |         26 |          8 |         16 |         50 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Player\PlayerHunger.cs                                 | C#                      |         29 |          3 |         14 |         46 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Player\PlayerManager.cs                                | C#                      |         13 |          3 |         10 |         26 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Player\PlayerStatus.cs                                 | C#                      |         79 |         19 |         53 |        151 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Player\StatusModifiers\PlayerStatusHungerModifier.cs   | C#                      |         11 |          5 |         10 |         26 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Player\StatusModifiers\PlayerStatusModifier.cs         | C#                      |         13 |          3 |          9 |         25 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Shader\DitherNoPalette.cs                              | C#                      |         12 |          0 |          8 |         20 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Shader\DitherShaderCamera.cs                           | C#                      |         29 |          1 |         17 |         47 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Shader\ShaderLayerCompositor.cs                        | C#                      |         15 |          2 |          4 |         21 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\UI\GameplayUi.cs                                       | C#                      |         26 |          0 |         13 |         39 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\UI\LoadGameContainer.cs                                | C#                      |         23 |          0 |         10 |         33 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\UI\UiInventory.cs                                      | C#                      |         80 |          3 |         36 |        119 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\UI\UiInventoryElement.cs                               | C#                      |         34 |          0 |         20 |         54 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\UI\UiManager.cs                                        | C#                      |         78 |          3 |         28 |        109 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\UI\UiSaveLoad.cs                                       | C#                      |         67 |          0 |         34 |        101 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\UI\UiSaveSelector.cs                                   | C#                      |         48 |          7 |         25 |         80 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\Scripts\Utility\FPSCounter.cs                                  | C#                      |         11 |          0 |         10 |         21 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\open-world-database\OWDB.svg                            | XML                     |        139 |          1 |          2 |        142 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\open-world-database\OWDBPosition.svg                    | XML                     |        234 |          1 |          2 |        237 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\open-world-database\OWDBSync.svg                        | XML                     |        137 |          1 |          2 |        140 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\open-world-database\plugin.cfg                          | Properties              |          6 |          0 |          2 |          8 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\README.md                                    | Markdown                |         30 |          0 |         23 |         53 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\bin\libterrain.web.debug.wasm32.wasm         | WebAssembly Text Format |     29,886 |          0 |        310 |     30,196 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\bin\libterrain.web.release.wasm32.wasm       | WebAssembly Text Format |     28,437 |          0 |        221 |     28,658 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\autoshader.svg                         | XML                     |        194 |          0 |          1 |        195 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\color_paint.svg                        | XML                     |        175 |          0 |          1 |        176 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\height_add.svg                         | XML                     |         24 |          1 |          4 |         29 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\height_div.svg                         | XML                     |        189 |          1 |          7 |        197 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\height_flat.svg                        | XML                     |         24 |          1 |          4 |         29 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\height_mul.svg                         | XML                     |        194 |          1 |          7 |        202 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\height_slope.svg                       | XML                     |        103 |          1 |          2 |        106 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\height_smooth.svg                      | XML                     |         12 |          1 |          1 |         14 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\height_sub.svg                         | XML                     |         24 |          1 |          4 |         29 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\holes.svg                              | XML                     |          9 |          1 |          1 |         11 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\layers.svg                             | XML                     |        102 |          0 |          1 |        103 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\multimesh.svg                          | XML                     |         40 |          0 |          1 |         41 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\navigation.svg                         | XML                     |         41 |          1 |          1 |         43 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\picker_checked.svg                     | XML                     |         43 |          0 |          1 |         44 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\region_add.svg                         | XML                     |         95 |          0 |          1 |         96 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\region_remove.svg                      | XML                     |        102 |          0 |          1 |        103 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\terrain3d.svg                          | XML                     |        153 |          0 |          1 |        154 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\texture_paint.svg                      | XML                     |        151 |          0 |          1 |        152 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\texture_spray.svg                      | XML                     |        165 |          0 |          1 |        166 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\icons\wetness.svg                            | XML                     |         37 |          1 |          4 |         42 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\addons\terrain_3d\plugin.cfg                                   | Properties              |          6 |          0 |          2 |          8 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\icon.svg                                                       | XML                     |          1 |          0 |          1 |          2 |
+| c:\Users\Lenovo\Local Game Development\saving-and-loading\out\linecount.json                                             | JSON                    |     16,865 |          0 |          0 |     16,865 |
+| Total                                                                                                                    |                         |     79,494 |        236 |      1,470 |     81,200 |
++--------------------------------------------------------------------------------------------------------------------------+-------------------------+------------+------------+------------+------------+

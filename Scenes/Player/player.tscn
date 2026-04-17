@@ -1,13 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://eeiui8jkvw0k"]
+[gd_scene load_steps=8 format=3 uid="uid://eeiui8jkvw0k"]
 
 [ext_resource type="Script" uid="uid://d0u5jruvy0gm3" path="res://Scripts/Player/Player.cs" id="1_uvnfx"]
 [ext_resource type="Script" uid="uid://pqvhtwh7r5a7" path="res://Scripts/Interaction/PlayerInteractor.cs" id="2_a3d8c"]
 [ext_resource type="Script" uid="uid://h1rrf555mq44" path="res://Scripts/Player/PlayerData.cs" id="3_xpcdj"]
+[ext_resource type="Script" uid="uid://bogh7wog1qhd0" path="res://Scripts/Player/TerrainChecker.cs" id="4_mtuoh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tugb3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xpcdj"]
 size = Vector3(2, 2, 2)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mtuoh"]
+size = Vector2(0.5, 0.5)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_uvnfx")
@@ -22,9 +26,11 @@ script = ExtResource("2_a3d8c")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactor"]
 shape = SubResource("BoxShape3D_xpcdj")
 
-[node name="PlayerData" type="Node3D" parent="." node_paths=PackedStringArray("playerInteractor")]
+[node name="PlayerData" type="Node3D" parent="." node_paths=PackedStringArray("player", "playerInteractor")]
 script = ExtResource("3_xpcdj")
+player = NodePath("..")
 playerInteractor = NodePath("../Interactor")
+playerStatusUpdateFreq = 1.0
 
 [node name="Head" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -36,3 +42,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 [node name="ItemSpawnMarker" type="Marker3D" parent="Head"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+
+[node name="TerrainChecker" type="RayCast3D" parent="."]
+target_position = Vector3(0, -3, 0)
+script = ExtResource("4_mtuoh")
+
+[node name="ControlMapChecker" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -0.0748221, -0.9971969, 0, 0.9971969, -0.0748221, 0, 0.019681573, -2.7186065)
+mesh = SubResource("PlaneMesh_mtuoh")

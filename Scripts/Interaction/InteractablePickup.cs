@@ -4,7 +4,7 @@ using Godot.Collections;
 using Microsoft.VisualBasic.FileIO;
 
 //TODO Rename class - DOESN'T inherit from but contains a reference TO interactable. 
-public partial class InteractablePickup : SaveableNode
+public partial class InteractablePickup : InteractableObject
 {
 	string pickupSound = "uid://c2877a2mxbya3"; 
 	//the ID of the inventory object this interactable corresponds to. 
@@ -16,23 +16,23 @@ public partial class InteractablePickup : SaveableNode
 	[Export]
 	public string pickupID; 
 
-	[Export]
-	CollisionObject3D collision; 
+	// [Export]
+	// CollisionObject3D collision; 
 
-	[Export]
-	MeshInstance3D mesh;
+	// [Export]
+	// MeshInstance3D mesh;
 
-	[Export]
-	Material focusMat;
+	// [Export]
+	// Material focusMat;
 
-	[Export]
-	Material interactedMat;
+	// [Export]
+	// Material interactedMat;
 
-	Material defaultMat;
+	// Material defaultMat;
 
-	Interactable interactable;
+	// Interactable interactable;
 
-	public bool interacted;
+	// public bool interacted;
 
 	[Export]
 	bool disappears; 
@@ -52,7 +52,7 @@ public partial class InteractablePickup : SaveableNode
 		interactable.OnInteracted += Interact;
 	}
 
-	public void Interact(Area3D interactor)
+	public new void Interact(Area3D interactor)
 	{
 		//This function may be called to force an interaction when loading a level to keep interacted pickups correct, in this case interactor will be null
 		//and interacted will already be set to true. This could be a separate function called forceinteract. 
@@ -80,16 +80,6 @@ public partial class InteractablePickup : SaveableNode
 		}
 
 	   
-	}
-
-	public void Focus(Area3D interactor)
-	{
-		mesh.MaterialOverride = focusMat;
-	}
-
-	public void Unfocus(Area3D interactor)
-	{
-		mesh.MaterialOverride = defaultMat;
 	}
 
 	//Delete old instance to prevent duplication with loading of new instance.

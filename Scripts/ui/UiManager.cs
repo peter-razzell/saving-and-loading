@@ -3,6 +3,9 @@ using System;
 
 public partial class UiManager : Control
 {
+	
+	Player player; //Reference to player to access player data. 
+
 	//Signals to pass from save screen back up the chain to game class. 
 	[Signal]
 	public delegate void OnSaveEventHandler();
@@ -17,10 +20,22 @@ public partial class UiManager : Control
 
 	UiInventory uiInventory; 
 
+	GameplayUi gameplayUi; 
+
 	public override void _Ready() {
+
+		player = Player.Instance; 
+		PlayerStatus playerState = player.playerData.playerState; 
 
 		uiInventory = GetNode<UiInventory>("ui_inventory"); 
 		uISaveScreen = GetNode<UiSaveLoad>("ui_save"); 
+		gameplayUi = GetNode<GameplayUi>("ui_gameplay"); 
+
+		playerState.OnUpdateHunger += UpdateHunger; 
+		playerState.OnUpdateEnergy += UpdateEnergy; 
+
+		playerState.OnUpdateMaxHunger += gameplayUi.SetHungerMax;
+		playerState.OnUpdateMaxEnergy += gameplayUi.SetEnergyMax;
 
 		uISaveScreen.OnSave += Save;
 		uISaveScreen.OnLoad += Load; 
@@ -79,4 +94,15 @@ public partial class UiManager : Control
 
 		EmitSignal(SignalName.OnInventoryDropButtonPressed, pickupID);    
 	}
+
+	public void UpdateHunger(float value)
+    {
+		gameplayUi.UpdateHungerBar(value); 
+
+    }
+
+	public void UpdateEnergy(float value)
+    {
+		gameplayUi.UpdateEnergyBar(value); 
+    }
 }
