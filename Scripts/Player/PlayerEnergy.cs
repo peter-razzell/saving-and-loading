@@ -24,7 +24,7 @@ public class PlayerEnergy
     {
         energy -= decayRate; 
 
-        GD.Print("energy", energy); 
+        // GD.Print("energy", energy); 
 
         // float movement = playerData.GetPlayer().Velocity.Length();
         // float height_change = playerData.GetPlayer().GetHeightVector(); 

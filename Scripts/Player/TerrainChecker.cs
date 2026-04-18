@@ -13,13 +13,11 @@ public enum FootstepEnum
 public partial class TerrainChecker : RayCast3D
 {
     [Signal]
-    public delegate void OnSwitchFootstepSoundEventHandler(string type); 
+    public delegate void OnSwitchFootstepSoundEventHandler(int surfaceType); 
 
     public override void _Ready()
     {
 
-
-     
     }
 
     public override void _Process(double delta)
@@ -35,25 +33,25 @@ public partial class TerrainChecker : RayCast3D
 
                 Vector3 texture = (Vector3)terrainData.Call("get_texture_id", GlobalPosition); 
 
-                GD.Print(texture); 
+                // GD.Print(texture); 
 
                 if(texture.X == 0)
                 {
-                    GD.Print("on grass"); 
+                    // GD.Print("on grass"); 
 
-                    EmitSignal(SignalName.OnSwitchFootstepSound, "grass"); 
+                    EmitSignal(SignalName.OnSwitchFootstepSound, (int)FootstepEnum.grass); 
                 }
                 else
                 {
-                    GD.Print("on rock"); 
-                    EmitSignal(SignalName.OnSwitchFootstepSound, "rock"); 
+                    // GD.Print("on rock"); 
+                    EmitSignal(SignalName.OnSwitchFootstepSound, (int)FootstepEnum.rock); 
                 }
             }
 
         }
         catch (Exception e )
         {
-            GD.Print("SOMETHING FAILED WITH TERRAIN3D CHECKER",  e); 
+            if(Game.Instance.debug == true) GD.Print("SOMETHING FAILED WITH TERRAIN3D CHECKER",  e); 
         }
 
     }

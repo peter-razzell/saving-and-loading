@@ -1,5 +1,3 @@
 
-Contains information about objects that can be stored in players inventory
-
-These objects will be instantiated UPON player picking up the object. 
+Contains information about objects that can be stored in players inventory These objects will be instantiated UPON player picking up the object. 
 

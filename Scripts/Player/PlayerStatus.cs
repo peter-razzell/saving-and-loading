@@ -41,10 +41,11 @@ public partial class PlayerStatus : Node
 
     PlayerEnergy energy; 
 
-
     float health = 100f; 
 
-    //This value controls the frequency at which player state is updated 
+    /// <summary>
+    /// This value controls the frequency at which status is updated. 
+    /// </summary>
     double updateDelta = 1;
 
     double currentDelta;
@@ -90,7 +91,7 @@ public partial class PlayerStatus : Node
     
     public void UpdatePlayerStateDelta()
     {
-        GD.Print("updating player state"); 
+        // GD.Print("updating player state"); 
         float thirstDecayRate = 0.1f, coldDecayRate = 0.1f;
 
         hunger.Updatehunger();

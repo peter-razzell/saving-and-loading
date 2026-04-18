@@ -14,7 +14,7 @@ public partial class UiManager : Control
 	public delegate void OnLoadEventHandler(String saveFile); 
 
 	[Signal]
-	public delegate bool OnInventoryDropButtonPressedEventHandler(string objectID); 
+	public delegate bool OnInventoryDropButtonPressedEventHandler(string inventoryID); 
 
 	UiSaveLoad uISaveScreen;  //actually save screen but I didn't think when I named the class. 
 
@@ -82,17 +82,21 @@ public partial class UiManager : Control
 		EmitSignal(SignalName.OnSave);    
 	}
 
-	void InventoryDropItem(string pickupID)
+	void InventoryDropItem(string inventoryID)
 	{
-		// GD.Print("Dropped object with ID: ", pickupID);    
+		if (inventoryID == null){
+			GD.Print("inventory id is NULL!");
+            
+        }
+		GD.Print("Dropped object with ID: ", inventoryID);    
 
-		var packedScene = InventoryObjectManager.LookUpPickupItem(pickupID).Instantiate(); //BUG - object reference not set to instance of an object. 
+		var packedScene = InventoryObjectManager.LookUpPickupItem(inventoryID).Instantiate(); //BUG - object reference not set to instance of an object. 
 
 		InteractablePickup interactablePickup = (InteractablePickup) packedScene; 
 
 		ObjectSpawner.SpawnObject(interactablePickup);
 
-		EmitSignal(SignalName.OnInventoryDropButtonPressed, pickupID);    
+		EmitSignal(SignalName.OnInventoryDropButtonPressed, inventoryID);    
 	}
 
 	public void UpdateHunger(float value)

@@ -5,6 +5,9 @@ using System.Numerics;
 using System.Threading.Tasks;
 using Godot;
 
+/// <summary>
+/// Class which controls loading the level. Adds the level as a child object. Game is it's parent both in scene tree and code (root instance of game node). 
+/// </summary>
 public partial class Root : Node3D
 {
 
@@ -24,7 +27,7 @@ public partial class Root : Node3D
 	public Level currentLevel;
 
 	[Export]
-	String defaultLevelPath  = "res://Scenes/Levels/level_0.tscn"; //default val
+	String currentLevelPath  = "res://Scenes/Levels/level_0.tscn"; //default val
 
 	Game game;
 
@@ -44,14 +47,14 @@ public partial class Root : Node3D
 
 	public void LoadFirstLevel()
 	{
-		LoadLevel(defaultLevelPath); 
+		LoadLevel(currentLevelPath); 
 	}
 
 	//1. Emits a signal when the exit is reached, received by Game. 
 	public void LevelExitReached(String levelPath, String doorID)
 	{
 		// GD.Print("level exit reached in root");
-		this.defaultLevelPath = levelPath;
+		this.currentLevelPath = levelPath;
 		this.doorID = doorID; 
 
 		EmitSignal(SignalName.OnLevelExitReached);
@@ -80,7 +83,7 @@ public partial class Root : Node3D
 
 		GetTree().Paused = true;
 
-		PackedScene nextLevel = GD.Load<PackedScene>(defaultLevelPath);
+		PackedScene nextLevel = GD.Load<PackedScene>(currentLevelPath);
 
 		Level newLevel = (Level)nextLevel.Instantiate();
 
@@ -110,21 +113,21 @@ public partial class Root : Node3D
 			AddChild(newLevel);
 			currentLevel = newLevel;
 
-			//Delete all nodes with saveable data to prevent duplication when loading the saved versions. 
-			//for example, pickups.         
+			//Delete default pickups in level IF the levelBuffer already has the level - e.g. player has visited this level beforehand! 
 			if (game.saverLoader.levelBuffer.ContainsKey(GetCurrentLevelPath()))
 			{
 				foreach(Node node in currentLevel.GetChildren())
 				{
-					if(node is SaveableNode saveableNode)
+					if(node.IsInGroup("Persist")) //Note - NOT using savable node here as non-persisting objects that can be interacted with are unfortunately also descended from saveablenode - whoops! 
 					{
+						GD.Print("deleting something which should be a pickup: ", node.Name); 
 						node.QueueFree(); 
 					}
 				}
 			}
 
 			//Received by Game class, which then applies saved level data using SaverLoader.LoadLevelFromBuffer
-			EmitSignal(SignalName.OnLoadLevel, defaultLevelPath);
+			EmitSignal(SignalName.OnLoadLevel, currentLevelPath);
 
 			AudioManager.EndPrevLevelAudio();
 

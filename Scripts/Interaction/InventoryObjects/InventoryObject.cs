@@ -7,8 +7,10 @@ public partial class InventoryObject : Node
     [Signal]
     public delegate bool OnInteractDisappearEventHandler(string pickupID);//for some fucked reason I'm using the pickup ID... 
 
+    [Export]
     public string pickupID; //ID of the pickup / object in world this inventory object corresponds to. 
 
+    [Export]
     public string ID; //inventroy item ID. 
 
     [Export]
@@ -32,4 +34,5 @@ public partial class InventoryObject : Node
     {
         
     }
-}
+
+  }

@@ -109,10 +109,10 @@ public partial class UiInventory : Control
         invInstances.Clear(); 
     }
 
-    void DropButtonPressed(string pickupID)
+    void DropButtonPressed(string inventoryID)
     {
         //remove from player data inventory. 
-        EmitSignal(SignalName.OnInventoryDropButtonPressed, pickupID);
+        EmitSignal(SignalName.OnInventoryDropButtonPressed, inventoryID);
    
     }
 }

@@ -7,7 +7,10 @@ using Microsoft.VisualBasic.FileIO;
 public partial class InteractablePickup : InteractableObject
 {
 	string pickupSound = "uid://c2877a2mxbya3"; 
-	//the ID of the inventory object this interactable corresponds to. 
+
+	/// <summary>
+    /// The uid of the inventory object this pickup corresponds to. 
+    /// </summary>
 	[Export]
 	public string inventoryID; 
 
@@ -15,24 +18,6 @@ public partial class InteractablePickup : InteractableObject
 	//inventory objects. E.g. a letter object with  different letters. 
 	[Export]
 	public string pickupID; 
-
-	// [Export]
-	// CollisionObject3D collision; 
-
-	// [Export]
-	// MeshInstance3D mesh;
-
-	// [Export]
-	// Material focusMat;
-
-	// [Export]
-	// Material interactedMat;
-
-	// Material defaultMat;
-
-	// Interactable interactable;
-
-	// public bool interacted;
 
 	[Export]
 	bool disappears; 
@@ -43,8 +28,6 @@ public partial class InteractablePickup : InteractableObject
 	 
 		interactable = (Interactable)GetNode("Interactable");
 
-		GD.Print("interactable pickup UID : ", pickupID);  
-
 		interactable.OnFocused += Focus;
 	 
 		interactable.OnUnfocused += Unfocus;
@@ -54,6 +37,7 @@ public partial class InteractablePickup : InteractableObject
 
 	public new void Interact(Area3D interactor)
 	{
+		GD.Print("pickup interact function called for", this.Name); 
 		//This function may be called to force an interaction when loading a level to keep interacted pickups correct, in this case interactor will be null
 		//and interacted will already be set to true. This could be a separate function called forceinteract. 
 		if (!interacted || interactor == null)
@@ -96,9 +80,9 @@ public partial class InteractablePickup : InteractableObject
 		{
 			interacted = pickupData.interacted;
 
-			if (interacted == true)
+			if (interacted)
 			{
-				GD.Print("Auto interacting on loading top preserve interactable state!");
+				GD.Print("Auto interacting on loading to preserve interactable state, this is a: ", pickupData.scenePath);
 				Interact(null);
 			}
 		}

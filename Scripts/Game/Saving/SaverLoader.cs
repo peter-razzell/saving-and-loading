@@ -19,8 +19,10 @@ public partial class SaverLoader : Node
 
     Game game;
 
-    /*The buffer contains information about each level. It is populated on entering a level for the first time, or on load. 
-    On save, this information is saved, so every save file contains information about every level.*/
+    /// <summary>
+    /// The buffer contains information about each level. It is populated on entering a level for the first time, or on load. 
+    /// keeps track of level state e.g. what pickups remain
+    /// </summary>
     public Dictionary<String, Array<SavedData>> levelBuffer;
 
     string loadFilePath = ""; //Path to load (a file that exists)
@@ -40,7 +42,7 @@ public partial class SaverLoader : Node
 
         // viewport = player.cam.GetViewport();
 
-        saveCount = GetSaveCount(); //makes directory if it doesn't already exist. 
+        saveCount = GetSaveCount(); //Gets number of saves and makes directory if it doesn't already exist. 
 
         base._Ready();
     }
@@ -90,7 +92,7 @@ public partial class SaverLoader : Node
         //Call OnSave function for persisting items so they can add their information to the savedData array
         GetTree().CallGroup("Persist", "OnSave", savedDataArr);
 
-        String path = game.root.GetCurrentLevelPath();
+        String path = game.root.GetCurrentLevelPath();//
 
         if (levelBuffer.ContainsKey(path))
         {
@@ -199,11 +201,9 @@ public partial class SaverLoader : Node
 
         foreach (Variant var in savedGame.playerInv)
         {
-            GD.Print("iterating through variant player inventory to cast to Inventory item"); 
-
             InventoryObject item = (InventoryObject) var;
 
-            GD.Print(item.InvName); //! THIS DOESN'T WORK! 
+            GD.Print("inventory item loaded : ", item.pickupID, item.interactText); 
 
             interInv.Add(item);
         }
@@ -227,14 +227,22 @@ public partial class SaverLoader : Node
         levelBuffer = savedGame.levelsData;
     }
     
-    public void LoadLevelFromBuffer(String levelPath)
+    /// <summary>
+    /// Loads the interactable item data from the buffer. Called from Game ApplyLevelData method
+    /// Restores the positions of interactable items in the level after defaults have been
+    /// deleted on loading the level.  
+    /// </summary>
+    public void LoadLevelFromBuffer()
     {    
 
-        GD.Print("loading level from buffer"); 
-        GD.Print(levelBuffer);
+        String levelPath = game.root.GetCurrentLevelPath();
+
+        GD.Print(levelBuffer); 
+
         //Same logic for loading the levelsData in LoadGame function. 
         if (levelBuffer.TryGetValue(levelPath, out Array<SavedData> value))
         {
+            GD.Print("found level in buffer", levelPath);
             foreach (SavedData item in value)
             {
                 Node restoredNode = ResourceLoader.Load<PackedScene>(item.scenePath).Instantiate();
@@ -257,7 +265,10 @@ public partial class SaverLoader : Node
 
     }
 
-    //*Temporary solution --> see https://forum.godotengine.org/t/embedding-a-screenshot-thumbnail-in-a-save-game/18079/3 to store image in metadata JSON file. 
+    /// <summary>
+    /// Temporary solution --> see https://forum.godotengine.org/t/embedding-a-screenshot-thumbnail-in-a-save-game/18079/3 to store image in metadata JSON file. 
+    /// </summary>
+    /// <returns></returns>
     public Image GetSaveImage()
     {
         UpdateSaveFilePath();

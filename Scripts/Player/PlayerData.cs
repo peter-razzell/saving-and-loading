@@ -21,8 +21,7 @@ using Godot.Collections;
 /// </summary>
 public partial class PlayerData : Node3D
 {
-    [Export]
-    Player player; //Reference needed for multiple places in player status. E.g. getting movement data to calculate calories expended.
+    Player player = Player.Instance; //Reference needed for multiple places in player status. E.g. getting movement data to calculate calories expended.
     
     [Export]
     PlayerInteractor playerInteractor;
@@ -40,7 +39,6 @@ public partial class PlayerData : Node3D
     [Export]
     float energyDecayRate = 0.1f, energyMax = 100f; 
 
-   
 
     public override void _Ready()
     {
@@ -49,6 +47,7 @@ public partial class PlayerData : Node3D
         OnDeath += OnPlayerDeath; 
 
         playerInteractor.OnAddToPlayerInventory += AddToInv;
+        playerInteractor.OnSleepInBed += SleepInBed; 
 
         base._Ready();
     }
@@ -67,7 +66,7 @@ public partial class PlayerData : Node3D
           
     
     }
-    public void AddToInv(InteractablePickup pickup)
+    void AddToInv(InteractablePickup pickup)
     {
         // GD.Print("Adding item to player's inventory", intItem.Name);
 
@@ -150,5 +149,10 @@ public partial class PlayerData : Node3D
     public Player GetPlayer()
     {
         return player; 
+    }
+
+    void SleepInBed()
+    {
+        
     }
 }

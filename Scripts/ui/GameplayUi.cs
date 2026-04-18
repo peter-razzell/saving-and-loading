@@ -24,7 +24,7 @@ public partial class GameplayUi : Control
 
     public void UpdateEnergyBar(float value)
     {
-        GD.Print("setting energy value to", value); 
+        // GD.Print("setting energy value to", value); 
         energy.Value = value; 
     }
 

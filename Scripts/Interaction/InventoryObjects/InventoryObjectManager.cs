@@ -2,6 +2,9 @@ using Godot;
 using System;
 using System.Collections.Generic; 
 
+/// <summary>
+/// Used to access the inventory object from the pickup object and vice versa. 
+/// </summary>
 public partial class InventoryObjectManager : Node
 {
 
@@ -25,8 +28,6 @@ public partial class InventoryObjectManager : Node
             inventoryItem.pickupID = pickupID; 
 
             inventoryItem.ID = inventoryID;
-
-            // GD.Print("success, loaded: ", inventoryItem.InvName); 
 
             return inventoryItem; 
 

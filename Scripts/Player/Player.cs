@@ -8,32 +8,53 @@ public partial class Player : CharacterBody3D
 {
     public static Player Instance {get; private set;}
 
-    Game game; //TODO delete and have everything go through PlayerManager //Really? Won't that make things HARDER to understand not easier?? ARHGH!
+    Game game; //TODO delete and have everything go through PlayerManager - a player audio controller would be useful! 
 
     public Marker3D itemSpawnMarker; 
-
-    [Export]
-    public int health = 10; 
 
     public Node3D head;
 
     public Camera3D cam;
+    
+    [Export]
+    public int health = 10;     
 
     [Export]
     float speed = 50f, mouseSensitivity = 0.01f, jumpStr = 10f, acceleration = 10f;
 
+    /// <summary>
+    /// Self explanatory
+    /// </summary>
     float currentSpeed; 
 
-    float gravity; //set from Game class
+    /// <summary>
+    /// Global physics gravity set from Game class. 
+    /// </summary>
+    float gravity; 
 
+    /// <summary>
+    /// Just fun to fly around... 
+    /// </summary>
     bool gravityToggle;
 
+    /// <summary>
+    /// Is the player walking?
+    /// </summary>
     bool walking; 
 
+    /// <summary>
+    /// Footstep enum used to determine which footstep sound the AudioManager plays. A class called TerrainChecker sends a signal here to change this.
+    /// </summary>
     FootstepEnum footsteps; 
-    //Step time attributes used for footsteps
-    Vector3 velCache; //previous frame's velocity, used for working out step times. 
 
+    /// <summary>
+    /// Velocity cache - this just caches the previous velocity, used for calculations like height change over time 
+    /// </summary>
+    Vector3 velCache; 
+
+    /// <summary>
+    /// How frequently to play the step sound 
+    /// </summary>
     float stepTimer;
 
     PlayerInteractor interactor; 
@@ -88,26 +109,14 @@ public partial class Player : CharacterBody3D
         base._Input(@event);
     }
 
-    float heightCounter = 0; 
-
     public override void _PhysicsProcess(double delta)
     {
 
         Vector3 vel = Velocity;
 
-        PlayerFootsteps(delta, vel); 
+        PhysPro_PlayerFootsteps(delta, vel); 
 
-        heightCounter += 1; 
-        if(heightCounter == 10)
-        {
-            // GD.Print("updating height vector"); 
-            UpdateHeightVector();
-            heightCounter = 0; 
-    
-        }
-
-
-
+        PhysPro_HeightCounter();
 
         if (gravityToggle == true)
         {
@@ -118,8 +127,59 @@ public partial class Player : CharacterBody3D
             gravity = 9.8f;
         }
 
-        vel.Y -= gravity * (float)delta;
+        Velocity = PhysPro_Movement(Velocity, delta);
 
+        velCache = Velocity;
+
+        MoveAndSlide();
+
+        base._PhysicsProcess(delta);
+    }
+
+    //* THE FOLLOWING METHODS ARE CALLED BY _PhysicsProcess()
+
+    /// <summary>
+    /// Player footsteps method, calls the player footstep audio every second or so as long as player is moving. 
+    /// </summary>
+    /// <param name="delta"></param>
+    /// <param name="vel"></param>
+    void PhysPro_PlayerFootsteps(double delta, Vector3 vel)
+    {
+        float currentSpeed = vel.Dot(velCache) / 10;
+        stepTimer += (float)delta * currentSpeed;
+        if (stepTimer > 3f && IsOnFloor())
+        {
+            AudioManager.PlayPlayerSteps(footsteps);
+            stepTimer = 0f;
+        }
+    }
+
+
+    float heightCounter = 0; 
+
+    /// <summary>
+    /// Method encapsulating the UpdateHeightVector to call it every 10 _PhysicsProcess cycles 
+    /// </summary>
+    void PhysPro_HeightCounter()
+    {
+        heightCounter += 1; 
+        if(heightCounter == 10)
+        {
+            UpdateHeightVector();
+            heightCounter = 0; 
+        }
+
+    }
+
+    /// <summary>
+    /// Movement logic for player. Separated to make things cleaner. 
+    /// </summary>
+    /// <param name="vel"></param>
+    /// <param name="delta"></param>
+    /// <returns></returns>
+    Vector3 PhysPro_Movement(Vector3 vel, double delta)
+    {
+        vel.Y -= gravity * (float)delta;
 
         Vector2 inputDir = Input.GetVector("player_left", "player_right", "player_forward", "player_back", 0f);
 
@@ -161,30 +221,15 @@ public partial class Player : CharacterBody3D
             }
             
         }
-
-        Velocity = vel;
-        velCache = vel;
-
-        MoveAndSlide();
-
-        base._PhysicsProcess(delta);
+        return vel; 
     }
 
-    void PlayerFootsteps(double delta, Vector3 vel)
-    {
-        
-        //sound
-        float currentSpeed = vel.Dot(velCache) / 10;
-        stepTimer += (float)delta * currentSpeed;
-        if (stepTimer > 3f && IsOnFloor())
-        {
-            AudioManager.PlayPlayerSteps(footsteps);
-            stepTimer = 0f;
-        }
 
-    }
+    //* PUBLIC METHODS
 
-    //Reset player on level load. 
+    /// <summary>
+    /// Reset player on level load. resets interactor currently to removed cached item. 
+    /// </summary>
     public void ResetOnLevelLoad()
     { 
         // playerData.DebugPrintInventory(); 
@@ -199,8 +244,28 @@ public partial class Player : CharacterBody3D
         heightVector = MathF.Abs(GlobalPosition.Y - prevHeight); 
 
         prevHeight = GlobalPosition.Y; 
+ 
+    }
 
-            
+    /// <summary>
+    /// Switches footstep sound - move out of player. 
+    /// </summary>
+    /// <param name="surfaceType"></param>
+    void SwitchFootstepSound(int surfaceType)
+    {
+        if(surfaceType == 0)
+        {
+            footsteps = FootstepEnum.grass;    
+        }
+        else if(surfaceType == 1)
+        {
+            footsteps = FootstepEnum.rock; 
+        }
+        //Add more footstep surface types HERE. 
+        else
+        {
+            footsteps = FootstepEnum.rock; 
+        }
     }
 
     public float GetHeightVector()
@@ -219,21 +284,4 @@ public partial class Player : CharacterBody3D
         return jumpStr; 
     }
 
-
-    void SwitchFootstepSound(string surfaceType)
-    {
-        if(surfaceType == "grass")
-        {
-            footsteps = FootstepEnum.grass; 
-            
-        }
-        else
-        {
-            footsteps = FootstepEnum.rock; 
-            
-        }
-    }
-    
 }
-
-

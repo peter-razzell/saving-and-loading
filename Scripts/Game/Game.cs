@@ -5,8 +5,11 @@ using System.Threading.Tasks;
 
 public partial class Game : Node3D
 {
+
 	public static Game Instance {get; private set;}
 
+	[Export]
+	public bool debug = false;
 
 	[Signal]
 	public delegate void GameLoadedEventHandler(); 
@@ -20,8 +23,10 @@ public partial class Game : Node3D
 
 	public Root root;  //root node for the actual scene	
 	
-	public double Time {get; set;} //time since the start of the game. 
-
+	/// <summary>
+    /// Time since the start of the game
+    /// </summary>
+	public double Time {get; set;} 
 
 	public override void _Ready()
 	{
@@ -55,8 +60,6 @@ public partial class Game : Node3D
         base._Process(delta);
     }
 
-
-	//TODO Input manager? 
 	public override void _Input(InputEvent @event)
 	{
 		if (@event.IsActionPressed("debug_quit"))
@@ -100,11 +103,13 @@ public partial class Game : Node3D
 		root.LoadLevelAsync();
 	}
 
-	//Recieves a signal from root with the new level path, calls a function in saverloader which applies level data e.g. pickups.
+	/// <summary>
+    /// Calls the saverloader method which applies level data from the buffer. levelPath not curently needed 
+    /// </summary>
+    /// <param name="levelPath"></param>
 	public void ApplyLevelData(String levelPath)
 	{
-		GD.Print("applying level data", levelPath);
-		saverLoader.LoadLevelFromBuffer(levelPath);
+		saverLoader.LoadLevelFromBuffer();
 	}
 	
 }

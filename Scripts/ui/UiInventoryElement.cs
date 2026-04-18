@@ -31,6 +31,9 @@ public partial class UiInventoryElement : Control
         base._Ready();
     }
 
+    /// <summary>
+    /// Signal is picked up by UiInventory
+    /// </summary>
     public void OnDropBtnPressed()
     {
         GD.Print("emitting signal with ID: ", inventoryID); 

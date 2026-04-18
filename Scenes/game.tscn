@@ -13,7 +13,7 @@ script = ExtResource("1_3dryh")
 [node name="Root" type="Node3D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_i6g32")
-defaultLevelPath = "res://Scenes/Levels/terrain3D_level.tscn"
+currentLevelPath = "uid://ls4t4om8otg"
 
 [node name="Player" parent="Root" groups=["DoNotDestroyOnLoad", "Player"] instance=ExtResource("3_i6g32")]
 unique_name_in_owner = true

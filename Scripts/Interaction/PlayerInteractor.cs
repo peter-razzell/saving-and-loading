@@ -8,6 +8,10 @@ public partial class PlayerInteractor : Interactor
     [Signal]
     public delegate void OnAddToPlayerInventoryEventHandler(InteractablePickup pickup); 
 
+    [Signal]
+    public delegate void OnSleepInBedEventHandler(); 
+
+
     //Could be made more efficient - e.g. don't check every physics tick
     public override void _PhysicsProcess(double delta)
     {
@@ -44,8 +48,9 @@ public partial class PlayerInteractor : Interactor
         {
             // No logic to handle, level exiting, saving and loading etc is handled in LevelExit. 
         }
-        else if(interactable.GetParent() is InteractableObject interactableObject)
+        else if(interactable.GetParent() is InteractableBed interactableBed)
         {
+            EmitSignal(SignalName.OnSleepInBed); 
             GD.Print("interacting with a non-pickup object, for example, a bed!"); 
         }
 

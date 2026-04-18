@@ -25,7 +25,7 @@ public class PlayerHunger
         // for 7 movement length this produces a component of about 0.5
 
         float movement_multiplier_hunger = Mathf.Clamp(0.1f * mov_component + 2f * height_change, 0.01f, 1f);
-        GD.Print("calories", calories); 
+        // GD.Print("calories", calories); 
 
         calories -= movement_multiplier_hunger; 
             

@@ -28,6 +28,9 @@ public partial class InteractableObject : SaveableNode
 
     public bool interacted; 
 
+	/// <summary>
+    /// default interact sound is uid://c2877a2mxbya3
+    /// </summary>
     protected string interactSound = "uid://c2877a2mxbya3"; 
 
     protected Interactable interactable;
@@ -50,6 +53,7 @@ public partial class InteractableObject : SaveableNode
     //Overriden by Interactable Pickup
     public void Interact(Area3D interactor)
 	{
+		GD.Print("InteractableObject Interact function called"); 
 		if (!interacted || interactor == null)
 		{
 			AudioManager.Play(interactSound); 
