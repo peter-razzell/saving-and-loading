@@ -1,12 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://bwrimg3cx7ghu"]
+[gd_scene load_steps=12 format=3 uid="uid://bwrimg3cx7ghu"]
 
 [ext_resource type="Script" uid="uid://c6wyjsoxclcad" path="res://Scripts/Game/Level/Level.cs" id="1_1ih7c"]
+[ext_resource type="Material" uid="uid://bjoto2ywrhwt2" path="res://Assets/Glbs/buildings/test/green_layer_mask.tres" id="2_1ih7c"]
 [ext_resource type="PackedScene" uid="uid://dy78f2m5eekcx" path="res://Scenes/Objects/Level Transitions/level_exit.tscn" id="2_2iktx"]
-[ext_resource type="Environment" uid="uid://b8sqxfqojfg7p" path="res://Assets/Environment/level_0_environment.tres" id="3_456kb"]
-[ext_resource type="PackedScene" uid="uid://cnbeq2vhfu18n" path="res://Scenes/Objects/Static Objects/tintagel_01.tscn" id="6_kj5ij"]
-[ext_resource type="PackedScene" uid="uid://il4dc7xg853s" path="res://Scenes/Objects/Static Objects/decals/decal_window.tscn" id="7_hvs5j"]
+[ext_resource type="PackedScene" uid="uid://j85mfkx1ix5" path="res://Assets/Glbs/buildings/test/manual_oak_02_col.tscn" id="7_1ih7c"]
+[ext_resource type="PackedScene" uid="uid://dox1h8mikiool" path="res://Assets/Glbs/buildings/test/cottage_01_colourlayertest.tscn" id="7_6kmi7"]
 [ext_resource type="PackedScene" uid="uid://dej7c77c23tmk" path="res://Scenes/Objects/Level Transitions/level_entrance.tscn" id="8_6kmi7"]
-[ext_resource type="PackedScene" uid="uid://cbg0kmlsy0v7m" path="res://Assets/Glbs/buildings/cottage_01.glb" id="12_35opv"]
 [ext_resource type="PackedScene" uid="uid://dkw4vagg0vi5v" path="res://Scenes/Actors/herne_enemy.tscn" id="18_bowc5"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_58lhs"]
@@ -22,23 +21,22 @@ map_data = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 [sub_resource type="BoxShape3D" id="BoxShape3D_456kb"]
 size = Vector3(100, 100, 1)
 
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_2iktx"]
-auto_exposure_scale = 1.0
-auto_exposure_speed = 1.0
-dof_blur_near_distance = 2.32
-dof_blur_near_transition = 1738.9
-dof_blur_amount = 0.34
-
 [node name="Level_0" type="Node3D" groups=["Level"]]
 script = ExtResource("1_1ih7c")
+RegionID = "Test"
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-layers = 3
 mesh = SubResource("PlaneMesh_58lhs")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_6kmi7")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
+layers = 2
+mesh = SubResource("PlaneMesh_58lhs")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_1ih7c")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("HeightMapShape3D_ic72l")
@@ -59,25 +57,6 @@ shape = SubResource("BoxShape3D_456kb")
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -47, 0, -8)
 shape = SubResource("BoxShape3D_456kb")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("3_456kb")
-camera_attributes = SubResource("CameraAttributesPractical_2iktx")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(-0.45349318, -0.17661175, 0.87358594, -0.12101601, 0.9832941, 0.13596988, -0.88300586, -0.044056386, -0.46728984, -2.894709, 9.408277, -1.9073486e-06)
-layers = 7
-light_energy = 1.537
-light_indirect_energy = 2.455
-light_volumetric_fog_energy = 3.182
-shadow_enabled = true
-shadow_bias = 0.0
-shadow_normal_bias = 2.095
-shadow_transmittance_bias = -3.634
-directional_shadow_mode = 0
-directional_shadow_fade_start = 0.622
-directional_shadow_max_distance = 112.0
-directional_shadow_pancake_size = 27.4
-
 [node name="LevelExit" parent="." instance=ExtResource("2_2iktx")]
 unique_name_in_owner = true
 transform = Transform3D(-0.83345217, 0, -0.5525918, 0, 1, 0, 0.5525918, 0, -0.83345217, -0.11235428, 0.9083996, -10.093872)
@@ -89,32 +68,20 @@ transform = Transform3D(-0.0618324, 0, 0.9980867, 0, 1, 0, -0.9980867, 0, -0.061
 nextLevelPath = "res://Scenes/Levels/terrain3D_level.tscn"
 doorID = "0_4"
 
-[node name="tintagel_01" parent="." instance=ExtResource("6_kj5ij")]
-transform = Transform3D(0.2773092, 0, -1.9806817, 0, 2, 0, 1.9806817, 0, 0.2773092, 5.593003, 0.7255454, -26.06142)
-
-[node name="LevelExit" parent="tintagel_01" index="4"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.8539248, 0.70596904, 0.44473982)
-
-[node name="Decal6" parent="tintagel_01" instance=ExtResource("7_hvs5j")]
-transform = Transform3D(0.4763308, -0.15201652, 6.6448687e-09, -2.3783547e-17, -2.1855692e-08, -0.5, 0.15201652, 0.4763308, -2.0821112e-08, 14.26899, 1.2047002, -13.829376)
-size = Vector3(3.6801758, 1, 4.5630493)
-
 [node name="LevelEntrance" parent="." instance=ExtResource("8_6kmi7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6088872, 0)
-
-[node name="cottage_01" parent="." instance=ExtResource("12_35opv")]
-transform = Transform3D(-1.9318516, 0, 0.517638, 0, 2, 0, -0.517638, 0, -1.9318516, 38.86851, 0.96604204, -1.3334432)
-
-[node name="cottage_02" parent="." instance=ExtResource("12_35opv")]
-transform = Transform3D(-1.9318516, 0, 0.517638, 0, 2, 0, -0.517638, 0, -1.9318516, 37.87313, -0.29515934, 4.4563193)
-
-[node name="cottage_03" parent="." instance=ExtResource("12_35opv")]
-transform = Transform3D(-1.9318516, 0, 0.517638, 0, 2, 0, -0.517638, 0, -1.9318516, 40.97896, -0.29515934, -7.0021935)
-
-[node name="cottage_04" parent="." instance=ExtResource("12_35opv")]
-transform = Transform3D(-1.7320508, 0, 0.99999994, 0, 2, 0, -0.99999994, 0, -1.7320508, 43.381905, -0.7880113, -11.991907)
 
 [node name="herne_enemy" parent="." instance=ExtResource("18_bowc5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.421701, 2.8141336, 1.8352697)
 
-[editable path="tintagel_01"]
+[node name="cottage_01" parent="." instance=ExtResource("7_6kmi7")]
+transform = Transform3D(-0.7707468, 0, -0.6371416, 0, 1, 0, 0.6371416, 0, -0.7707468, 16.495014, 0.9000001, -7.752055)
+
+[node name="cottage_02" parent="." instance=ExtResource("7_6kmi7")]
+transform = Transform3D(-0.29954043, 0, -0.9540837, 0, 1, 0, 0.9540837, 0, -0.29954043, 6.9754887, 0.9000001, -12.936448)
+
+[node name="cottage_03" parent="." instance=ExtResource("7_6kmi7")]
+transform = Transform3D(0.73920804, 0, -0.6734772, 0, 1, 0, 0.6734772, 0, 0.73920804, -12.748489, 0.9000001, -12.936448)
+
+[node name="Manual_oak_02_col" parent="." instance=ExtResource("7_1ih7c")]
+transform = Transform3D(0.97530377, 0, -0.22086766, 0, 1, 0, 0.22086766, 0, 0.97530377, 21.566818, 0.31746507, -2.7052107)

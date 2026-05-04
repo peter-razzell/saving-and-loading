@@ -86,7 +86,7 @@ public partial class SaverLoader : Node
     //Saves the level to the levelBuffer when leaving a level. 
     public void SaveLevelToBuffer()
     {
-        GD.Print("Saving level to buffer"); 
+        // GD.Print("Saving level to buffer"); 
         var savedDataArr = new Array<SavedData>();
 
         //Call OnSave function for persisting items so they can add their information to the savedData array
@@ -96,12 +96,12 @@ public partial class SaverLoader : Node
 
         if (levelBuffer.ContainsKey(path))
         {
-            GD.Print("Adding saved data array to level buffer dictionary"); 
+            GD.Print("Adding saved data array to existing dictionary entry"); 
             levelBuffer[path] = savedDataArr;
         }
         else
         {
-            GD.Print("Creating new dictionary entry"); 
+            GD.Print("Creating new dictionary entry and adding saved data"); 
 
             levelBuffer.Add(path, savedDataArr);
         }
@@ -203,7 +203,7 @@ public partial class SaverLoader : Node
         {
             InventoryObject item = (InventoryObject) var;
 
-            GD.Print("inventory item loaded : ", item.pickupID, item.interactText); 
+            // GD.Print("inventory item loaded : ", item.pickupID, item.interactText); 
 
             interInv.Add(item);
         }
@@ -242,7 +242,7 @@ public partial class SaverLoader : Node
         //Same logic for loading the levelsData in LoadGame function. 
         if (levelBuffer.TryGetValue(levelPath, out Array<SavedData> value))
         {
-            GD.Print("found level in buffer", levelPath);
+            // GD.Print("found level in buffer", levelPath);
             foreach (SavedData item in value)
             {
                 Node restoredNode = ResourceLoader.Load<PackedScene>(item.scenePath).Instantiate();

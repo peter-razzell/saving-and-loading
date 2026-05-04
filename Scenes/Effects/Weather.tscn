@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://77btxc7tdhpo"]
+
+[ext_resource type="Script" uid="uid://byl5r1kgg8tsp" path="res://Scripts/Environment/Weather/WeatherManager.cs" id="1_y3g61"]
+
+[node name="Weather" type="Node" node_paths=PackedStringArray("switchTimer")]
+script = ExtResource("1_y3g61")
+switchTimer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="."]

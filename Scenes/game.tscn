@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://j0bsfpcu3r7t"]
+[gd_scene load_steps=9 format=3 uid="uid://j0bsfpcu3r7t"]
 
 [ext_resource type="Script" uid="uid://da1nam0t0fttb" path="res://Scripts/Game/Game.cs" id="1_3dryh"]
 [ext_resource type="Script" uid="uid://3114pps6u47e" path="res://Scripts/Game/Level/Root.cs" id="2_i6g32"]
 [ext_resource type="PackedScene" uid="uid://eeiui8jkvw0k" path="res://Scenes/Player/player.tscn" id="3_i6g32"]
 [ext_resource type="Script" uid="uid://c3uwumky7b8ft" path="res://Scripts/Game/Saving/SaverLoader.cs" id="3_wowpa"]
+[ext_resource type="PackedScene" uid="uid://77btxc7tdhpo" path="res://Scenes/Effects/Weather.tscn" id="5_v158k"]
 [ext_resource type="PackedScene" uid="uid://cag5d6pgxf1ac" path="res://Scenes/UI/ui_manager.tscn" id="6_1l0tm"]
+[ext_resource type="PackedScene" uid="uid://cpg4qbof6rcdm" path="res://Assets/Glbs/buildings/test/colour_dither_shader.tscn" id="8_v158k"]
 [ext_resource type="Script" uid="uid://crqm8d6knix0d" path="res://Scripts/Utility/FPSCounter.cs" id="9_h4fw4"]
 
 [node name="Game" type="Node3D" groups=["Root"]]
@@ -25,6 +27,9 @@ jumpStr = 300.0
 [node name="PlayerData" parent="Root/Player" index="2"]
 energyDecayRate = 1.0
 
+[node name="Camera3D" parent="Root/Player/Head" index="0"]
+cull_mask = 1048573
+
 [node name="Utilities" type="Node" parent="."]
 
 [node name="SaverLoader" type="Node" parent="Utilities" node_paths=PackedStringArray("player")]
@@ -32,8 +37,7 @@ unique_name_in_owner = true
 script = ExtResource("3_wowpa")
 player = NodePath("../../Root/Player")
 
-[node name="ui_manager" parent="." instance=ExtResource("6_1l0tm")]
-unique_name_in_owner = true
+[node name="Weather" parent="Utilities" instance=ExtResource("5_v158k")]
 
 [node name="FPSCounter" type="Control" parent="." node_paths=PackedStringArray("FPSLabel")]
 layout_mode = 3
@@ -53,5 +57,11 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
 text = "FPS"
+
+[node name="Colour_Dither_Shader" parent="." node_paths=PackedStringArray("Origin") instance=ExtResource("8_v158k")]
+Origin = NodePath("../Root/Player/Head/Camera3D")
+
+[node name="ui_manager" parent="." instance=ExtResource("6_1l0tm")]
+unique_name_in_owner = true
 
 [editable path="Root/Player"]

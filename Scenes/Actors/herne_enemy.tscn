@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkw4vagg0vi5v"]
+[gd_scene load_steps=5 format=3 uid="uid://dkw4vagg0vi5v"]
 
 [ext_resource type="PackedScene" uid="uid://d3860l2ntfh8f" path="res://Scenes/Actors/herne_body_separate.tscn" id="1_3uk11"]
 [ext_resource type="Script" uid="uid://btkb1fs0f12mi" path="res://Scripts/Actors/Actor.cs" id="1_voys7"]
+[ext_resource type="Material" uid="uid://bjoto2ywrhwt2" path="res://Assets/Glbs/buildings/test/green_layer_mask.tres" id="3_p6obq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_voys7"]
 height = 4.0
@@ -14,6 +15,10 @@ animationPlayer = NodePath("herne_body_separate/herne_body_separate/AnimationPla
 
 [node name="herne_body_separate" parent="." instance=ExtResource("1_3uk11")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Torso" parent="herne_body_separate/herne_body_separate/Armature/Skeleton3D" index="0"]
+layers = 3
+surface_material_override/0 = ExtResource("3_p6obq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

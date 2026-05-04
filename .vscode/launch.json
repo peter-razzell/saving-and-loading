@@ -3,10 +3,15 @@
     "configurations": [
         
         {
-            "name": "GDScript Godot",
-            "type": "godot",
+            "name": "Run Godot Please",
+            "type": "coreclr",
             "request": "launch",
-            "project": "C:\\Users\\peter\\Documents\\Local Godot Projects\\saving-and-loading\\project.godot",
+            "program": "C:/Users/Lenovo/OneDrive/Documents/Godot/Godot_v4.5.1-stable_mono_win64/Godot_This_One.exe" ,
+            "cwd":"${workspaceFolder}",
+            "console":"internalConsole",
+            "stopAtEntry": false,
+            "args": ["--path","${workspaceRoot}"],
+
             "port": 6007,
             "debugServer": 6006,
         }

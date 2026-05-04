@@ -23,7 +23,7 @@ public partial class Player : CharacterBody3D
     float speed = 50f, mouseSensitivity = 0.01f, jumpStr = 10f, acceleration = 10f;
 
     /// <summary>
-    /// Self explanatory
+    /// the speed the player is currently moving at
     /// </summary>
     float currentSpeed; 
 
@@ -59,8 +59,14 @@ public partial class Player : CharacterBody3D
 
     PlayerInteractor interactor; 
 
-    public PlayerData playerData; 
-    public override void _Ready()
+    public PlayerData playerData;
+
+    
+    /// <summary>
+    /// Calling the _EnterTree function instead of _Ready function 
+    /// as many places around the program rely on Player.Instance not being NULL! 
+    /// </summary>
+    public override void _EnterTree()
     {        
         game = GetOwner<Game>();
 

@@ -1,11 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c01kajajogf54"]
+[gd_scene load_steps=4 format=3 uid="uid://c01kajajogf54"]
 
 [ext_resource type="Script" uid="uid://khli2ywhf671" path="res://Scripts/UI/GameplayUi.cs" id="1_e7fis"]
-[ext_resource type="PackedScene" uid="uid://jdsqg47rf05o" path="res://Scenes/UI/Gui/stat_prog_bar.tscn" id="1_m3pwu"]
 [ext_resource type="Texture2D" uid="uid://cihk3jieqlwxx" path="res://Assets/UI/Textures/UI_Roundel_background.png" id="2_e7fis"]
 [ext_resource type="Texture2D" uid="uid://cc7pfnulon5q7" path="res://Assets/UI/Textures/UI_Roundel_progress.png" id="3_v8ub1"]
 
-[node name="ui_gameplay" type="Control" node_paths=PackedStringArray("hunger", "energy")]
+[node name="ui_gameplay" type="Control" node_paths=PackedStringArray("hunger", "energy", "warmth", "thirst", "hungerLabel", "energyLabel", "warmthLabel", "thirstLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,8 +12,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_e7fis")
-hunger = NodePath("MarginContainer/HBoxContainer/Hunger/TextureProgressBar")
-energy = NodePath("MarginContainer/HBoxContainer/Tiredness/TextureProgressBar")
+hunger = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Hunger/TextureProgressBar")
+energy = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Tiredness/TextureProgressBar")
+warmth = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Cold/TextureProgressBar")
+thirst = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Thirst/TextureProgressBar")
+hungerLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Hunger/TextureProgressBar/HungerVal")
+energyLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Tiredness/TextureProgressBar/TiredVal")
+warmthLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Cold/TextureProgressBar/ColdVal")
+thirstLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Thirst/TextureProgressBar/ThirstVal")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(20, 20)
@@ -30,21 +35,23 @@ grow_vertical = 0
 scale = Vector2(0.7, 0.7)
 pivot_offset = Vector2(32, 32)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Hunger" type="Control" parent="MarginContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Hunger" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/Hunger"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer/Hunger"]
 layout_mode = 0
 offset_right = 128.0
 offset_bottom = 128.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-max_value = 2000.0
-value = 1000.0
+value = 50.0
 fill_mode = 4
 radial_initial_angle = 169.1
 radial_fill_degrees = 355.2
@@ -52,20 +59,34 @@ texture_under = ExtResource("2_e7fis")
 texture_progress = ExtResource("3_v8ub1")
 tint_under = Color(0.6392249, 0.6628783, 0.6332644, 1)
 
-[node name="Thirst" parent="MarginContainer/HBoxContainer" instance=ExtResource("1_m3pwu")]
-layout_mode = 2
+[node name="HungerVal" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Hunger/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Tiredness" type="Control" parent="MarginContainer/HBoxContainer"]
+[node name="Thirst" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/Tiredness"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer/Thirst"]
 layout_mode = 0
 offset_right = 128.0
 offset_bottom = 128.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-value = 100.0
+value = 40.0
 fill_mode = 4
 radial_initial_angle = 169.1
 radial_fill_degrees = 355.2
@@ -73,5 +94,117 @@ texture_under = ExtResource("2_e7fis")
 texture_progress = ExtResource("3_v8ub1")
 tint_under = Color(0.6392249, 0.6628783, 0.6332644, 1)
 
-[node name="Cold" parent="MarginContainer/HBoxContainer" instance=ExtResource("1_m3pwu")]
+[node name="ThirstVal" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Thirst/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tiredness" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer/Tiredness"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+step = 0.01
+value = 32.0
+fill_mode = 4
+radial_initial_angle = 169.1
+radial_fill_degrees = 355.2
+texture_under = ExtResource("2_e7fis")
+texture_progress = ExtResource("3_v8ub1")
+tint_under = Color(0.6392249, 0.6628783, 0.6332644, 1)
+
+[node name="TiredVal" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Tiredness/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cold" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer/Cold"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+value = 40.0
+fill_mode = 4
+radial_initial_angle = 169.1
+radial_fill_degrees = 355.2
+texture_under = ExtResource("2_e7fis")
+texture_progress = ExtResource("3_v8ub1")
+tint_under = Color(0.6392249, 0.6628783, 0.6332644, 1)
+
+[node name="ColdVal" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Cold/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HungerLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "hunger"
+horizontal_alignment = 1
+
+[node name="ThirstLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "thirst"
+horizontal_alignment = 1
+
+[node name="TiredLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "tiredness"
+horizontal_alignment = 1
+
+[node name="ColdLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "cold"
+horizontal_alignment = 1

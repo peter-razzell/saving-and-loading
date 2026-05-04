@@ -23,11 +23,11 @@ script = ExtResource("2_a3d8c")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactor"]
 shape = SubResource("BoxShape3D_xpcdj")
 
-[node name="PlayerData" type="Node3D" parent="." node_paths=PackedStringArray("player", "playerInteractor")]
+[node name="PlayerData" type="Node3D" parent="." node_paths=PackedStringArray("playerInteractor")]
 script = ExtResource("3_xpcdj")
-player = NodePath("..")
 playerInteractor = NodePath("../Interactor")
 playerStatusUpdateFreq = 1.0
+energyDecayRate = 0.01
 
 [node name="Head" type="Node3D" parent="."]
 unique_name_in_owner = true

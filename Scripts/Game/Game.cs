@@ -49,7 +49,7 @@ public partial class Game : Node3D
 		EmitSignal(SignalName.GameLoaded);  
 
 		Instance = this; 
-
+		
 		base._Ready();
 	}
 

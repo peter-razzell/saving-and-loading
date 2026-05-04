@@ -116,7 +116,8 @@ public partial class Root : Node3D
 			//Delete default pickups in level IF the levelBuffer already has the level - e.g. player has visited this level beforehand! 
 			if (game.saverLoader.levelBuffer.ContainsKey(GetCurrentLevelPath()))
 			{
-				foreach(Node node in currentLevel.GetChildren())
+				Node pickups = currentLevel.GetNode<Node>("%Pickups"); 
+				foreach(Node node in pickups.GetChildren())
 				{
 					if(node.IsInGroup("Persist")) //Note - NOT using savable node here as non-persisting objects that can be interacted with are unfortunately also descended from saveablenode - whoops! 
 					{
@@ -139,7 +140,6 @@ public partial class Root : Node3D
 	//4. Called by Level emitting a signal when it has been loaded, sets up new level signals. 
 	public void OnLevelLoaded(Level level)
 	{
-		GD.Print("Level loaded"); 
 		currentLevel = level; 
 		foreach (LevelExit exit in level.levelExits)
 		{

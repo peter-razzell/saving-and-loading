@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgcionbrfg2y7"]
+
+[ext_resource type="Script" uid="uid://bsctn2ine007m" path="res://Scripts/Environment/ColdAreaTest.cs" id="1_fxpqi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tt6kq"]
+
+[node name="ColdAreaTest" type="Node3D"]
+script = ExtResource("1_fxpqi")
+temp = -20.0
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("BoxShape3D_tt6kq")

@@ -3,18 +3,21 @@ using System.Threading.Tasks;
 using Godot;
 
 /// <summary>
-/// Controls a scene of the same name, instantiated when the player interacts with a bed.
+/// Controls a UI scene of the same name, instantiated when the player interacts with a bed.
+/// 
+/// Instantiates a black ColorRect and Text, waits for 5 seconds, and disappears.
 /// 
 /// </summary>
 public partial class OverlaySleepEffect: Control
 {
+    [Export]
+    float sleepLengthInSeconds; 
     Timer sleepTimer;
 
     double startTime, endTime; 
     public override void _Ready()
     {
 
-        sleepTimer = new Timer(); 
         base._Ready();
 
     }
@@ -25,11 +28,13 @@ public partial class OverlaySleepEffect: Control
 
         Visible = true; 
 
+        sleepTimer = new Timer(); 
+
         startTime = Game.Instance.Time; 
     
         AddChild(sleepTimer); 
 
-        sleepTimer.Start(5);
+        sleepTimer.Start(sleepLengthInSeconds);
         sleepTimer.Timeout += EndSleep; 
 
     }

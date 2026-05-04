@@ -26,7 +26,7 @@ shader_parameter/normal_threshold = 8.4499998111256
 shader_parameter/edge_color = Color(0, 0, 0, 1)
 shader_parameter/scale = 1.0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ga3gi"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ifwko"]
 viewport_path = NodePath("L1Shaded/SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ddgoq"]
@@ -41,7 +41,7 @@ viewport_path = NodePath("L2Depth/L2DepthViewport")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ga3gi"]
 resource_local_to_scene = true
 shader = ExtResource("5_ddgoq")
-shader_parameter/v1col = SubResource("ViewportTexture_ga3gi")
+shader_parameter/v1col = SubResource("ViewportTexture_ifwko")
 shader_parameter/v1depth = SubResource("ViewportTexture_ddgoq")
 shader_parameter/v2col = SubResource("ViewportTexture_nclic")
 shader_parameter/v2depth = SubResource("ViewportTexture_sxqns")
@@ -53,7 +53,7 @@ viewport_path = NodePath("L1Unshaded/SubViewport")
 [sub_resource type="ViewportTexture" id="ViewportTexture_wfhv0"]
 viewport_path = NodePath("L2Unshaded/SubViewport")
 
-[node name="Control" type="Control" node_paths=PackedStringArray("t_a", "t_b")]
+[node name="Dither" type="Control" node_paths=PackedStringArray("t_a", "t_b")]
 visibility_layer = 2
 layout_mode = 3
 anchors_preset = 15
@@ -65,7 +65,7 @@ script = ExtResource("1_d4t0q")
 t_a = NodePath("L1Unshaded/SubViewport/L1Cam")
 t_b = NodePath("L2Unshaded/SubViewport/L2Cam")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="DebugColour" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

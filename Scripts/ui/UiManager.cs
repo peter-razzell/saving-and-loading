@@ -24,18 +24,22 @@ public partial class UiManager : Control
 
 	public override void _Ready() {
 
-		player = Player.Instance; 
-		PlayerStatus playerState = player.playerData.playerState; 
+		PlayerStatus playerState = Player.Instance.playerData.playerState; 
 
 		uiInventory = GetNode<UiInventory>("ui_inventory"); 
 		uISaveScreen = GetNode<UiSaveLoad>("ui_save"); 
 		gameplayUi = GetNode<GameplayUi>("ui_gameplay"); 
 
-		playerState.OnUpdateHunger += UpdateHunger; 
-		playerState.OnUpdateEnergy += UpdateEnergy; 
+		playerState.OnUpdateHunger += gameplayUi.UpdateHungerBar; 
+		playerState.OnUpdateEnergy += gameplayUi.UpdateEnergyBar; 
+		playerState.OnUpdateWarmth += gameplayUi.UpdateWarmthBar;  
+		playerState.OnUpdateThirst += gameplayUi.UpdateThirstBar;
+
 
 		playerState.OnUpdateMaxHunger += gameplayUi.SetHungerMax;
 		playerState.OnUpdateMaxEnergy += gameplayUi.SetEnergyMax;
+		playerState.OnUpdateMaxWarmth += gameplayUi.SetWarmthMax;
+		playerState.OnUpdateMaxThirst += gameplayUi.SetThirstMax;  
 
 		uISaveScreen.OnSave += Save;
 		uISaveScreen.OnLoad += Load; 
@@ -99,14 +103,16 @@ public partial class UiManager : Control
 		EmitSignal(SignalName.OnInventoryDropButtonPressed, inventoryID);    
 	}
 
-	public void UpdateHunger(float value)
-    {
-		gameplayUi.UpdateHungerBar(value); 
+	//Decided to get go directly 
 
-    }
+	// public void UpdateHunger(float value)
+    // {
+	// 	gameplayUi.UpdateHungerBar(value); 
 
-	public void UpdateEnergy(float value)
-    {
-		gameplayUi.UpdateEnergyBar(value); 
-    }
+    // }
+
+	// public void UpdateEnergy(float value)
+    // {
+	// 	gameplayUi.UpdateEnergyBar(value); 
+    // }
 }

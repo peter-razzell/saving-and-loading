@@ -21,28 +21,34 @@ using Godot.Collections;
 /// </summary>
 public partial class PlayerData : Node3D
 {
-    Player player = Player.Instance; //Reference needed for multiple places in player status. E.g. getting movement data to calculate calories expended.
+    // Player player = Player.Instance;
     
+    /// <summary>
+    /// Interaction and inventory related attribues:
+    /// </summary>
     [Export]
     PlayerInteractor playerInteractor;
 
+    Array<InventoryObject> inv = []; 
+
+    /// <summary>
+    /// Status related attributes: 
+    /// </summary>
     [Export]
-    //Putting this here so it's accessible and can be changed. 
     double playerStatusUpdateFreq;
 
     public PlayerStatus playerState; 
 
-    Array<InventoryObject> inv = []; 
-
     public event PlayerStatus.OnDieEventHandler OnDeath; //Event that other classes can subscribe to, to be notified when the player dies.
 
     [Export]
-    float energyDecayRate = 0.1f, energyMax = 100f; 
+    float energyDecayRate = 0.1f, energyMax = 100f, startingWarmth = 50f, maxWarmth = 100f; 
 
 
     public override void _Ready()
     {
-        playerState = new PlayerStatus(this, playerStatusUpdateFreq, energyDecayRate, energyMax); //TODO this needs to be loaded and saved
+        playerState = new PlayerStatus(this, playerStatusUpdateFreq, energyDecayRate, energyMax, startingWarmth, maxWarmth); //TODO this needs to be loaded and saved
+        AddChild(playerState); //this node needs to be present in the scene tree for its _Process() method to be called
 
         OnDeath += OnPlayerDeath; 
 
@@ -53,19 +59,7 @@ public partial class PlayerData : Node3D
     }
     
     double updateFrequency = 1; //update every 1000 ms - I am putting single use variables above the methods which require them. 
-    public override void _PhysicsProcess(double delta)
-    {
-        if(playerState != null)
-        {
-            playerState.UpdatePlayerStateDelay(delta);
-        }
-        else
-        {
-            playerState = new PlayerStatus(this, playerStatusUpdateFreq, energyDecayRate, energyMax); 
-        }
-          
     
-    }
     void AddToInv(InteractablePickup pickup)
     {
         // GD.Print("Adding item to player's inventory", intItem.Name);
@@ -146,13 +140,14 @@ public partial class PlayerData : Node3D
         //handle player death (e.g. show game over screen, reset game, etc.)
     }
 
-    public Player GetPlayer()
-    {
-        return player; 
-    }
+    // public Player GetPlayer()
+    // {
+    //     return player; 
+    // }
 
     void SleepInBed()
     {
-        
+        //8 hours placeholder. 
+        playerState.Sleep(8); 
     }
 }

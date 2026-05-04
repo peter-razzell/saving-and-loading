@@ -1,6 +1,6 @@
-/* 
-This shader is under MIT license. Feel free to use, improve and 
-change this shader according to your needs and consider sharing 
+/*
+This shader is under MIT license. Feel free to use, improve and
+change this shader according to your needs and consider sharing
 the modified result to godotshaders.com.
 */
 shader_type spatial;
@@ -20,7 +20,7 @@ void fragment() {
     // In spatial, we use VIEWPORT_SIZE instead of textureSize(TEXTURE)
     vec2 screen_size = VIEWPORT_SIZE / float(u_dither_size);
     vec2 screen_sample_uv = floor(SCREEN_UV * screen_size) / screen_size;
-    
+
     // 2. Sample the screen
     vec3 screen_col = texture(screen_tex, screen_sample_uv).rgb;
 
@@ -38,13 +38,13 @@ void fragment() {
     // 6. Palette calculations
     ivec2 col_size = textureSize(u_color_tex, 0);
     // Ensure we don't divide by zero if texture is invalid
-    float col_x = float(col_size.x / max(col_size.y, 1)) - 1.0; 
+    float col_x = float(col_size.x / max(col_size.y, 1)) - 1.0;
     float col_texel_size = 1.0 / max(col_x, 1.0);
 
-    lum = max(lum - 0.00001, 0.0); 
+    lum = max(lum - 0.00001, 0.0);
     float lum_lower = floor(lum * col_x) * col_texel_size;
     float lum_upper = (floor(lum * col_x) + 1.0) * col_texel_size;
-    float lum_scaled = lum * col_x - floor(lum * col_x); 
+    float lum_scaled = lum * col_x - floor(lum * col_x);
 
     // 7. Dither Mapping
     // We use SCREEN_UV and VIEWPORT_SIZE to ensure the noise aligns with pixels
@@ -57,7 +57,7 @@ void fragment() {
     // 8. Final mix and output
     float ramp_val = lum_scaled < threshold ? 0.0 : 1.0;
     float col_sample = mix(lum_lower, lum_upper, ramp_val);
-    
+
     vec3 final_col = texture(u_color_tex, vec2(col_sample, 0.5)).rgb;
 
     ALBEDO = final_col;
