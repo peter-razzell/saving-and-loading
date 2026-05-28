@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://dnyex3axvrtn7"
+path="res://.godot/imported/samplers.glsl-f2080845374bdaa74286df051071e87b.res"
+
+[deps]
+
+source_file="res://addons/terrain_3d/src/shaders/samplers.glsl"
+dest_files=["res://.godot/imported/samplers.glsl-f2080845374bdaa74286df051071e87b.res"]
+
+[params]
+

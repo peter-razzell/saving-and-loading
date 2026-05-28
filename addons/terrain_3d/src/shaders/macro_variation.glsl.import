@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://berx2g33owhxb"
+path="res://.godot/imported/macro_variation.glsl-d74aa3f6163152432c5b8f479b81a66b.res"
+
+[deps]
+
+source_file="res://addons/terrain_3d/src/shaders/macro_variation.glsl"
+dest_files=["res://.godot/imported/macro_variation.glsl-d74aa3f6163152432c5b8f479b81a66b.res"]
+
+[params]
+

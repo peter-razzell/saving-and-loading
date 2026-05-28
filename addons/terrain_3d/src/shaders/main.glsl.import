@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://cxv1dfi86gjqo"
+path="res://.godot/imported/main.glsl-5eef5d3a701042baefc1093a9ef190e6.res"
+
+[deps]
+
+source_file="res://addons/terrain_3d/src/shaders/main.glsl"
+dest_files=["res://.godot/imported/main.glsl-5eef5d3a701042baefc1093a9ef190e6.res"]
+
+[params]
+

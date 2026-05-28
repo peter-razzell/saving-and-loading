@@ -39,19 +39,14 @@ public partial class Actor : CharacterBody3D
 	{
 		Vector3 velocity = Velocity;
 
-		velocity.Y -= 9.8f * (float)delta;
-
-		
+		velocity.Y -= 9.8f * (float)delta;		
 
 		if(GlobalPosition.DistanceTo(target.GlobalPosition) > 20 ) //Move the actor towards the player if distance to player is > 5 
 		{
 			navAgent.TargetPosition = target.GlobalPosition; //Set target to the player's location 
-
-			if(animationPlayer.CurrentAnimation == "stand")
-			{
-				animationPlayer.Play("walk_01"); 
-			}
-
+            
+			animationPlayer.Play("walk_01"); 
+			
 			Vector3 direction = (navAgent.GetNextPathPosition() - GlobalPosition).Normalized();
 			velocity.X = Mathf.Lerp(velocity.X, direction.X * Speed, 0.5f);
 			velocity.Z = Mathf.Lerp(velocity.Z, direction.Z * Speed, 0.5f);

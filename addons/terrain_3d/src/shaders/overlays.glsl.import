@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://tydhhc2mkvf5"
+path="res://.godot/imported/overlays.glsl-35141dacd97637f0f862e4f246c94db6.res"
+
+[deps]
+
+source_file="res://addons/terrain_3d/src/shaders/overlays.glsl"
+dest_files=["res://.godot/imported/overlays.glsl-35141dacd97637f0f862e4f246c94db6.res"]
+
+[params]
+

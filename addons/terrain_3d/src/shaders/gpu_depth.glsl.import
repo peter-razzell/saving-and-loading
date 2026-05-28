@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://dvg1dum6agthl"
+path="res://.godot/imported/gpu_depth.glsl-763c076640b778f6a32d021cf8589209.res"
+
+[deps]
+
+source_file="res://addons/terrain_3d/src/shaders/gpu_depth.glsl"
+dest_files=["res://.godot/imported/gpu_depth.glsl-763c076640b778f6a32d021cf8589209.res"]
+
+[params]
+

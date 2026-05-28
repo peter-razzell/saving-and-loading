@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://b0vculjd56mpj"
+path="res://.godot/imported/backgrounds.glsl-a135023263b59b49fcea8e0793df39f0.res"
+
+[deps]
+
+source_file="res://addons/terrain_3d/src/shaders/backgrounds.glsl"
+dest_files=["res://.godot/imported/backgrounds.glsl-a135023263b59b49fcea8e0793df39f0.res"]
+
+[params]
+
