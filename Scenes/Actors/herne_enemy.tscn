@@ -1,32 +1,32 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkw4vagg0vi5v"]
+[gd_scene format=3 uid="uid://dkw4vagg0vi5v"]
 
 [ext_resource type="PackedScene" uid="uid://d3860l2ntfh8f" path="res://Scenes/Actors/herne_body_separate.tscn" id="1_3uk11"]
 [ext_resource type="Script" uid="uid://btkb1fs0f12mi" path="res://Scripts/Actors/Actor.cs" id="1_voys7"]
-[ext_resource type="Material" uid="uid://bjoto2ywrhwt2" path="res://Assets/Glbs/buildings/test/green_layer_mask.tres" id="3_p6obq"]
+[ext_resource type="Material" uid="uid://bjoto2ywrhwt2" path="res://Scenes/Objects/StaticObjects/buildings/glbs/buildings/test/green_layer_mask.tres" id="3_p6obq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_voys7"]
 height = 4.0
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("navAgent", "ray", "animationPlayer")]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=570157612 node_paths=PackedStringArray("navAgent", "ray", "animationPlayer")]
 script = ExtResource("1_voys7")
 navAgent = NodePath("NavigationAgent3D")
 ray = NodePath("RayCast3D")
 animationPlayer = NodePath("herne_body_separate/herne_body_separate/AnimationPlayer")
 
-[node name="herne_body_separate" parent="." instance=ExtResource("1_3uk11")]
+[node name="herne_body_separate" parent="." unique_id=1642010764 instance=ExtResource("1_3uk11")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="Torso" parent="herne_body_separate/herne_body_separate/Armature/Skeleton3D" index="0"]
+[node name="Torso" parent="herne_body_separate/herne_body_separate/Armature/Skeleton3D" index="0" unique_id=314054324]
 layers = 3
 surface_material_override/0 = ExtResource("3_p6obq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1573538257]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("CapsuleShape3D_voys7")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1700896692]
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1576167069]
 
 [editable path="herne_body_separate"]
 [editable path="herne_body_separate/herne_body_separate"]

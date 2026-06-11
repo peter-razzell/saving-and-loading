@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c1u7j05iuqqbw"]
+
+[ext_resource type="PackedScene" uid="uid://b0xdbt1ecl1or" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/glbs/Manual_alder_02.glb" id="1_86lcq"]
+[ext_resource type="Material" uid="uid://devno3o8848cg" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/Alder_Bark.tres" id="2_mr4da"]
+[ext_resource type="Material" uid="uid://vxaefos6xg0f" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/Alder_Branch.tres" id="3_wtpke"]
+
+[node name="Manual_alder_02" unique_id=1722112038 instance=ExtResource("1_86lcq")]
+
+[node name="trunk" parent="." index="0" unique_id=1437404484]
+surface_material_override/0 = ExtResource("2_mr4da")
+
+[node name="leaves" parent="." index="1" unique_id=44533076]
+transform = Transform3D(3.40943e-07, 1.6500001, 1.2492208e-07, 1.4289421, -2.3280421e-07, -0.8250002, -0.8250002, 2.7865718e-07, -1.4289421, -6.9151053, 5.4179645, 4.845814)
+surface_material_override/0 = ExtResource("3_wtpke")

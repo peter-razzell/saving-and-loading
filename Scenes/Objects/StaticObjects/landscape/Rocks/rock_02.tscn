@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dnupl05wwh16t"]
+
+[ext_resource type="PackedScene" uid="uid://bsr45ivysnmsn" path="res://Scenes/Objects/StaticObjects/landscape/Rocks/Source/Rock02.glb" id="1_mx05x"]
+[ext_resource type="Material" uid="uid://ctjgt6826wrud" path="res://Scenes/Objects/StaticObjects/landscape/Rocks/Source/Rock_mat.tres" id="2_yytso"]
+
+[node name="Rock02" unique_id=806026498 instance=ExtResource("1_mx05x")]
+
+[node name="Rock02" parent="." index="0" unique_id=1930327526]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+layers = 3
+surface_material_override/0 = ExtResource("2_yytso")

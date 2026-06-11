@@ -12,7 +12,10 @@ public partial class LevelExit : Node3D
     public Area3D area;
 
     [Export]
-    public String nextLevelPath;
+    public String nextLevelPath; //instead of a path to the next level this SHHOULD BE THE ACTUAL SCENE DUH
+
+    [Export]
+    public Resource nextLevel;
 
     [Export]
     public String doorID; //ID for the linked pair of LevelExits to load player to. 

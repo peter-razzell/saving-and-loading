@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bvooh5pnvk47o"]
+
+[ext_resource type="PackedScene" uid="uid://c2tbwwiwchwly" path="res://Scenes/Objects/StaticObjects/buildings/glbs/buildings/test/Church.glb" id="1_dgtlx"]
+
+[node name="Church" instance=ExtResource("1_dgtlx")]
+
+[node name="walls" parent="." index="0"]
+layers = 15

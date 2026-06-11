@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ctjgt6826wrud"]
+
+[ext_resource type="Texture2D" uid="uid://bfy6jnxir6tex" path="res://Scenes/Objects/StaticObjects/landscape/Rocks/Source/Rock01_albedo.png" id="1_suw0m"]
+[ext_resource type="Texture2D" uid="uid://ja7yd1aomsdq" path="res://Scenes/Objects/StaticObjects/landscape/Rocks/Source/Rock01_normal.png" id="2_k6v57"]
+
+[resource]
+albedo_texture = ExtResource("1_suw0m")
+normal_enabled = true
+normal_texture = ExtResource("2_k6v57")
+ao_enabled = true
+ao_light_affect = 0.55

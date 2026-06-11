@@ -9,7 +9,9 @@ public enum FootstepEnum
     
 }
 
-//Note doesn't need to be a raycast any more - doesn't use ANY raycast features! 
+/// <summary>
+/// This class is used to check the terrain type the player is currently on, and emit a signal to switch the footstep sound accordingly.
+/// </summary>
 public partial class TerrainChecker : RayCast3D
 {
     [Signal]

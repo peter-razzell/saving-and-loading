@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bchytaka2wrws"]
+
+[ext_resource type="Texture2D" uid="uid://4itn76t6i306" path="res://Scenes/Objects/StaticObjects/buildings/glbs/Glbs/tintagel_01_Wall_Blocks_Brush_Light.png" id="1_4qd0e"]
+
+[resource]
+albedo_texture = ExtResource("1_4qd0e")

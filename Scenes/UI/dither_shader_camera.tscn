@@ -1,10 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://c7so2lpubxsgm"]
+[gd_scene format=3 uid="uid://c7so2lpubxsgm"]
 
 [ext_resource type="Script" uid="uid://ccqb2wo1x62cf" path="res://Scripts/Shader/DitherShaderCamera.cs" id="1_d4t0q"]
 [ext_resource type="Material" uid="uid://c5tgw36fwqktn" path="res://src/gradient_dither_material.tres" id="2_d4t0q"]
 [ext_resource type="Shader" uid="uid://b2762dhdgam0b" path="res://src/post_process_outline.gdshader" id="3_ga3gi"]
 [ext_resource type="Shader" uid="uid://c0e02iov2g11g" path="res://src/depth/depth.gdshader" id="3_nclic"]
-[ext_resource type="Environment" uid="uid://4r3u0jf2bgpv" path="res://Assets/Environment/terrain3D_level_environment.tres" id="4_nclic"]
+[ext_resource type="Environment" uid="uid://4r3u0jf2bgpv" path="res://assets/Environment/terrain3D_level_environment.tres" id="4_nclic"]
 [ext_resource type="Shader" uid="uid://jldlqyx1qwrg" path="res://src/gemini_combine.gdshader" id="5_ddgoq"]
 [ext_resource type="Material" uid="uid://bvwdf6cwxyyyu" path="res://src/gradient_dither_material_green_yellow.tres" id="7_sxqns"]
 

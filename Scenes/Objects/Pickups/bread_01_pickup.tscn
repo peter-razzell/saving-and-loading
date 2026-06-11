@@ -1,8 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cgo5hb7u87fc5"]
+[gd_scene format=3 uid="uid://cgo5hb7u87fc5"]
 
 [ext_resource type="Script" uid="uid://cvn5lttglqaat" path="res://Scripts/Interaction/InteractablePickup.cs" id="1_jwq3j"]
 [ext_resource type="Script" uid="uid://dl3p1k0j2xiev" path="res://Scripts/Interaction/Interactable.cs" id="2_mxvmk"]
-[ext_resource type="PackedScene" uid="uid://dn65isfpu6ks6" path="res://Assets/Glbs/Pickups/bread_01.glb" id="3_3wscr"]
+[ext_resource type="PackedScene" uid="uid://dn65isfpu6ks6" path="res://Scenes/Objects/Pickups/Pickups/bread_01.glb" id="3_3wscr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c3lqd"]
 vertex_color_use_as_albedo = true

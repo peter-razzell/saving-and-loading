@@ -1,11 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://dnmgwmturtmwi"]
+[gd_scene format=3 uid="uid://dnmgwmturtmwi"]
 
 [ext_resource type="Script" uid="uid://c6wyjsoxclcad" path="res://Scripts/Game/Level/Level.cs" id="1_sehiq"]
-[ext_resource type="PackedScene" uid="uid://cwemgjixn6jjp" path="res://Scenes/Objects/Static Objects/Block.tscn" id="2_vr7su"]
+[ext_resource type="PackedScene" uid="uid://cwemgjixn6jjp" path="res://Scenes/Objects/StaticObjects/Block.tscn" id="2_vr7su"]
 [ext_resource type="PackedScene" uid="uid://cgo5hb7u87fc5" path="res://Scenes/Objects/Pickups/bread_01_pickup.tscn" id="3_f6u81"]
 [ext_resource type="PackedScene" uid="uid://fxhwd7dk4knd" path="res://Scenes/Objects/Level Transitions/level_exit_door.tscn" id="4_ilug5"]
 [ext_resource type="PackedScene" uid="uid://hpgq4vgl64a0" path="res://Scenes/Objects/Pickups/key_pickup.tscn" id="4_sehiq"]
-[ext_resource type="PackedScene" uid="uid://dnbdkrllxg7wt" path="res://Scenes/Objects/Interactable Non Pickups/bed_interactable.tscn" id="5_ilug5"]
+[ext_resource type="PackedScene" uid="uid://dnbdkrllxg7wt" path="res://Scenes/Objects/InteractableStatics/bed_interactable.tscn" id="5_ilug5"]
 [ext_resource type="PackedScene" uid="uid://dej7c77c23tmk" path="res://Scenes/Objects/Level Transitions/level_entrance.tscn" id="6_qpwvk"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_58lhs"]

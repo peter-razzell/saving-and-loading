@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://lcfqa14783p2"]
+
+[ext_resource type="PackedScene" uid="uid://byqks0n6se4fx" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/glbs/Manual_alder_02_anim.glb" id="1_p1agx"]
+[ext_resource type="Material" uid="uid://devno3o8848cg" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/Alder_Bark.tres" id="2_3flrr"]
+[ext_resource type="Material" uid="uid://vxaefos6xg0f" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/Alder_Branch.tres" id="3_dag85"]
+
+[node name="Manual_alder_02_anim" unique_id=1232685769 instance=ExtResource("1_p1agx")]
+
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1585562967) index="0" unique_id=112911183]
+bones/5/rotation = Quaternion(-0.015957683, -0.036902122, 0.033821564, 0.9986189)
+
+[node name="trunkleaves" parent="Armature/Skeleton3D" index="0" unique_id=1511129011]
+surface_material_override/0 = ExtResource("2_3flrr")
+
+[node name="trunkleaves_001" parent="Armature/Skeleton3D" index="1" unique_id=501805140]
+surface_material_override/0 = ExtResource("3_dag85")
+
+[node name="AnimationPlayer" parent="." index="3" unique_id=2139102157]
+autoplay = &"ArmatureAction"
+speed_scale = 0.1

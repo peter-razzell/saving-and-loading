@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://c3uwumky7b8ft" path="res://Scripts/Game/Saving/SaverLoader.cs" id="3_wowpa"]
 [ext_resource type="PackedScene" uid="uid://77btxc7tdhpo" path="res://Scenes/Effects/Weather.tscn" id="5_v158k"]
 [ext_resource type="PackedScene" uid="uid://cag5d6pgxf1ac" path="res://Scenes/UI/ui_manager.tscn" id="6_1l0tm"]
-[ext_resource type="PackedScene" uid="uid://bexsatm2pnhvr" path="res://Assets/Glbs/buildings/test/colour_dither_shader_1_layer_test.tscn" id="8_v158k"]
+[ext_resource type="PackedScene" uid="uid://bexsatm2pnhvr" path="res://Shaders/MultiPalettePosterisation/multi_palette_posterisation.tscn" id="8_v158k"]
 [ext_resource type="Script" uid="uid://crqm8d6knix0d" path="res://Scripts/Utility/FPSCounter.cs" id="9_h4fw4"]
 
 [node name="Game" type="Node3D" unique_id=5248132 groups=["Root"]]
@@ -23,12 +23,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8827144, 0)
 health = 50
 speed = 7.0
 jumpStr = 300.0
-
-[node name="PlayerData" parent="Root/Player" index="2"]
-energyDecayRate = 1.0
-
-[node name="Camera3D" parent="Root/Player/Head" index="0"]
-cull_mask = 1048573
 
 [node name="Utilities" type="Node" parent="." unique_id=537434352]
 
@@ -63,5 +57,3 @@ Origin = NodePath("../Root/Player/Head/Camera3D")
 
 [node name="ui_manager" parent="." unique_id=638372436 instance=ExtResource("6_1l0tm")]
 unique_name_in_owner = true
-
-[editable path="Root/Player"]

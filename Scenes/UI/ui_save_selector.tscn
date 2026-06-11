@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://t6bh8amumi8m"]
+[gd_scene format=3 uid="uid://t6bh8amumi8m"]
 
 [ext_resource type="Script" uid="uid://76qwto273drp" path="res://Scripts/UI/UiSaveSelector.cs" id="1_npc3r"]
-[ext_resource type="Theme" uid="uid://cynch5iaqbrnl" path="res://Assets/UI/themes/ui_theme_1.tres" id="2_sp045"]
+[ext_resource type="Theme" uid="uid://cynch5iaqbrnl" path="res://assets/UI/themes/ui_theme_1.tres" id="2_sp045"]
 
 [node name="UiSaveSelector" type="Control"]
 layout_mode = 3

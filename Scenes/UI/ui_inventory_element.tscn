@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnhwh8hlvtn6t"]
+[gd_scene format=3 uid="uid://bnhwh8hlvtn6t"]
 
-[ext_resource type="Theme" uid="uid://cynch5iaqbrnl" path="res://Assets/UI/themes/ui_theme_1.tres" id="1_cbsk3"]
+[ext_resource type="Theme" uid="uid://cynch5iaqbrnl" path="res://assets/UI/themes/ui_theme_1.tres" id="1_cbsk3"]
 [ext_resource type="Script" uid="uid://bsu37y0bb6h66" path="res://Scripts/UI/UiInventoryElement.cs" id="1_mffvu"]
 
 [node name="ui_inventory_element" type="Control" node_paths=PackedStringArray("itemName", "itemDescription", "interactButton")]

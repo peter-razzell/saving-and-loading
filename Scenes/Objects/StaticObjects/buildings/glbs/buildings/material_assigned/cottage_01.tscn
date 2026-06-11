@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://x5t1mdeki6ql"]
+
+[ext_resource type="PackedScene" uid="uid://cbg0kmlsy0v7m" path="res://Scenes/Objects/StaticObjects/buildings/glbs/buildings/cottage_01.glb" id="1_r6mpv"]
+[ext_resource type="Material" path="res://src/Dither Shaders/gpt_multi_palette.tres" id="2_7wsyw"]
+
+[node name="cottage_01" instance=ExtResource("1_r6mpv")]
+
+[node name="Walls" parent="." index="4"]
+material_override = ExtResource("2_7wsyw")

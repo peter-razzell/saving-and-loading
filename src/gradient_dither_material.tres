@@ -1,7 +1,7 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://c5tgw36fwqktn"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c5tgw36fwqktn"]
 
-[ext_resource type="Texture2D" uid="uid://cforritefvrmr" path="res://Assets/Shader/green_gradient.tres" id="1_mlu7w"]
-[ext_resource type="Texture2D" uid="uid://cfheexk5qclpt" path="res://Assets/Shader/dither_animated.tres" id="2_mlu7w"]
+[ext_resource type="Texture2D" uid="uid://cforritefvrmr" path="res://Shaders/Assets/Shader/green_gradient.tres" id="1_mlu7w"]
+[ext_resource type="Texture2D" uid="uid://cfheexk5qclpt" path="res://Shaders/Assets/Shader/dither_animated.tres" id="2_mlu7w"]
 
 [sub_resource type="Shader" id="Shader_mlu7w"]
 code = "/* 

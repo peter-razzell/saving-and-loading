@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://bwrimg3cx7ghu"]
 
 [ext_resource type="Script" uid="uid://c6wyjsoxclcad" path="res://Scripts/Game/Level/Level.cs" id="1_1ih7c"]
-[ext_resource type="Material" uid="uid://bjoto2ywrhwt2" path="res://Assets/Glbs/buildings/test/green_layer_mask.tres" id="2_1ih7c"]
+[ext_resource type="Material" uid="uid://bjoto2ywrhwt2" path="res://Scenes/Objects/StaticObjects/buildings/glbs/buildings/test/green_layer_mask.tres" id="2_1ih7c"]
 [ext_resource type="PackedScene" uid="uid://dy78f2m5eekcx" path="res://Scenes/Objects/Level Transitions/level_exit.tscn" id="2_2iktx"]
-[ext_resource type="PackedScene" uid="uid://j85mfkx1ix5" path="res://Assets/Glbs/buildings/test/manual_oak_02_col.tscn" id="7_1ih7c"]
-[ext_resource type="PackedScene" uid="uid://dox1h8mikiool" path="res://Assets/Glbs/buildings/test/cottage_01_colourlayertest.tscn" id="7_6kmi7"]
+[ext_resource type="PackedScene" uid="uid://j85mfkx1ix5" path="res://Scenes/Objects/StaticObjects/landscape/trees/manual_oak_02_col.tscn" id="7_1ih7c"]
+[ext_resource type="PackedScene" uid="uid://dox1h8mikiool" path="res://Scenes/Objects/StaticObjects/buildings/glbs/buildings/test/cottage_01_colourlayertest.tscn" id="7_6kmi7"]
 [ext_resource type="PackedScene" uid="uid://dej7c77c23tmk" path="res://Scenes/Objects/Level Transitions/level_entrance.tscn" id="8_6kmi7"]
 [ext_resource type="PackedScene" uid="uid://dkw4vagg0vi5v" path="res://Scenes/Actors/herne_enemy.tscn" id="18_bowc5"]
 

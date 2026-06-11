@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://d3860l2ntfh8f"]
+[gd_scene format=3 uid="uid://d3860l2ntfh8f"]
 
-[ext_resource type="PackedScene" uid="uid://cnb2n81d81nv0" path="res://Assets/Glbs/characters/herne_body_separate.glb" id="1_bpjsg"]
+[ext_resource type="PackedScene" uid="uid://cnb2n81d81nv0" path="res://Scenes/Actors/characters/herne_body_separate.glb" id="1_bpjsg"]
 
 [node name="herne_scene" type="Node3D"]
 

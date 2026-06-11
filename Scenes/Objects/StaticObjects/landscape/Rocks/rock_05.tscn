@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://d3s2chjwysnei"]
+
+[ext_resource type="PackedScene" uid="uid://i6w6x1pwavhw" path="res://Scenes/Objects/StaticObjects/landscape/Rocks/Source/Rock05.glb" id="1_rxq7p"]
+[ext_resource type="Material" uid="uid://ctjgt6826wrud" path="res://Scenes/Objects/StaticObjects/landscape/Rocks/Source/Rock_mat.tres" id="2_jhksn"]
+
+[node name="Rock05" unique_id=392266004 instance=ExtResource("1_rxq7p")]
+
+[node name="Rock05" parent="." index="0" unique_id=1201739019]
+layers = 3
+surface_material_override/0 = ExtResource("2_jhksn")

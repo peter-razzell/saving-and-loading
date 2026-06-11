@@ -1,0 +1,184 @@
+[gd_scene format=3 uid="uid://cpg4qbof6rcdm"]
+
+[ext_resource type="Script" uid="uid://c0xhryqka0cjw" path="res://Shaders/MultiPalettePosterisation/ColourDitherShader.cs" id="1_q03m2"]
+[ext_resource type="Texture2D" uid="uid://4cmfi7okx2cf" path="res://Shaders/Assets/Shader/palettes/sky_gradient.tres" id="2_jg81y"]
+[ext_resource type="Texture2D" uid="uid://dtbikyo0oiydp" path="res://Shaders/Assets/Shader/blue_yellow.tres" id="3_nkbkd"]
+[ext_resource type="Environment" uid="uid://b8sqxfqojfg7p" path="res://assets/Environment/level_0_environment.tres" id="3_xytf0"]
+[ext_resource type="Texture2D" uid="uid://bot573p0qvwtf" path="res://Shaders/Assets/Shader/ink_gradient.tres" id="4_nkbkd"]
+[ext_resource type="Texture2D" uid="uid://cforritefvrmr" path="res://Shaders/Assets/Shader/green_gradient.tres" id="4_rtgsf"]
+[ext_resource type="Texture2D" uid="uid://cfheexk5qclpt" path="res://Shaders/Assets/Shader/dither_animated.tres" id="5_vjwx3"]
+
+[sub_resource type="Shader" id="Shader_ft5re"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform sampler2D screen_texture : hint_screen_texture, filter_nearest;
+uniform sampler2D col_screen_tex : source_color, filter_nearest;
+uniform sampler2D u_dither_tex : repeat_enable, filter_nearest;
+uniform sampler2D u_color_tex_r : filter_nearest;
+uniform sampler2D u_color_tex_g : filter_nearest;
+uniform sampler2D u_color_tex_b : filter_nearest;
+uniform sampler2D u_color_tex_gr : filter_nearest;
+
+
+uniform int u_bit_depth;
+uniform float u_contrast;
+uniform float u_offset;
+uniform int u_dither_size;
+
+void fragment()
+{
+    // Calculate the pixelated UV first
+    vec2 screen_size = vec2(textureSize(TEXTURE, 0)) / float(u_dither_size);
+    vec2 pixelated_uv = floor(UV * screen_size) / screen_size;
+
+    // Calculate the screen-space version of that pixelated UV
+    // This ensures we pick the palette based on the center of the pixelated block
+    vec2 pixelated_screen_uv = floor(SCREEN_UV * (vec2(1.0) / SCREEN_PIXEL_SIZE / float(u_dither_size))) * (SCREEN_PIXEL_SIZE * float(u_dither_size));
+
+
+	vec3 screen_col = texture(TEXTURE, pixelated_uv).rgb;
+
+    // 3. Calculate Luminosity
+    float lum = (screen_col.r * 0.299) + (screen_col.g * 0.587) + (screen_col.b * 0.114);
+    lum = (lum - 0.5 + u_offset) * u_contrast + 0.5;
+    lum = clamp(lum, 0.0, 1.0);
+
+    // Banding
+    float bits = float(u_bit_depth);
+    lum = floor(lum * bits) / bits;
+
+    // 4. Palette Math (Assuming both palettes are the same size)
+    ivec2 col_size = textureSize(u_color_tex_r, 0);
+    float col_x = float(col_size.x / col_size.y) - 1.0;
+    float col_texel_size = 1.0 / col_x;
+
+    lum = max(lum - 0.00001, 0.0);
+    float lum_lower = floor(lum * col_x) * col_texel_size;
+    float lum_upper = (floor(lum * col_x) + 1.0) * col_texel_size;
+    float lum_scaled = lum * col_x - floor(lum * col_x);
+
+    // 5. Dithering
+    ivec2 noise_size = textureSize(u_dither_tex, 0);
+    vec2 inv_noise_size = vec2(1.0 / float(noise_size.x), 1.0 / float(noise_size.y));
+    vec2 noise_uv = UV * inv_noise_size * screen_size;
+    float threshold = texture(u_dither_tex, noise_uv).r;
+    threshold = threshold * 0.99 + 0.005;
+
+    float ramp_val = lum_scaled < threshold ? 0.0f : 1.0f;
+    float col_sample = mix(lum_lower, lum_upper, ramp_val);
+
+	// Sample the control layer using the PIXELATED uv
+    vec4 col_layer = texture(col_screen_tex, UV);
+
+    // 6. THE FIX: Sample BOTH palettes
+    vec3 pal_r = texture(u_color_tex_r, vec2(col_sample, 0.5)).rgb;
+    vec3 pal_g = texture(u_color_tex_g, vec2(col_sample, 0.5)).rgb;
+	vec3 pal_b = texture(u_color_tex_b, vec2(col_sample, 0.5)).rgb;
+	vec3 pal_gr = texture(u_color_tex_gr, vec2(col_sample, 0.5)).rgb;
+
+    // 7. Choose the color based on the red/green check
+    vec3 final_col;
+    if (col_layer.r < 0.1 && col_layer.g < 0.1 && col_layer.b < 0.1){
+		final_col = pal_gr; 
+	}
+	
+	else if (col_layer.r > col_layer.g && col_layer.r > col_layer.b) {
+    	final_col = pal_r;
+	}
+	else if (col_layer.b > col_layer.r && col_layer.b > col_layer.g) {
+    			final_col = pal_b;
+
+	}
+	else{
+		final_col = pal_g;
+	}
+	//COLOR.rgb = final_col;
+	//
+	//vec2 grid_uv = round(UV * float(40)) / float(40);
+	//
+	//vec3 text = texture(final_col, grid_uv).rgb;
+
+
+    COLOR.rgb = final_col;
+}"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_fejxh"]
+viewport_path = NodePath("Col_Layer/Col_viewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jg81y"]
+resource_local_to_scene = true
+shader = SubResource("Shader_ft5re")
+shader_parameter/col_screen_tex = SubResource("ViewportTexture_fejxh")
+shader_parameter/u_dither_tex = ExtResource("5_vjwx3")
+shader_parameter/u_color_tex_r = ExtResource("4_rtgsf")
+shader_parameter/u_color_tex_g = ExtResource("3_nkbkd")
+shader_parameter/u_color_tex_b = ExtResource("2_jg81y")
+shader_parameter/u_color_tex_gr = ExtResource("4_nkbkd")
+shader_parameter/u_bit_depth = 16
+shader_parameter/u_contrast = 1.325
+shader_parameter/u_offset = 0.1
+shader_parameter/u_dither_size = 2
+
+[node name="Colour_Dither_Shader" type="Control" unique_id=326370975 node_paths=PackedStringArray("Target", "Target_b", "viewport", "ditherViewport")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q03m2")
+Target = NodePath("Dith_Layer/Dith_viewport/Camera3D")
+Target_b = NodePath("Col_Layer/Col_viewport/Camera3D")
+viewport = NodePath("Col_Layer/Col_viewport")
+ditherViewport = NodePath("Dith_Layer")
+
+[node name="Col_Layer" type="SubViewportContainer" parent="." unique_id=1019503845]
+process_mode = 3
+light_mask = 2
+visibility_layer = 2
+z_index = 2
+layout_mode = 0
+offset_left = 1280.0
+offset_top = 1000.0
+offset_right = 2560.0
+offset_bottom = 1720.0
+scale = Vector2(0.25, 0.25)
+tooltip_text = "This renders layer 2, which should contain an r/g/b unshaded albedo to select the pallette. "
+stretch = true
+
+[node name="Col_viewport" type="SubViewport" parent="Col_Layer" unique_id=899024960]
+process_mode = 3
+handle_input_locally = false
+scaling_3d_scale = 0.5
+anisotropic_filtering_level = 0
+canvas_item_default_texture_filter = 0
+positional_shadow_atlas_size = 0
+positional_shadow_atlas_quad_0 = 0
+positional_shadow_atlas_quad_1 = 0
+positional_shadow_atlas_quad_2 = 0
+positional_shadow_atlas_quad_3 = 0
+canvas_cull_mask = 4293918722
+oversampling = false
+size = Vector2i(1280, 720)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Col_Layer/Col_viewport" unique_id=1472150447]
+cull_mask = 2
+
+[node name="Dith_Layer" type="SubViewportContainer" parent="." unique_id=172990706]
+material = SubResource("ShaderMaterial_jg81y")
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+stretch = true
+
+[node name="Dith_viewport" type="SubViewport" parent="Dith_Layer" unique_id=881096553]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Dith_Layer/Dith_viewport" unique_id=951986095]
+cull_mask = 1
+environment = ExtResource("3_xytf0")

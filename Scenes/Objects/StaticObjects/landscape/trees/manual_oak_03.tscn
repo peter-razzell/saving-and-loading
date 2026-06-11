@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b0fk8kyye6dx0"]
+
+[ext_resource type="PackedScene" uid="uid://bjdxra1iyk1ds" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/glbs/Manual_oak_03.glb" id="1_gnk7p"]
+[ext_resource type="Material" uid="uid://bbv4uhsitnli4" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/Branch_01_summer.tres" id="2_iswgs"]
+[ext_resource type="Material" uid="uid://fs3bytig55bt" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/Branch_01a.tres" id="2_myofr"]
+[ext_resource type="Material" uid="uid://ccee6m3jwc35o" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/Branch_02.tres" id="3_ng5u8"]
+
+[node name="Manual_oak_03" unique_id=408048506 instance=ExtResource("1_gnk7p")]
+
+[node name="Branches01" parent="." index="2" unique_id=1424166738]
+surface_material_override/0 = ExtResource("2_iswgs")
+
+[node name="Branches01a" parent="." index="3" unique_id=1068088280]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02178371, 17.000614, 0.002892971)
+surface_material_override/0 = ExtResource("2_myofr")
+
+[node name="Branches02" parent="." index="4" unique_id=2013698800]
+surface_material_override/0 = ExtResource("3_ng5u8")
+
+[node name="Branches01a_001" parent="." index="5" unique_id=973903348]
+surface_material_override/0 = ExtResource("3_ng5u8")

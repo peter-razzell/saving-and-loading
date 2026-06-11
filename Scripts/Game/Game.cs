@@ -8,6 +8,9 @@ public partial class Game : Node3D
 
 	public static Game Instance {get; private set;}
 
+	/// <summary>
+	/// does nothing currently
+	/// </summary>
 	[Export]
 	public bool debug = false;
 
@@ -17,11 +20,15 @@ public partial class Game : Node3D
 	[Export]
 	public float gravity = 9.8f; 
 
+	//Manager classes: 
 	public SaverLoader saverLoader;
 
 	public UiManager uiManager;
 
-	public Root root;  //root node for the actual scene	
+	public Root root;  
+	
+
+
 	
 	/// <summary>
     /// Time since the start of the game

@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://j85mfkx1ix5"]
+
+[ext_resource type="PackedScene" uid="uid://jv0w2kqoca2g" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/glbs/Manual_oak_02_col.glb" id="1_l1hjk"]
+[ext_resource type="Material" uid="uid://bbv4uhsitnli4" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/Branch_01_summer.tres" id="3_iuo2a"]
+[ext_resource type="Material" uid="uid://bnkt8i4065n1x" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/shaders/leaf_sway.tres" id="4_iuo2a"]
+[ext_resource type="Texture2D" uid="uid://cx2cjy2x6i5rx" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/Manual_oak_02_Branch_Pixel_02_Nest.png" id="4_kk03p"]
+[ext_resource type="Material" uid="uid://fs3bytig55bt" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/Branch_01a.tres" id="7_a02fp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x5sip"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("4_kk03p")
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+
+[node name="Manual_oak_02_col" unique_id=579269560 instance=ExtResource("1_l1hjk")]
+
+[node name="Trunk_branch" parent="." index="0" unique_id=291263320]
+layers = 1
+
+[node name="Branch_02" parent="." index="1" unique_id=1942474338]
+surface_material_override/0 = SubResource("StandardMaterial3D_x5sip")
+
+[node name="Branch_01" parent="." index="2" unique_id=331585609]
+surface_material_override/0 = ExtResource("4_iuo2a")
+
+[node name="Branch_02_001" parent="." index="3" unique_id=955735627]
+sorting_offset = 1.0
+surface_material_override/0 = ExtResource("4_iuo2a")
+
+[node name="Branch_01_001" parent="." index="4" unique_id=224448713]
+surface_material_override/0 = ExtResource("4_iuo2a")
+
+[node name="Branch_01_002" parent="." index="5" unique_id=1862680453]
+transform = Transform3D(-0.9803972, 0.16788349, 0.1031325, -0.06815123, 0.20217912, -0.97697437, -0.18486911, -0.9648516, -0.18677437, -1.1040833, 5.3554773, -2.3669422)
+material_override = ExtResource("4_iuo2a")
+cast_shadow = 0
+surface_material_override/0 = ExtResource("3_iuo2a")
+
+[node name="Branch_02_002" parent="." index="6" unique_id=730963969]
+surface_material_override/0 = ExtResource("4_iuo2a")
+
+[node name="Branch_01_004" parent="." index="8" unique_id=1892195478]
+transform = Transform3D(0.2900716, 0.9401472, 0.17883423, -0.067331016, 0.2064544, -0.9761368, -0.9546335, 0.27110848, 0.1231876, -3.3076737, 5.284717, 0.8201418)
+surface_material_override/0 = ExtResource("4_iuo2a")
+
+[node name="Branch_01_005" parent="." index="9" unique_id=1291660794]
+transform = Transform3D(0.41157424, 0.8998451, 0.14451835, -0.7994468, 0.43259752, -0.4168263, -0.43759736, 0.056020275, 0.8974242, -0.7772521, 4.2714024, -1.5574327)
+surface_material_override/0 = ExtResource("4_iuo2a")
+
+[node name="Branch_01_003" parent="." index="11" unique_id=1054238886]
+surface_material_override/0 = ExtResource("4_iuo2a")
+
+[node name="Branch_01_006" parent="." index="12" unique_id=661545721]
+material_override = ExtResource("4_iuo2a")
+surface_material_override/0 = ExtResource("7_a02fp")
+
+[node name="Branch_01_007" parent="." index="13" unique_id=644590213]
+surface_material_override/0 = ExtResource("4_iuo2a")
+
+[node name="Branch_01_008" parent="." index="14" unique_id=173271178]
+material_override = ExtResource("4_iuo2a")
+surface_material_override/0 = ExtResource("3_iuo2a")
+
+[node name="Trunk_001" parent="." index="15" unique_id=359250993]
+layers = 1
+
+[node name="Branch_01_009" parent="." index="16" unique_id=1159036011]
+surface_material_override/0 = ExtResource("4_iuo2a")
+
+[node name="Branch_01_010" parent="." index="17" unique_id=1811121380]
+surface_material_override/0 = ExtResource("4_iuo2a")
+
+[node name="Branch_01_011" parent="." index="18" unique_id=819862057]
+surface_material_override/0 = ExtResource("4_iuo2a")

@@ -14,8 +14,7 @@ public partial class SaverLoader : Node
 
     Viewport viewport;
 
-    [Export]
-    UiSaveLoad ui; 
+
 
     Game game;
 

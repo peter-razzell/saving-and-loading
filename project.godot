@@ -43,17 +43,9 @@ enabled=PackedStringArray("res://addons/open-world-database/plugin.cfg", "res://
 [file_customization]
 
 folder_colors={
-"res://Assets/": "orange",
-"res://Assets/Environment/": "yellow",
-"res://Assets/Glbs/": "green",
-"res://Assets/Shader/": "teal",
-"res://Assets/UI/": "pink",
-"res://Scenes/": "green",
-"res://Scripts/": "teal",
-"res://addons/": "red",
-"res://addons/demo/": "orange",
-"res://addons/terrain_3d/": "green",
-"res://src/": "blue"
+"res://Scenes/Objects/StaticObjects/buildings/glbs/Glbs/": "green",
+"res://assets/Environment/": "yellow",
+"res://assets/UI/": "pink"
 }
 
 [global_group]

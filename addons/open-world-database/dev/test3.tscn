@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bblxlhqhxy5va"]
+[gd_scene format=3 uid="uid://bblxlhqhxy5va"]
 
 [ext_resource type="PackedScene" uid="uid://dnkjea1mut88n" path="res://addons/open-world-database/dev/open_world_database.tscn" id="1_oukvl"]
-[ext_resource type="PackedScene" uid="uid://x5t1mdeki6ql" path="res://Assets/Glbs/buildings/material_assigned/cottage_01.tscn" id="2_drjb6"]
+[ext_resource type="PackedScene" uid="uid://x5t1mdeki6ql" path="res://Scenes/Objects/StaticObjects/buildings/glbs/buildings/material_assigned/cottage_01.tscn" id="2_drjb6"]
 
 [node name="Test3" type="Node3D"]
 

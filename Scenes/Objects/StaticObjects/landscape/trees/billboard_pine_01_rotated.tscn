@@ -1,0 +1,106 @@
+[gd_scene format=4 uid="uid://bjvcqwe34mae3"]
+
+[ext_resource type="PackedScene" uid="uid://h0p4yv1nac4e" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/glbs/billboard_pine_01.glb" id="1_jqqbn"]
+[ext_resource type="Texture2D" uid="uid://gci6tfhgmyec" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/billboard_pine_01_Tree_01_256.png" id="2_bbtih"]
+[ext_resource type="Material" uid="uid://c0m6p0h7m8wea" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/Bark.tres" id="3_uwlro"]
+[ext_resource type="Texture2D" uid="uid://bvonf6xul0xpy" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/oak_Oak_Leaves.png" id="4_7uhb3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uwlro"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0, 2.4673054, 0, 1)
+albedo_texture = ExtResource("2_bbtih")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gartq"]
+resource_name = "Material.001"
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("2_bbtih")
+texture_filter = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_a7ctp"]
+_surfaces = [{
+"aabb": AABB(-1, -1.0000001, -3, 2, 2.0000002, 4),
+"format": 34896613377,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0A"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("AAD/f///AAD///9/AAAAAP///3///wAAAAD/fwAAAAD/f/////8AAP9/AAAAAAAA/38AAP//AAD/f/7/AAAAAIHagdr//wAAfSV9JQAAAAB9JX0l//8AAIHagdoAAAAAgdp9Jf//AAB9JYHaAAAAAH0lgdr//wAAgdp9JQAAAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_fqrgo"]
+resource_name = "billboard_pine_01_Plane"
+_surfaces = [{
+"aabb": AABB(-1, -1.0000001, -3, 2, 2.0000002, 4),
+"attribute_data": PackedByteArray("AAD/////AAD/////AAAAAAAA/////wAA/////wAAAAAAAP////8AAP////8AAAAAAAD/////AAD/////AAAAAA=="),
+"format": 34896613399,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0A"),
+"material": SubResource("StandardMaterial3D_gartq"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("AAD/f////7////9/AAD/v////3////+/AAD/fwAA/7//f/////9U1f9/AAAAAFTV/38AAP//VNX/f/7/AABU1YHagdr//6rpfSV9JQAAqul9JX0l//+q6YHagdoAAKrpgdp9Jf//qul9JYHaAACq6X0lgdr//6rpgdp9JQAAqun///9/////f////3////9/qqpUVaqqVFWqqlRVqqpUVfWV+kr1lfpK9ZX6SvWV+kr6ygjq+soI6vrKCOr6ygjq")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_a7ctp")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7uhb3"]
+top_radius = 0.01
+bottom_radius = 0.1
+height = 3.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xx6iw"]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+albedo_color = Color(0, 2.5419645, 0, 1)
+albedo_texture = ExtResource("4_7uhb3")
+uv1_scale = Vector3(5.88, 1, 1.945)
+uv1_offset = Vector3(0.085, 0.35, 0.075)
+uv2_scale = Vector3(2.035, 2.035, 2.035)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_d07og"]
+material = SubResource("StandardMaterial3D_xx6iw")
+top_radius = 0.2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7uhb3"]
+height = 2.75708
+radius = 0.10058594
+
+[node name="billboard_pine_01" unique_id=275023294 instance=ExtResource("1_jqqbn")]
+
+[node name="Plane" parent="." index="0" unique_id=495559313]
+sorting_offset = 1.0
+surface_material_override/0 = SubResource("StandardMaterial3D_uwlro")
+
+[node name="Plane2" type="MeshInstance3D" parent="." index="1" unique_id=1201519378]
+transform = Transform3D(0.8660254, 0.5, 0, 0, 0, -1, -0.5, 0.8660254, 0, 0, 1, 0)
+layers = 3
+sorting_offset = 1.0
+mesh = SubResource("ArrayMesh_fqrgo")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_uwlro")
+
+[node name="Trunk" type="MeshInstance3D" parent="." index="2" unique_id=1115595931]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_7uhb3")
+surface_material_override/0 = ExtResource("3_uwlro")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." index="3" unique_id=2080216638]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2277298, 0)
+mesh = SubResource("CylinderMesh_d07og")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4" unique_id=1872612663]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=2006623276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12146, 0)
+shape = SubResource("CylinderShape3D_7uhb3")

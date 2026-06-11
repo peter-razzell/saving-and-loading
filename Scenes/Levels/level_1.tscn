@@ -1,10 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://bjtjpvwtpxmgr"]
+[gd_scene format=3 uid="uid://bjtjpvwtpxmgr"]
 
 [ext_resource type="PackedScene" uid="uid://dax1rcfi7e1tf" path="res://Scenes/Objects/Pickups/pickup.tscn" id="1_tlcug"]
 [ext_resource type="Script" uid="uid://c6wyjsoxclcad" path="res://Scripts/Game/Level/Level.cs" id="1_xgxfi"]
 [ext_resource type="PackedScene" uid="uid://dy78f2m5eekcx" path="res://Scenes/Objects/Level Transitions/level_exit.tscn" id="2_4dpyx"]
-[ext_resource type="PackedScene" uid="uid://dkj2s3g713f0k" path="res://Scenes/Objects/Static Objects/tower_corner.tscn" id="3_3mqfk"]
-[ext_resource type="PackedScene" uid="uid://dei56gc53sw32" path="res://Scenes/Objects/Static Objects/tower_corner.glb" id="5_cyadu"]
+[ext_resource type="PackedScene" uid="uid://dkj2s3g713f0k" path="res://Scenes/Objects/StaticObjects/buildings/castles/tower_corner.tscn" id="3_3mqfk"]
+[ext_resource type="PackedScene" uid="uid://dei56gc53sw32" path="res://Scenes/Objects/StaticObjects/buildings/glbs/tower_corner.glb" id="5_cyadu"]
 [ext_resource type="PackedScene" uid="uid://dej7c77c23tmk" path="res://Scenes/Objects/Level Transitions/level_entrance.tscn" id="7_5f3p6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cyadu"]

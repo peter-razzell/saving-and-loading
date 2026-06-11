@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cwemgjixn6jjp"]
+
+[ext_resource type="Texture2D" uid="uid://b01niox70prtn" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/quick_pine_BrushStroke_Variant_B.png" id="1_6dlpx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_up526"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w4cge"]
+albedo_texture = ExtResource("1_6dlpx")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6dlpx"]
+
+[node name="Block" type="Node3D" unique_id=1532918631]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=2139910464]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=409171452]
+layers = 3
+mesh = SubResource("BoxMesh_up526")
+surface_material_override/0 = SubResource("StandardMaterial3D_w4cge")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1924479968]
+shape = SubResource("BoxShape3D_6dlpx")

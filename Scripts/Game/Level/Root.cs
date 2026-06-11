@@ -84,7 +84,7 @@ public partial class Root : Node3D
 		GetTree().Paused = true;
 
 		PackedScene nextLevel = GD.Load<PackedScene>(currentLevelPath);
-
+ 
 		Level newLevel = (Level)nextLevel.Instantiate();
 
 		newLevel.OnLevelLoaded += OnLevelLoaded;
