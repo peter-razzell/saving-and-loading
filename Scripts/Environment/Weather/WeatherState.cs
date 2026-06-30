@@ -5,7 +5,9 @@ using Godot;
     {
         Sunny,
         Cloudy,
-        Cold
+        Cold,
+
+        Error
     }
 
 public partial class WeatherState : Node

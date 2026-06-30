@@ -2,6 +2,7 @@
 
 
 using System.Collections.Generic;
+using Godot;
 
 /// <summary>
 /// Allows us to get the level weather states object that corresponds to a specific class. 
@@ -35,8 +36,17 @@ public static class RegionWeatherStatesLookup
 
     public static RegionWeatherStates GetLevelWeatherStatesWithID(string LevelID)
     {
-        
-        return keyValuePairs[LevelID]; 
+        try
+        {
+            return keyValuePairs[LevelID]; 
+
+        }
+        catch
+        {
+            GD.Print($"WEATHER: no state for {LevelID}");
+
+            return new RegionWeatherStates(new List<WeatherState>(){new WeatherState(EWeatherState.Error, new WeatherParameter(100f))}); 
+        }
     }
     
 }

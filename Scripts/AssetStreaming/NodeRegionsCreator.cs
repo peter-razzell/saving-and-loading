@@ -12,7 +12,6 @@ public partial class NodeRegionsCreator : Node
 
         Godot.Collections.Dictionary<int, Godot.Collections.Array<Node>> nodesByRegion = new Godot.Collections.Dictionary<int, Godot.Collections.Array<Node>>(); 
 
-
 		foreach(Node3D child in children)
 		{
 			int regionID = (int) terrainData.Call("get_region_idp", child.Position); 
@@ -22,6 +21,7 @@ public partial class NodeRegionsCreator : Node
 
 			if(packedNodesByRegion.TryGetValue(regionID, out Godot.Collections.Array<PackedScene> value))
 			{
+				GD.Print($"adding {packedScene.ResourceName} to node region {regionID}");
 				value.Add(packedScene);
 			} 
 			else packedNodesByRegion.Add(regionID, [packedScene]);

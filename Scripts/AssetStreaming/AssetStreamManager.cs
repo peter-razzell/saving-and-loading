@@ -67,7 +67,7 @@ public partial class AssetStreamManager : Node3D
 	/// <summary>
 	/// list of currently loaded assets used for keeping track of what is in the scene and where
 	/// </summary>
-	System.Collections.Generic.Dictionary<int, System.Collections.Generic.Dictionary<string, Array<MultiMeshInstance3D>>> currentlyLoadedAssetsByRegion
+	System.Collections.Generic.Dictionary<int, System.Collections.Generic.Dictionary<string, Array<MultiMeshInstance3D>>> loadedMMIsByRegion
 	 = new System.Collections.Generic.Dictionary<int, System.Collections.Generic.Dictionary<string, Array<MultiMeshInstance3D>>>();
 
 	/// <summary>
@@ -76,7 +76,9 @@ public partial class AssetStreamManager : Node3D
 	System.Collections.Generic.Dictionary<int, Array<StreamableObject>> streamablesByRegion = 
 	new System.Collections.Generic.Dictionary<int, Array<StreamableObject>>(); 
 
-	Godot.Collections.Dictionary<int, Array<Node>> NodesByRegion = new Godot.Collections.Dictionary<int, Array<Node>>(); 
+	Godot.Collections.Dictionary<int, Array<Node>> loadedNodesByRegion = new Godot.Collections.Dictionary<int, Array<Node>>(); 
+
+	Godot.Collections.Dictionary<int, Array<PackedScene>> packedScenesByRegion = new Godot.Collections.Dictionary<int, Array<PackedScene>>(); 
 
 	GodotObject terrain3D, terrainData;  
 
@@ -87,7 +89,6 @@ public partial class AssetStreamManager : Node3D
 		GetTerrain();
 		if (!Engine.IsEditorHint())
 		{
-			// GD.Print("setting edit mode to false - so should LOAD!"); 
 			editMode = false; 
 
 			KillAllChildren();//clears the decks - in case any meshinstances have accidentally been saved somehow! 
@@ -104,17 +105,16 @@ public partial class AssetStreamManager : Node3D
 
 		streamablesByRegion = assetDataBaseCreator.CreateDatabase(GetChildren(), terrainData);
 
+		packedScenesByRegion = new Godot.Collections.Dictionary<int, Array<PackedScene>>(); //remove the previous nodes
+		loadedMMIsByRegion = new System.Collections.Generic.Dictionary<int, System.Collections.Generic.Dictionary<string, Array<MultiMeshInstance3D>>>(); 
+
 		//Save to a WorldSpaceData resource.
 		SaveStreamablesByRegionToDisk();
 
 		NodeRegionsCreator nodeRegionsCreator = new NodeRegionsCreator();
-		NodesByRegion = nodeRegionsCreator.SaveAndClearOriginalNodes(GetChildren(), terrainData); 	
+		loadedNodesByRegion = nodeRegionsCreator.SaveAndClearOriginalNodes(GetChildren(), terrainData); 	
 
-		GD.Print(NodesByRegion.Count); 
-
-		KillAllChildren(); 
-
-			
+		KillAllChildren(); 	
 	}
 
 	/// <summary>
@@ -237,7 +237,7 @@ public partial class AssetStreamManager : Node3D
 			}
 
 			//Deinitialise all regions NOT in the loading grid. 
-			foreach(int allRegionID in currentlyLoadedAssetsByRegion.Keys)
+			foreach(int allRegionID in loadedMMIsByRegion.Keys)
 			{
 				if (!MMIRegions.ContainsKey(allRegionID))
 				{
@@ -259,11 +259,11 @@ public partial class AssetStreamManager : Node3D
 			int regionID = MMIkeys[pollingLoopI]; //this is a heavy LINQ expression
 
 			//If the current region hasn't yet been loaded 
-			if (!currentlyLoadedAssetsByRegion.ContainsKey(regionID))
+			if (!loadedMMIsByRegion.ContainsKey(regionID))
 			{
 				// GD.Print("LOADING region: ", regionID); 
 								
-				bool loaded = RequestLoadMMIRegionAssets(MMIRegionFileName, regionID, true); //begins to load assets for a region
+				bool loaded = RequestLoadRegionAssets(MMIRegionFileName, regionID, true); //begins to load assets for a region
 
 				if(loaded == true)
 				{
@@ -292,7 +292,7 @@ public partial class AssetStreamManager : Node3D
 		}
 		else //Break out of the loadingPhase and back into normal updatePolling (checking if we've moved into a new area). 
 		{
-			GD.Print($"FINISHING MMI LOOP: loop final values {pollingLoopI}, {pollingLoopJ}"); 
+			// GD.Print($"FINISHING MMI LOOP: loop final values {pollingLoopI}, {pollingLoopJ}"); 
 			currentPolling = 0; 
 			pollingLoopI = 0;
 			loadingMMIPhase = false; 
@@ -304,15 +304,19 @@ public partial class AssetStreamManager : Node3D
 	{
 		if(pollingLoopJ <= nodeRegions.Keys.Count -1)
 		{
-			bool loaded = RequestLoadMMIRegionAssets(nodeRegionFileName, nodeRegionKeys[pollingLoopJ], false); 
+			bool loaded = RequestLoadRegionAssets(nodeRegionFileName, nodeRegionKeys[pollingLoopJ], false); 
+
+
 			if(loaded)
 			{
+				InitialiseNodeRegion(nodeRegionKeys[pollingLoopJ]); //asynchronously loads next region. 
+
 				pollingLoopJ ++; //should be some kind of timeout - so if enough loops pass and it STILL hasn't worked 
 			}
 		}
 		else
 		{
-			GD.Print($"FINISHING NODE LOOP: loop final values {pollingLoopI}, {pollingLoopJ}"); 
+			// GD.Print($"FINISHING NODE LOOP: loop final values {pollingLoopI}, {pollingLoopJ}"); 
 
 			pollingLoopJ = 0; 
 			loadingNodePhase = false;
@@ -320,14 +324,135 @@ public partial class AssetStreamManager : Node3D
 		
 	}
 
+	/// <summary>
+	/// Reads the WorldSpaceData asset from the disk to stream the data. 
+	/// </summary>
+	bool RequestLoadRegionAssets(string resourcePath, int regionID, bool isMMI)
+	{
+		string typeHint = "RegionNodeData"; 
+		if (isMMI)
+		{
+			typeHint = "RegionMMIData";
+			if (streamablesByRegion.ContainsKey(regionID))
+			{
+				// GD.Print($"using existing dictionary record for mmi region {regionID}");
+				return true; //don't need to load it if it's already in the dictionary! 
+			}
+		}
+		else
+		{
+			if (loadedNodesByRegion.ContainsKey(regionID))
+			{
+				// GD.Print($"using existing dictionary record for node region {regionID}");
+
+				return true; //doubly so if we're loading in nodes!
+			}
+		}
+
+
+		string fileName = resourcePath + regionID + ".tres"; 
+		string[] files  = DirAccess.GetFilesAt("user://");  
+
+		//Initialises as a resource
+		if(files.Contains(fileName))
+		{
+			// GD.Print($"LOADSTATUS requesting to load {resourcePath}");
+			ResourceLoader.ThreadLoadStatus threadLoadStatus = ResourceLoader.LoadThreadedGetStatus("user://" + fileName); 
+			//if it hasn't yet been loaded, start loading it.
+			if(threadLoadStatus == ResourceLoader.ThreadLoadStatus.InvalidResource)
+			{
+				// GD.Print("LOADSTATUS starting loading"); 
+				Error error  = ResourceLoader.LoadThreadedRequest("user://" + fileName, typeHint: typeHint , false, ResourceLoader.CacheMode.ReplaceDeep); 
+				return false; //not yet loaded
+			}
+			else if(threadLoadStatus == ResourceLoader.ThreadLoadStatus.Loaded)
+			{
+
+				if (isMMI)
+				{
+					Resource regionDataRes = ResourceLoader.LoadThreadedGet("user://" + fileName);
+					try
+					{
+						RegionMMIData regionData = (RegionMMIData) regionDataRes; 
+						if(regionData == null) return true; //if there isn't anything in the region, return. 
+						// GD.Print($"LOADSTATUS Loaded {resourcePath}", regionData);
+						if (!streamablesByRegion.ContainsKey(regionID))
+						{
+							streamablesByRegion.Add(regionID, regionData.regionData); 
+						}
+						else
+						{
+							throw new Exception("trying to load a streamable region that has already previously been loaded");
+							//!NEED TO IMPLEMENT A WAY TO CLEAN UP DICTIONARIES WHEN THEY HAVE REFERENCES TO OLD / STALE REGIONS!
+							//!BUT ALSO USE THESE DICTIONARIES AS A CACHE FOR REGIONS I STILL WANT TO REFERENCE!
+						}
+					}
+					catch(Exception e )
+					{
+						// GD.Print($"error casting to RegionMMIData {fileName}, exception {e}");
+					}
+				}
+				else
+				{
+					RegionNodeData regionDataRes = (RegionNodeData) ResourceLoader.LoadThreadedGet("user://" + fileName);
+					if(regionDataRes == null) return true; //if there isn't anything in the region. return
+					// GD.Print($"LOADSTATUS Loaded {resourcePath}", regionDataRes);
+					Array<PackedScene> scenes = regionDataRes.GetScenes(); 
+					if(!packedScenesByRegion.ContainsKey(regionID)) 
+					{
+						packedScenesByRegion.Add(regionID, scenes);
+					}
+
+					// GD.Print("FILE NAME loading NODES! number of NODES in this region: ", scenes.Count); 
+					//!I want to do ALL of this on a thread as well! 
+					// foreach(PackedScene scene in packedScenesByRegion[regionID])
+					// {
+					// 	Node node = scene.Instantiate();
+
+					// 	if(!loadedNodesByRegion.TryAdd(regionID, [node]))
+					// 	{
+					// 		loadedNodesByRegion[regionID].Add(node); 
+					// 	} 
+						
+					// 	AddChild(node); 
+
+					// 	//only works in editor - but this can only be called in editor!
+					// 	node.Owner = GetTree().EditedSceneRoot; 
+					// }
+					//!END
+				}
+
+				return true; 
+			}
+			else if(threadLoadStatus == ResourceLoader.ThreadLoadStatus.InProgress)
+			{
+				// GD.Print("LOADSTATUS ", fileName, " ", threadLoadStatus); 
+				return false; 
+			}
+			else if(threadLoadStatus == ResourceLoader.ThreadLoadStatus.Failed)
+			{
+				// GD.Print("LOADSTATUS failed to load region: ", regionID); 
+				return true; //to prevent getting stuck in infinite load. 
+			}
+		}
+		else
+		{
+			// GD.Print($"LOADSTATUS can't access the file {fileName} now because it can't find it in the folder");
+		}
+		return true; //catch all - enables us to move on if there is no file or some kind of problem with the file 
+	}
+
+	
+	
+	
 	#endregion
 	#region NODE REGIONS ------------------------------------------------------------------- 
 	
 	void DeinitialiseNodeRegionsOutsideOfArea(Godot.Collections.Dictionary<int,Vector2I> areas)
 	{
-		foreach(int key in NodesByRegion.Keys)
+		foreach(int key in loadedNodesByRegion.Keys)
 		{
-			GD.Print("trying to deinitialise node in region", key); 
+			// GD.Print("trying to deinitialise node in region", key); 
 
 			if (!areas.ContainsKey(key))
 			{
@@ -336,17 +461,17 @@ public partial class AssetStreamManager : Node3D
 			}
 			else
 			{
-				GD.Print ("could not deinitialise as it is in areas dictionary"); 
+				// GD.Print ("could not deinitialise as it is in areas dictionary"); 
 			}
 		}
 	}
 
 	void DeinitialiseNodeRegion(int RegionID)
 	{
-		if (NodesByRegion.ContainsKey(RegionID))
+		if (loadedNodesByRegion.ContainsKey(RegionID))
 		{
-			GD.Print("getting closer to deinitialising!"); 
-			foreach(Node n in NodesByRegion[RegionID])
+			// GD.Print("getting closer to deinitialising!"); 
+			foreach(Node n in loadedNodesByRegion[RegionID])
 			{
 				// GD.Print("should DEFINITELY be deinitialising!"); 
 				n?.QueueFree(); 
@@ -357,6 +482,33 @@ public partial class AssetStreamManager : Node3D
 		//this needs to deinitialise the NODEs but NOT the MMIS - and vice versa in the MMI one! 
 	}
 	
+
+	async void InitialiseNodeRegion(int regionID)
+	{
+
+		if (!packedScenesByRegion.ContainsKey(regionID))
+		{
+			// GD.Print($"NO PACKED SCENE IN PACKED SCENES BY REGION WITH THE ID {regionID}, UNABLE TO INITIALISE NODE REGION"); 
+			return; 
+			
+		}
+		
+		foreach(PackedScene scene in packedScenesByRegion[regionID])
+		{
+			Node node = scene.Instantiate();
+
+			if(!loadedNodesByRegion.TryAdd(regionID, [node]))
+			{
+				loadedNodesByRegion[regionID].Add(node); 
+			} 
+			
+			AddChild(node); 
+
+			//only works in editor - but this can only be called in editor!
+			node.Owner = GetTree().EditedSceneRoot; 
+		}	
+	}
+
 	/// <summary>
 	/// Switch back to edit mode - reloading original nodes. 
 	/// 
@@ -374,18 +526,18 @@ public partial class AssetStreamManager : Node3D
 
 		foreach(string file in files)
 		{
-			GD.Print(file); 
+			// GD.Print(file); 
 			if (file.Contains("node"))
 			{
-				GD.Print("reloading", file); 
+				// GD.Print("reloading", file); 
 				RegionNodeData regionNodeData = (RegionNodeData) ResourceLoader.Load("user://" + file, typeHint: "RegionNodeData", cacheMode: ResourceLoader.CacheMode.ReplaceDeep); 
 
 				Array<PackedScene> scenes = regionNodeData.GetScenes(); 
 
-				GD.Print("number of scenes in region: ", scenes.Count); 
+				// GD.Print("number of scenes in region: ", scenes.Count); 
 				foreach(PackedScene scene in scenes)
 				{
-					GD.Print("scene being intantiated");
+					// GD.Print("scene being intantiated");
 					Node node = scene.Instantiate();
 					
 					AddChild(node); 
@@ -434,145 +586,7 @@ public partial class AssetStreamManager : Node3D
 	}
 
 
-	/// <summary>
-	/// Reads the WorldSpaceData asset from the disk to stream the data. 
-	/// </summary>
-	bool RequestLoadMMIRegionAssets(string resourcePath, int regionID, bool isMMI)
-	{
-		string typeHint = "RegionNodeData"; 
-		if (isMMI)
-		{
-			typeHint = "RegionMMIData";
-
-		}
 	
-
-		string fileName = resourcePath + regionID + ".tres"; 
-
-			GD.Print($"requesting to load assets for {fileName}"); 
-
-
-		string[] files  = DirAccess.GetFilesAt("user://");  
-
-		foreach(string file in files)
-		{
-			
-			GD.Print(file); 
-
-			if(file == fileName)
-			{
-				GD.Print("whyyy??"); 
-			}
-		}
-
-		
-		//Initialises as a resource
-		if(files.Contains(fileName))
-		{
-			GD.Print($"LOADSTATUS requesting to load {resourcePath}");
-
-			ResourceLoader.ThreadLoadStatus threadLoadStatus = ResourceLoader.LoadThreadedGetStatus("user://" + fileName); 
-
-			//if it hasn't yet been loaded, start loading it.
-			if(threadLoadStatus == ResourceLoader.ThreadLoadStatus.InvalidResource)
-			{
-				// GD.Print("LOADSTATUS starting loading"); 
-				Error error  = ResourceLoader.LoadThreadedRequest("user://" + fileName, typeHint: typeHint , false, ResourceLoader.CacheMode.ReplaceDeep); 
-
-				return false; //not yet loaded
-			}
-			else if(threadLoadStatus == ResourceLoader.ThreadLoadStatus.Loaded)
-			{
-
-				if (isMMI)
-				{
-					Resource regionDataRes = ResourceLoader.LoadThreadedGet("user://" + fileName);
-
-					GD.Print("FILE NAME!!"); 
-
-					try
-					{
-						RegionMMIData regionData = (RegionMMIData) regionDataRes; 
-						if(regionData == null) return true; //if there isn't anything in the region, return. 
-
-
-						GD.Print($"LOADSTATUS Loaded {resourcePath}", regionData);
-
-						if (!streamablesByRegion.ContainsKey(regionID))
-						{
-							streamablesByRegion.Add(regionID, regionData.regionData); 
-
-						}
-					}
-					catch(Exception e )
-					{
-						GD.Print("FILE NAME", e);
-						GD.Print("FILE NAME is: ", fileName); 
-
-					}
-
-					
-
-				}
-				else
-				{
-					//!REFACTOR - THIS SHOULD NOT BE HERE - DUPLICATION OF CODE FOR MMI AND NODE REGIONS 
-					RegionNodeData regionDataRes = (RegionNodeData) ResourceLoader.LoadThreadedGet("user://" + fileName);
-
-					if(regionDataRes == null) return true; //if there isn't anything in the region. return
-
-					if (nodeRegions.ContainsKey(regionID))
-					{
-						Array<PackedScene> scenes = regionDataRes.GetScenes(); 
-
-						GD.Print("FILE NAME loading NODES! number of NODES in this region: ", scenes.Count); 
-						//I want to do ALL of this on a thread as well! 
-						foreach(PackedScene scene in scenes)
-						{
-							Node node = scene.Instantiate();
-
-
-
-							if(!NodesByRegion.TryAdd(regionID, [node]))
-							{
-								NodesByRegion[regionID].Add(node); 
-							} 
-							
-							AddChild(node); 
-
-							//only works in editor - but this can only be called in editor!
-							node.Owner = GetTree().EditedSceneRoot; 
-						}
-					}
-
-
-				}
-			
-
-
-				//Iterate through each region and re-add to the runtime dictionary packedAssetsByRegion. 
-				// totalStreamableAssets.Add(regionID, regionData.regionData); 
-
-				return true; 
-			}
-			else if(threadLoadStatus == ResourceLoader.ThreadLoadStatus.InProgress)
-			{
-				GD.Print("LOADSTATUS ", fileName, " ", threadLoadStatus); 
-				return false; 
-			}
-			else if(threadLoadStatus == ResourceLoader.ThreadLoadStatus.Failed)
-			{
-				GD.Print("LOADSTATUS failed to load region: ", regionID); 
-				return true; //to prevent getting stuck in infinite load. 
-			}
-		}
-		else
-		{
-			GD.Print($"LOADSTATUS can't access the file {fileName} now because it can't find it in the folder");
-		}
-		return true; //catch all - enables us to move on if there is no file or some kind of problem with the file 
-	}
-
 	/// <summary>
 	/// Iterates through regions - calls ReinitialiseStreamableAsset on that region. 
 	/// </summary>
@@ -582,9 +596,9 @@ public partial class AssetStreamManager : Node3D
 	{
 		// GD.Print("reinitialising region,  id =", regionID); 
 		//Prevents accidentally loading the assets for a region multiple times. 
-		if(currentlyLoadedAssetsByRegion.ContainsKey(regionID)) return; 
+		if(loadedMMIsByRegion.ContainsKey(regionID)) return; 
 
-		currentlyLoadedAssetsByRegion.Add(regionID, new System.Collections.Generic.Dictionary<string, Array<MultiMeshInstance3D>>());
+		loadedMMIsByRegion.Add(regionID, new System.Collections.Generic.Dictionary<string, Array<MultiMeshInstance3D>>());
 
 		if (streamablesByRegion.ContainsKey(regionID))
 		{
@@ -667,9 +681,9 @@ public partial class AssetStreamManager : Node3D
 		}
 
 		//Add the newly created assetMultiMeshes to the currentlyLoadedAssets dictionary 
-		if (!currentlyLoadedAssetsByRegion[regionID].ContainsKey(streamable.assetID))
+		if (!loadedMMIsByRegion[regionID].ContainsKey(streamable.assetID))
 		{		
-			currentlyLoadedAssetsByRegion[regionID].Add(streamable.assetID, assetMultiMeshes); //add the newly instantiated node to the currently loaded assets dictionary
+			loadedMMIsByRegion[regionID].Add(streamable.assetID, assetMultiMeshes); //add the newly instantiated node to the currently loaded assets dictionary
 		}
 		else
 		{
@@ -686,7 +700,7 @@ public partial class AssetStreamManager : Node3D
 	void DeinitialiseMMIAssetsByRegion(int regionID)
 	{
 		//Delete the assets from the scene 
-		foreach(Array<MultiMeshInstance3D> assetMeshList in currentlyLoadedAssetsByRegion[regionID].Values)
+		foreach(Array<MultiMeshInstance3D> assetMeshList in loadedMMIsByRegion[regionID].Values)
 		{
 			foreach(MultiMeshInstance3D multiMesh in assetMeshList)
 			{
@@ -695,10 +709,10 @@ public partial class AssetStreamManager : Node3D
 		}
 
 		//Remove the references in the tracker dictionary 
-		if (currentlyLoadedAssetsByRegion.ContainsKey(regionID))
+		if (loadedMMIsByRegion.ContainsKey(regionID))
 		{
-			currentlyLoadedAssetsByRegion[regionID].Clear(); 
-			currentlyLoadedAssetsByRegion.Remove(regionID);
+			loadedMMIsByRegion[regionID].Clear(); 
+			loadedMMIsByRegion.Remove(regionID);
 		}
 	}
 
@@ -815,14 +829,14 @@ public partial class AssetStreamManager : Node3D
     {
 		if (what == NotificationEditorPreSave)
 		{
-			foreach(int key in currentlyLoadedAssetsByRegion.Keys)
+			foreach(int key in loadedMMIsByRegion.Keys)
 			{
 				DeinitialiseMMIAssetsByRegion(key); 
 
 				
 			}
 
-			currentlyLoadedAssetsByRegion = new System.Collections.Generic.Dictionary<int, System.Collections.Generic.Dictionary<string, Array<MultiMeshInstance3D>>>(); 
+			loadedMMIsByRegion = new System.Collections.Generic.Dictionary<int, System.Collections.Generic.Dictionary<string, Array<MultiMeshInstance3D>>>(); 
 
 		}
         base._Notification(what);
