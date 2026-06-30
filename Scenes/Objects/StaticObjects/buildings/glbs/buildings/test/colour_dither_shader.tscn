@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c0xhryqka0cjw" path="res://Shaders/MultiPalettePosterisation/ColourDitherShader.cs" id="1_q03m2"]
 [ext_resource type="Texture2D" uid="uid://4cmfi7okx2cf" path="res://Shaders/Assets/Shader/palettes/sky_gradient.tres" id="2_jg81y"]
 [ext_resource type="Texture2D" uid="uid://dtbikyo0oiydp" path="res://Shaders/Assets/Shader/blue_yellow.tres" id="3_nkbkd"]
-[ext_resource type="Environment" uid="uid://b8sqxfqojfg7p" path="res://assets/Environment/level_0_environment.tres" id="3_xytf0"]
+[ext_resource type="Environment" uid="uid://b8sqxfqojfg7p" path="res://assets/Environment/Level Environments (not used)/level_0_environment.tres" id="3_xytf0"]
 [ext_resource type="Texture2D" uid="uid://bot573p0qvwtf" path="res://Shaders/Assets/Shader/ink_gradient.tres" id="4_nkbkd"]
 [ext_resource type="Texture2D" uid="uid://cforritefvrmr" path="res://Shaders/Assets/Shader/green_gradient.tres" id="4_rtgsf"]
 [ext_resource type="Texture2D" uid="uid://cfheexk5qclpt" path="res://Shaders/Assets/Shader/dither_animated.tres" id="5_vjwx3"]

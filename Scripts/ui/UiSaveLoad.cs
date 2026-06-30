@@ -31,6 +31,8 @@ public partial class UiSaveLoad : Control
 
         saveSelect = GetNode<UiSaveSelector>("%UiSaveSelector");
 
+        saveSelect.Hide();
+
         saveSelect.OnLoadSaveSelector += LoadGame; 
 
         canvas.Hide(); 

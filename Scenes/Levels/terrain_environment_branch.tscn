@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://qpjkxsyx2886"]
 
-[ext_resource type="Environment" uid="uid://4r3u0jf2bgpv" path="res://assets/Environment/terrain3D_level_environment.tres" id="1_2ub6r"]
+[ext_resource type="Environment" uid="uid://4r3u0jf2bgpv" path="res://assets/Environment/Level Environments (not used)/terrain3D_level_environment.tres" id="1_2ub6r"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_a8xo1"]
 auto_exposure_scale = 1.0

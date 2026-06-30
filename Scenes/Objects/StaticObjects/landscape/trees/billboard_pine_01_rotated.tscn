@@ -3,14 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://h0p4yv1nac4e" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/glbs/billboard_pine_01.glb" id="1_jqqbn"]
 [ext_resource type="Texture2D" uid="uid://gci6tfhgmyec" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/billboard_pine_01_Tree_01_256.png" id="2_bbtih"]
 [ext_resource type="Material" uid="uid://c0m6p0h7m8wea" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/Bark.tres" id="3_uwlro"]
-[ext_resource type="Texture2D" uid="uid://bvonf6xul0xpy" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/oak_Oak_Leaves.png" id="4_7uhb3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uwlro"]
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
 cull_mode = 2
-shading_mode = 0
+shading_mode = 2
 albedo_color = Color(0, 2.4673054, 0, 1)
 albedo_texture = ExtResource("2_bbtih")
 
@@ -58,27 +57,13 @@ top_radius = 0.01
 bottom_radius = 0.1
 height = 3.5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xx6iw"]
-transparency = 3
-alpha_hash_scale = 1.0
-alpha_antialiasing_mode = 0
-albedo_color = Color(0, 2.5419645, 0, 1)
-albedo_texture = ExtResource("4_7uhb3")
-uv1_scale = Vector3(5.88, 1, 1.945)
-uv1_offset = Vector3(0.085, 0.35, 0.075)
-uv2_scale = Vector3(2.035, 2.035, 2.035)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_d07og"]
-material = SubResource("StandardMaterial3D_xx6iw")
-top_radius = 0.2
-
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_7uhb3"]
 height = 2.75708
 radius = 0.10058594
 
 [node name="billboard_pine_01" unique_id=275023294 instance=ExtResource("1_jqqbn")]
 
-[node name="Plane" parent="." index="0" unique_id=495559313]
+[node name="Plane" parent="." index="0" unique_id=413492613]
 sorting_offset = 1.0
 surface_material_override/0 = SubResource("StandardMaterial3D_uwlro")
 
@@ -95,11 +80,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 mesh = SubResource("CylinderMesh_7uhb3")
 surface_material_override/0 = ExtResource("3_uwlro")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." index="3" unique_id=2080216638]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2277298, 0)
-mesh = SubResource("CylinderMesh_d07og")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="." index="4" unique_id=1872612663]
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="3" unique_id=1872612663]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=2006623276]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12146, 0)

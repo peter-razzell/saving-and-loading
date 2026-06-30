@@ -80,12 +80,12 @@ public partial class WeatherManager: Node
             // UnsetTimer(); 
         }
 
-        GD.Print("changing weather"); 
+        // GD.Print("changing weather"); 
         levelWeatherStates.NextWeather();
 
         currentWeatherState = levelWeatherStates.GetWeather(); 
 
-        GD.Print("weather is now,", currentWeatherState.GetState());
+        // GD.Print("weather is now,", currentWeatherState.GetState());
 
         SetTimer();  
     }

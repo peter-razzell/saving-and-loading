@@ -6,8 +6,11 @@
 [ext_resource type="Script" uid="uid://c3uwumky7b8ft" path="res://Scripts/Game/Saving/SaverLoader.cs" id="3_wowpa"]
 [ext_resource type="PackedScene" uid="uid://77btxc7tdhpo" path="res://Scenes/Effects/Weather.tscn" id="5_v158k"]
 [ext_resource type="PackedScene" uid="uid://cag5d6pgxf1ac" path="res://Scenes/UI/ui_manager.tscn" id="6_1l0tm"]
+[ext_resource type="Script" uid="uid://c6fq7agrlg4oo" path="res://Scripts/Environment/DayNightCycle/DayNightCycleManager.cs" id="7_h4fw4"]
+[ext_resource type="Environment" uid="uid://gf48pnquuf7o" path="res://assets/Environment/DayNightCycle/day_time_default.tres" id="8_o5yvi"]
 [ext_resource type="PackedScene" uid="uid://bexsatm2pnhvr" path="res://Shaders/MultiPalettePosterisation/multi_palette_posterisation.tscn" id="8_v158k"]
 [ext_resource type="Script" uid="uid://crqm8d6knix0d" path="res://Scripts/Utility/FPSCounter.cs" id="9_h4fw4"]
+[ext_resource type="Environment" uid="uid://xmyx0go5144h" path="res://assets/Environment/DayNightCycle/night_time_default.tres" id="9_rku1e"]
 
 [node name="Game" type="Node3D" unique_id=5248132 groups=["Root"]]
 script = ExtResource("1_3dryh")
@@ -21,17 +24,27 @@ currentLevelPath = "uid://ls4t4om8otg"
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8827144, 0)
 health = 50
-speed = 7.0
+speed = 40.0
 jumpStr = 300.0
 
-[node name="Utilities" type="Node" parent="." unique_id=537434352]
+[node name="Managers" type="Node" parent="." unique_id=537434352]
 
-[node name="SaverLoader" type="Node" parent="Utilities" unique_id=793213683 node_paths=PackedStringArray("player")]
+[node name="SaverLoader" type="Node" parent="Managers" unique_id=793213683 node_paths=PackedStringArray("player")]
 unique_name_in_owner = true
 script = ExtResource("3_wowpa")
 player = NodePath("../../Root/Player")
 
-[node name="Weather" parent="Utilities" unique_id=435923128 instance=ExtResource("5_v158k")]
+[node name="ui_manager" parent="Managers" unique_id=638372436 instance=ExtResource("6_1l0tm")]
+unique_name_in_owner = true
+
+[node name="Weather" parent="Managers" unique_id=435923128 instance=ExtResource("5_v158k")]
+
+[node name="DayNightCycle" type="Node" parent="Managers" unique_id=1528777598]
+unique_name_in_owner = true
+script = ExtResource("7_h4fw4")
+lerpSpeed = 1.0
+dayEnvironmentParams = ExtResource("8_o5yvi")
+nightEnvironmentParams = ExtResource("9_rku1e")
 
 [node name="FPSCounter" type="Control" parent="." unique_id=190621195 node_paths=PackedStringArray("FPSLabel")]
 layout_mode = 3
@@ -54,6 +67,3 @@ text = "FPS"
 
 [node name="Colour_Dither_Shader" parent="." unique_id=326370975 node_paths=PackedStringArray("Origin") instance=ExtResource("8_v158k")]
 Origin = NodePath("../Root/Player/Head/Camera3D")
-
-[node name="ui_manager" parent="." unique_id=638372436 instance=ExtResource("6_1l0tm")]
-unique_name_in_owner = true

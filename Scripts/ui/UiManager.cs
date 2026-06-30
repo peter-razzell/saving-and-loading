@@ -103,16 +103,4 @@ public partial class UiManager : Control
 		EmitSignal(SignalName.OnInventoryDropButtonPressed, inventoryID);    
 	}
 
-	//Decided to get go directly 
-
-	// public void UpdateHunger(float value)
-    // {
-	// 	gameplayUi.UpdateHungerBar(value); 
-
-    // }
-
-	// public void UpdateEnergy(float value)
-    // {
-	// 	gameplayUi.UpdateEnergyBar(value); 
-    // }
 }

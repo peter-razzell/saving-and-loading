@@ -7,6 +7,13 @@ using System.Threading.Tasks;
 //Holds an array of entrances and exits to the level. s
 public partial class Level : Node3D
 {    
+	
+	[Signal]
+	public delegate void OnLevelLoadedEventHandler(Level level); 
+
+	[Signal]
+	public delegate void OnAssignSunToDayNightCycleEventHandler(DirectionalLight3D Sun); 
+
 	/// <summary>
     /// This ID is used to get the weather state for the region this level is a part of (1 region can have multiple levels. E.g indoors) 
     /// </summary>
@@ -22,9 +29,6 @@ public partial class Level : Node3D
 
 	bool Indoors; //if true then has an ambient indoor temperature modifier? 
 
-	[Signal]
-	public delegate void OnLevelLoadedEventHandler(Level level); 
-
 	public override void _Ready() {
 
 		// regionWeatherStates = RegionWeatherStatesLookup.GetLevelWeatherStatesWithID(RegionID);
@@ -37,6 +41,7 @@ public partial class Level : Node3D
 		{
 			levelEntrances.Add((LevelEntrance)node);
 		}
+	
 
 		EmitSignal(SignalName.OnLevelLoaded, this); //emitting the signal before connected in Root ready function? 
 
@@ -44,7 +49,23 @@ public partial class Level : Node3D
 
 		WeatherSwitchBus.GetInstance().SwitchWeatherMessage(); 
 
+
 		base._Ready();
+	}
+
+	public DirectionalLight3D ReturnLevelSunOrNull()
+	{
+		if(GetTree().GetNodesInGroup("Sun") != null)
+		{
+			DirectionalLight3D sun = (DirectionalLight3D) GetTree().GetNodesInGroup("Sun")[0]; 
+
+			// GD.Print("found sun in the level", sun); 
+
+			return sun; 
+
+
+		}
+		return null; 
 	}
 	
 }

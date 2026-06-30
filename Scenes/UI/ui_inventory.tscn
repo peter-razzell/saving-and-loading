@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://cynch5iaqbrnl" path="res://assets/UI/themes/ui_theme_1.tres" id="1_872ea"]
 [ext_resource type="Script" uid="uid://bqh5luvcw0bye" path="res://Scripts/UI/UiInventory.cs" id="1_akbhy"]
 
-[node name="ui_inventory" type="Control"]
+[node name="ui_inventory" type="Control" unique_id=1486729465]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,9 +13,9 @@ grow_vertical = 2
 theme = ExtResource("1_872ea")
 script = ExtResource("1_akbhy")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1998574740]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1413131163]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -23,14 +23,14 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.70980394, 0.70980394, 0.70980394, 0.49803922)
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1800082402]
 layout_mode = 3
 anchor_left = 0.01
 anchor_top = 0.01
 anchor_right = 0.99
 anchor_bottom = 0.99
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control" unique_id=36320284]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.4
@@ -41,7 +41,7 @@ offset_right = 208.24002
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="invContainer" type="VBoxContainer" parent="CanvasLayer/Control/ScrollContainer"]
+[node name="invContainer" type="VBoxContainer" parent="CanvasLayer/Control/ScrollContainer" unique_id=1818532097]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

@@ -58,6 +58,7 @@ LevelEntrance="spawn point for level"
 LevelExit=""
 Player=""
 Terrain3D="Terrain3D Group - used for getting access to the terrain easily"
+Sun=""
 
 [gui]
 

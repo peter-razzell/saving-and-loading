@@ -7,6 +7,8 @@ uniform sampler2D u_color_tex_g : filter_nearest;
 uniform sampler2D u_color_tex_b : filter_nearest;
 uniform sampler2D u_color_tex_gr : filter_nearest;
 
+uniform bool using; 
+
 
 uniform int u_bit_depth;
 uniform float u_contrast;
@@ -15,7 +17,8 @@ uniform int u_dither_size;
 
 void fragment()
 {
-    // Calculate the pixelated UV first
+	if(using){
+		 // Calculate the pixelated UV first
     vec2 screen_size = vec2(textureSize(TEXTURE, 0)) / float(u_dither_size);
     vec2 pixelated_uv = floor(UV * screen_size) / screen_size;
 
@@ -87,4 +90,6 @@ void fragment()
 
 
     COLOR.rgb = final_col;
+	}
+   
 }

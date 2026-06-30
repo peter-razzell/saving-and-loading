@@ -10,7 +10,6 @@
 transparency = 1
 cull_mode = 2
 albedo_texture = ExtResource("4_kk03p")
-emission_enabled = true
 emission = Color(1, 0, 0, 1)
 
 [node name="Manual_oak_02_col" unique_id=579269560 instance=ExtResource("1_l1hjk")]

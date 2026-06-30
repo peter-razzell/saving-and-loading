@@ -1,21 +1,130 @@
 [gd_scene format=3 uid="uid://b0fk8kyye6dx0"]
 
 [ext_resource type="PackedScene" uid="uid://bjdxra1iyk1ds" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/glbs/Manual_oak_03.glb" id="1_gnk7p"]
-[ext_resource type="Material" uid="uid://bbv4uhsitnli4" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/Branch_01_summer.tres" id="2_iswgs"]
-[ext_resource type="Material" uid="uid://fs3bytig55bt" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/Branch_01a.tres" id="2_myofr"]
-[ext_resource type="Material" uid="uid://ccee6m3jwc35o" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/Branch_02.tres" id="3_ng5u8"]
+[ext_resource type="Material" uid="uid://bnkt8i4065n1x" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/shaders/leaf_sway.tres" id="2_myofr"]
+[ext_resource type="Material" uid="uid://c1md8v07tykfa" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/shaders/branch01a_sway.tres" id="3_iswgs"]
+[ext_resource type="Texture2D" uid="uid://bxua56xbvx4tn" path="res://Scenes/Objects/StaticObjects/landscape/trees/assets/textures/oak/Branch_03_summer.png" id="4_4vj7e"]
+
+[sub_resource type="Shader" id="Shader_a8iua"]
+code = "shader_type spatial;
+
+render_mode depth_draw_always, alpha_to_coverage, cull_disabled;
+
+// Texture and visual control
+uniform sampler2D foliage_texture;
+uniform vec2 texture_scale = vec2(1.0, 1.0);
+uniform float alpha_threshold : hint_range(0.0, 1.0) = 0.1;
+
+// Color control
+uniform vec3 foliage_colour : source_color = vec3(0.13, 0.33, 0.25);
+uniform float color_strength : hint_range(0.0, 2.0) = 1.0;
+
+// Fresnel blend
+uniform vec3 fresnel_colour : source_color = vec3(0.5, 0.7, 0.4);
+uniform float fresnel_strength : hint_range(0.0, 1.0) = 0.3;
+uniform float fresnel_power : hint_range(0.1, 5.0) = 1.5;
+
+// Billboard effect control
+uniform float billboard_strength : hint_range(0.0, 1.0) = 1.0;
+uniform vec2 vertex_offset_scale = vec2(1.0, 1.0);
+uniform bool flip_normal = true;
+
+// Wind sway control
+uniform bool use_wind = true;
+uniform float wind_strength : hint_range(0.0, 1.0) = 0.1;
+uniform float wind_speed : hint_range(0.1, 5.0) = 1.0;
+uniform vec3 wind_direction = vec3(1.0, 0.0, 0.0);
+
+void vertex()
+{
+    if (flip_normal) {
+        NORMAL = -NORMAL;
+    }
+
+    // Billboard positioning
+    vec2 viewspace_offset = (UV - vec2(0.5)) * vertex_offset_scale;
+    vec4 modelspace_offset = inverse(MODELVIEW_MATRIX) * vec4(viewspace_offset, 0.0, 0.0);
+    VERTEX += modelspace_offset.xyz * billboard_strength;
+
+    // Wind sway (optional)
+    if (use_wind) {
+		
+		
+        float wind_mask = UV.x; 
+        
+        // 1. Get the vertex's actual position in the 3D world
+        vec3 world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+        
+        // 2. Use world coordinates (X and Z) for the phase. 
+        // This makes the wind look like a massive wave rolling across your entire map.
+        float wave_phase = world_pos.x + world_pos.z;
+        float sway = sin(TIME * wind_speed + wave_phase * 0.5) * wind_strength;
+        
+        // 3. Create the displacement vector in GLOBAL space
+        vec3 global_displacement = wind_direction * sway * wind_mask;
+        
+        // 4. Transform the global vector back into LOCAL space 
+        // We use 0.0 as the 'w' component because we are transforming a direction, not a position.
+        vec3 local_displacement = (inverse(MODEL_MATRIX) * vec4(global_displacement, 0.0)).xyz;
+        
+        // 5. Apply the corrected movement
+        VERTEX += local_displacement;
+    }
+}
+
+void fragment()
+{
+    vec2 scaled_uv = UV * texture_scale;
+    float alpha = texture(foliage_texture, scaled_uv).a;
+
+    if (alpha < alpha_threshold) {
+        discard;
+    }
+
+    // Fake Fresnel effect: based on view direction and normal
+    vec3 view_dir = normalize(-FRAGCOORD.xyz);
+    float fresnel = pow(1.0 - dot(NORMAL, view_dir), fresnel_power);
+    vec3 final_color = vec3(texture(foliage_texture, scaled_uv).r, 
+	texture(foliage_texture, scaled_uv).g, texture(foliage_texture, scaled_uv).b);
+	
+	
+
+    ALBEDO = final_color * color_strength * fresnel;
+    ALPHA = alpha;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_401s6"]
+render_priority = 0
+shader = SubResource("Shader_a8iua")
+shader_parameter/foliage_texture = ExtResource("4_4vj7e")
+shader_parameter/texture_scale = Vector2(1, 1)
+shader_parameter/alpha_threshold = 0.0
+shader_parameter/foliage_colour = Color(0.7234991, 0, 0.27669024, 1)
+shader_parameter/color_strength = 0.8050000382375
+shader_parameter/fresnel_colour = Color(0, 0, 0, 1)
+shader_parameter/fresnel_strength = 0.0
+shader_parameter/fresnel_power = 0.10000000149012
+shader_parameter/billboard_strength = 0.0
+shader_parameter/vertex_offset_scale = Vector2(0.5, 0.5)
+shader_parameter/flip_normal = false
+shader_parameter/use_wind = true
+shader_parameter/wind_strength = 1.0
+shader_parameter/wind_speed = 2.92000013544012
+shader_parameter/wind_direction = Vector3(0, 0, 2)
 
 [node name="Manual_oak_03" unique_id=408048506 instance=ExtResource("1_gnk7p")]
+metadata/type_id = "Manual_oak_03"
 
-[node name="Branches01" parent="." index="2" unique_id=1424166738]
-surface_material_override/0 = ExtResource("2_iswgs")
-
-[node name="Branches01a" parent="." index="3" unique_id=1068088280]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02178371, 17.000614, 0.002892971)
+[node name="Branches01" parent="." index="3" unique_id=266841338]
 surface_material_override/0 = ExtResource("2_myofr")
 
-[node name="Branches02" parent="." index="4" unique_id=2013698800]
-surface_material_override/0 = ExtResource("3_ng5u8")
+[node name="Branches01a" parent="." index="4" unique_id=1530940223]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.003)
+surface_material_override/0 = ExtResource("3_iswgs")
 
-[node name="Branches01a_001" parent="." index="5" unique_id=973903348]
-surface_material_override/0 = ExtResource("3_ng5u8")
+[node name="Branches02" parent="." index="5" unique_id=1480412992]
+surface_material_override/0 = SubResource("ShaderMaterial_401s6")
+
+[node name="Branches01a_001" parent="." index="6" unique_id=1153823517]
+surface_material_override/0 = ExtResource("3_iswgs")

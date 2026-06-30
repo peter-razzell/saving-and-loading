@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://1ehe1bhvs6it"]
+
+[ext_resource type="Material" uid="uid://dapww0ovnyt4w" path="res://Scenes/Objects/StaticObjects/landscape/water/running_water.tres" id="1_xmjgh"]
+
+[sub_resource type="Curve3D" id="Curve3D_7ekps"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.047769, 0.03539467, 0.008110225),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[node name="StreamMaker" type="Node3D" unique_id=1822209206]
+
+[node name="Path3D" type="Path3D" parent="." unique_id=861773043]
+curve = SubResource("Curve3D_7ekps")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Path3D" unique_id=65427266]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.007157, -0.029135227, -0.006922245)
+polygon = PackedVector2Array(0.33989716, 0.025708795, 0.023542881, 0.23133862, 0.9699459, 0.24850303, 0.6147361, 0.04031986)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = ExtResource("1_xmjgh")

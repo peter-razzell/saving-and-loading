@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dj1qmp7iw2uy7"]
+
+[ext_resource type="PackedScene" uid="uid://dbbimocq2mrh8" path="res://Scenes/Objects/StaticObjects/buildings/glbs/Glbs/Large_Farmhouse01.glb" id="1_5800x"]
+[ext_resource type="PackedScene" uid="uid://il4dc7xg853s" path="res://Scenes/Objects/StaticObjects/decals/decal_window.tscn" id="2_52tum"]
+
+[node name="Large_Farmhouse01" unique_id=1579111038 instance=ExtResource("1_5800x")]
+metadata/type_id = "Large_Farmhouse01"
+
+[node name="Decal" parent="." index="5" unique_id=1557878274 instance=ExtResource("2_52tum")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 4.7421713, 1.8654976, 2.604018)
+
+[node name="Decal4" parent="." index="6" unique_id=1898090074 instance=ExtResource("2_52tum")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 4.134333, 2.8654976, 7.604018)
+
+[node name="Decal5" parent="." index="7" unique_id=536425271 instance=ExtResource("2_52tum")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.09869623, 4.6120515, 7.604018)
+
+[node name="Decal6" parent="." index="8" unique_id=1330427584 instance=ExtResource("2_52tum")]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, -2.3933902, 3.111247, 5.3870525)
+
+[node name="Decal7" parent="." index="9" unique_id=2067757895 instance=ExtResource("2_52tum")]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, -2.3933902, 3.111247, 3.2172298)
+
+[node name="Decal8" parent="." index="10" unique_id=1970514022 instance=ExtResource("2_52tum")]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, -2.3933902, 3.6922612, 0.624882)
+
+[node name="Decal9" parent="." index="11" unique_id=122670973 instance=ExtResource("2_52tum")]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, -2.3933902, 5.033219, 0.5278666)
+size = Vector3(2.152771, 1, 0.6275635)
+
+[node name="Decal2" parent="." index="12" unique_id=316411633 instance=ExtResource("2_52tum")]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 2.2997851, 1.8654976, -0.3028853)
+
+[node name="Decal3" parent="." index="13" unique_id=420065240 instance=ExtResource("2_52tum")]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 2.2997851, 2.8654976, 1.6971147)

@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://l7fi2toy803n"]
+
+[ext_resource type="Shader" uid="uid://f114g0woksx8" path="res://Shaders/MultiPalettePosterisation/multi_palette_posterisation.gdshader" id="1_7hnv7"]
+[ext_resource type="Texture2D" uid="uid://4cmfi7okx2cf" path="res://Shaders/Assets/Shader/palettes/sky_gradient.tres" id="2_inpj7"]
+[ext_resource type="Texture2D" uid="uid://dtbikyo0oiydp" path="res://Shaders/Assets/Shader/blue_yellow.tres" id="3_wi2fq"]
+[ext_resource type="Texture2D" uid="uid://bot573p0qvwtf" path="res://Shaders/Assets/Shader/ink_gradient.tres" id="4_3q32l"]
+[ext_resource type="Texture2D" uid="uid://cforritefvrmr" path="res://Shaders/Assets/Shader/green_gradient.tres" id="5_om214"]
+[ext_resource type="Texture2D" uid="uid://bynnq7ago8go0" path="res://Shaders/MultiPalettePosterisation/bayer8tile4.png" id="6_db4my"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_7hnv7")
+shader_parameter/u_dither_tex = ExtResource("6_db4my")
+shader_parameter/u_color_tex_r = ExtResource("5_om214")
+shader_parameter/u_color_tex_g = ExtResource("3_wi2fq")
+shader_parameter/u_color_tex_b = ExtResource("2_inpj7")
+shader_parameter/u_color_tex_gr = ExtResource("4_3q32l")
+shader_parameter/using = true
+shader_parameter/u_bit_depth = 16
+shader_parameter/u_contrast = 1.0
+shader_parameter/u_offset = -0.1
+shader_parameter/u_dither_size = 2

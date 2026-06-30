@@ -10,25 +10,42 @@ using Godot;
 /// </summary>
 public partial class Root : Node3D
 {
-
-	public static Root Instance; 
-	//Contains information about the currently loaded level.
-
+	/// <summary>
+	/// sent when the player clicks to leave the level. 
+	/// </summary>
 	[Signal]
 	public delegate void OnLevelExitReachedEventHandler();
 
-
-	//Sent when a new level is loaded to retrieve that level's current data from the save file. 
+	/// <summary>
+	/// Sent when a level is loaded 
+	/// </summary>
+	/// <param name="levelPath"></param>
 	[Signal]
 	public delegate void OnLoadLevelEventHandler(String levelPath);
 
-	String doorID = "default"; //This is the ID of the door to spawn the player at. Cached here rather than pass it needlessly back to game and here again. 
 
+	/// <summary>
+	/// Use static instance to ACCESS current level data from anywhere. 
+	/// </summary>
+	public static Root Instance; 
+
+	/// <summary>
+	/// The currently loaded level, can be accessed through the Root static attribute Instance. 
+	/// </summary>
 	public Level currentLevel;
 
-	[Export]
-	String currentLevelPath  = "res://Scenes/Levels/level_0.tscn"; //default val
+	//This is the ID of the door to spawn the player at. Cached here rather than pass it needlessly back to game and here again. 
+	String doorID = "default"; 
 
+	/// <summary>
+	/// The starting level path 
+	/// </summary>
+	[Export]
+	String currentLevelPath  = "res://Scenes/Levels/level_0.tscn"; 
+
+	/// <summary>
+	/// Load bearing - do not refactor! 
+	/// </summary>
 	Game game;
 
 	Player player;

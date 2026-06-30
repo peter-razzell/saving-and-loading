@@ -1,32 +1,14 @@
 [gd_scene format=3 uid="uid://bexsatm2pnhvr"]
 
 [ext_resource type="Script" uid="uid://c0xhryqka0cjw" path="res://Shaders/MultiPalettePosterisation/ColourDitherShader.cs" id="1_edsb3"]
-[ext_resource type="Shader" uid="uid://f114g0woksx8" path="res://Shaders/MultiPalettePosterisation/multi_palette_posterisation.gdshader" id="2_q4sht"]
-[ext_resource type="Texture2D" uid="uid://4cmfi7okx2cf" path="res://Shaders/Assets/Shader/palettes/sky_gradient.tres" id="2_xyuoq"]
-[ext_resource type="Texture2D" uid="uid://dtbikyo0oiydp" path="res://Shaders/Assets/Shader/blue_yellow.tres" id="3_q4sht"]
-[ext_resource type="Texture2D" uid="uid://bot573p0qvwtf" path="res://Shaders/Assets/Shader/ink_gradient.tres" id="4_505nd"]
-[ext_resource type="Texture2D" uid="uid://cforritefvrmr" path="res://Shaders/Assets/Shader/green_gradient.tres" id="5_je6i5"]
-[ext_resource type="Texture2D" uid="uid://bynnq7ago8go0" path="res://Shaders/MultiPalettePosterisation/bayer8tile4.png" id="7_uiyal"]
-[ext_resource type="Sky" uid="uid://8wjq0qu8ewpu" path="res://assets/Environment/terrain3D_level_sky.tres" id="8_xyuoq"]
+[ext_resource type="Material" uid="uid://l7fi2toy803n" path="res://Shaders/MultiPalettePosterisation/posterisation_shader_rgb.tres" id="2_bvnwm"]
+[ext_resource type="Sky" uid="uid://8wjq0qu8ewpu" path="res://assets/Environment/Level Environments (not used)/terrain3D_level_sky.tres" id="3_bvnwm"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jg81y"]
-resource_local_to_scene = true
-shader = ExtResource("2_q4sht")
-shader_parameter/u_dither_tex = ExtResource("7_uiyal")
-shader_parameter/u_color_tex_r = ExtResource("5_je6i5")
-shader_parameter/u_color_tex_g = ExtResource("3_q4sht")
-shader_parameter/u_color_tex_b = ExtResource("2_xyuoq")
-shader_parameter/u_color_tex_gr = ExtResource("4_505nd")
-shader_parameter/u_bit_depth = 16
-shader_parameter/u_contrast = 1.325
-shader_parameter/u_offset = 0.1
-shader_parameter/u_dither_size = 1
-
-[sub_resource type="Environment" id="Environment_q4sht"]
+[sub_resource type="Environment" id="Environment_4b1u6"]
 background_mode = 2
 background_color = Color(1, 0.6431373, 0.63529414, 1)
 background_energy_multiplier = 0.95
-sky = ExtResource("8_xyuoq")
+sky = ExtResource("3_bvnwm")
 ambient_light_source = 2
 ambient_light_color = Color(1, 0.58431375, 0.58431375, 1)
 ambient_light_sky_contribution = 0.0
@@ -57,29 +39,18 @@ glow_blend_mode = 4
 glow_hdr_threshold = 0.88
 glow_hdr_scale = 0.0
 glow_map_strength = 0.0
-fog_enabled = true
 fog_mode = 1
 fog_light_color = Color(0.45490196, 0.9019608, 0, 1)
-fog_light_energy = 2.18
-fog_sun_scatter = 1.0
-fog_density = 0.1
-fog_sky_affect = 0.1
+fog_light_energy = 0.0
+fog_density = 0.5
+fog_sky_affect = 0.0
 fog_depth_curve = 2.0000005
 fog_depth_begin = 100.0
 fog_depth_end = 200.0
-volumetric_fog_density = 0.02
-volumetric_fog_albedo = Color(0.77154475, 0.99999994, 0.9876606, 1)
-volumetric_fog_emission_energy = 0.0
-volumetric_fog_gi_inject = 0.41
-volumetric_fog_anisotropy = 0.69
-volumetric_fog_length = 16.0
-volumetric_fog_detail_spread = 1.6643549
-volumetric_fog_ambient_inject = 0.9
-volumetric_fog_sky_affect = 0.47
-volumetric_fog_temporal_reprojection_enabled = false
-volumetric_fog_temporal_reprojection_amount = 0.99
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0001
+volumetric_fog_emission_energy = 0.2
 adjustment_enabled = true
-adjustment_contrast = 0.7
 
 [node name="Colour_Dither_Shader" type="Control" unique_id=326370975 node_paths=PackedStringArray("Target", "ditherViewport")]
 layout_mode = 3
@@ -89,11 +60,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_edsb3")
-Target = NodePath("Dith_Layer/Dith_viewport/Camera3D")
+Target = NodePath("Dith_Layer/Dith_viewport/TargetCam")
 ditherViewport = NodePath("Dith_Layer")
 
 [node name="Dith_Layer" type="SubViewportContainer" parent="." unique_id=172990706]
-material = SubResource("ShaderMaterial_jg81y")
+material = ExtResource("2_bvnwm")
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
@@ -104,6 +75,6 @@ handle_input_locally = false
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="Dith_Layer/Dith_viewport" unique_id=951986095]
+[node name="TargetCam" type="Camera3D" parent="Dith_Layer/Dith_viewport" unique_id=951986095]
 cull_mask = 1
-environment = SubResource("Environment_q4sht")
+environment = SubResource("Environment_4b1u6")

@@ -51,4 +51,10 @@ public partial class ColourDitherShader : Control
 
     }
 
+
+    public Camera3D GetDitherShaderCamera()
+    {
+        return Target; 
+    }
+
 }

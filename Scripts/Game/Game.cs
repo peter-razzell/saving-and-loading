@@ -25,15 +25,19 @@ public partial class Game : Node3D
 
 	public UiManager uiManager;
 
+	public DayNightCycleManager dayNightCycleManager;
+
+	public ColourDitherShader colourDitherShader;  
+
 	public Root root;  
-	
-
-
 	
 	/// <summary>
     /// Time since the start of the game
     /// </summary>
-	public double Time {get; set;} 
+	public double Time {get; set;}
+
+    
+
 
 	public override void _Ready()
 	{
@@ -43,6 +47,10 @@ public partial class Game : Node3D
 
 		root = (Root)GetNode("%Root");
 
+		dayNightCycleManager = (DayNightCycleManager)GetNode("%DayNightCycle"); 
+
+		colourDitherShader = (ColourDitherShader)GetNode("Colour_Dither_Shader"); //this is NULL!
+		
 		root.OnLevelExitReached += LoadNextLevel; //applied from root load level
 
 		root.OnLoadLevel += ApplyLevelData; //applied from root switch level 
@@ -64,6 +72,15 @@ public partial class Game : Node3D
     {
 		Time += delta; 
 
+		if(colourDitherShader == null)
+		{
+			colourDitherShader = (ColourDitherShader)GetNode("Colour_Dither_Shader"); 
+		}
+		if(dayNightCycleManager == null)
+		{
+			dayNightCycleManager = (DayNightCycleManager)GetNode("%DayNightCycle"); 
+		}
+
         base._Process(delta);
     }
 
@@ -83,6 +100,7 @@ public partial class Game : Node3D
 		{
 			saverLoader.SaveGame();
 			
+			// replace with signal to play audio 
 			AudioManager.Play("res://Assets/Sound/GDC/BluezoneCorp - Steampunk Machines/Bluezone_BC0305_steampunk_machine_mechanical_texture_heavy_impact_011.wav"); 
 
 		}
@@ -117,6 +135,16 @@ public partial class Game : Node3D
 	public void ApplyLevelData(String levelPath)
 	{
 		saverLoader.LoadLevelFromBuffer();
+	}
+
+	/// <summary>
+	/// STUPID sticking plaster..
+	/// </summary>
+	public void SetDayNightCycleManager()
+	{
+		dayNightCycleManager = (DayNightCycleManager)GetNode("%DayNightCycle");
+		
+
 	}
 	
 }

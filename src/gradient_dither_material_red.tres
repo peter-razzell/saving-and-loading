@@ -1,7 +1,14 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b545aufoxj8f5"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://b545aufoxj8f5"]
 
-[ext_resource type="Shader" uid="uid://b570ld8rqqmk4" path="res://src/Dither Shaders/spatial_colour_dither.gdshader" id="1_tw6cf"]
+[ext_resource type="Shader" uid="uid://bmoplprhbfvng" path="res://src/gradient_dither.gdshader" id="1_wwdda"]
+[ext_resource type="Texture2D" uid="uid://bqa86qrm2aqgr" path="res://Shaders/Assets/Shader/ephemera.tres" id="2_1t33a"]
+[ext_resource type="Texture2D" uid="uid://cfheexk5qclpt" path="res://Shaders/Assets/Shader/dither_animated.tres" id="3_0unc1"]
 
 [resource]
-render_priority = 0
-shader = ExtResource("1_tw6cf")
+shader = ExtResource("1_wwdda")
+shader_parameter/u_dither_tex = ExtResource("3_0unc1")
+shader_parameter/u_color_tex = ExtResource("2_1t33a")
+shader_parameter/u_bit_depth = 16
+shader_parameter/u_contrast = 0.2
+shader_parameter/u_offset = 0.0
+shader_parameter/u_dither_size = 2

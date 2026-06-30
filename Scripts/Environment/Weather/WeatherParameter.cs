@@ -9,6 +9,9 @@ public partial class WeatherParameter : Node
     [Export]
     float temperature; 
 
+    WorldEnvironment weatherEnvironmentParams; // interpolate between the current environment and the parameters of this environment.
+    //Never actually change the environment that is loaded, just interpolate parameters. 
+
     public WeatherParameter(float temperature)
     {
         this.temperature = temperature; 
